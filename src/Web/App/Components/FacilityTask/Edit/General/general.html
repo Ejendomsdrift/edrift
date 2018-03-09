@@ -1,0 +1,40 @@
+﻿<section class="general">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">{{'Task title' | translate}}</label>
+            <div class="col-sm-6">
+                <text-control config="generalCtrl.titleTextControlConfig"></text-control>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">{{'Job Type' | translate}}</label>
+            <div class="col-sm-6">
+                <category-tree-picker config="generalCtrl.categoryTreePickerConfig"></category-tree-picker>
+            </div>
+        </div>
+
+        <div class="form-group" data-ng-show="generalCtrl.showHideTaskControl" >
+            <label class="col-sm-2 control-label">{{'Hide operating task' | translate}}</label>
+            <div class="checkbox col-sm-6">
+                <input type="checkbox" data-ng-model="generalCtrl.facilityTask.isHidden" data-ng-click="generalCtrl.hideTask()"
+                       data-ng-disabled="generalCtrl.isHideTaskCheckboxDisabled"/>
+                <label>{{'Yes' | translate}}</label>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="generalCtrl.isAllowedTaskGrouping && generalCtrl.showGroupingButton && generalCtrl.hasAssignedHousingDepartments">
+            <label class="col-sm-2 text-right" ng-show="generalCtrl.showDepartmentSelector()">{{'Allowed Departments' | translate}}</label>
+            <div class="col-sm-5 padding-left" ng-show="generalCtrl.showDepartmentSelector()">
+                <department-picker ng-show="generalCtrl.showDepartmentSelector()"
+                                   ng-model="generalCtrl.department"
+                                   config="generalCtrl.departmentPickerConfig"></department-picker>
+            </div>
+            <div ng-class="generalCtrl.showDepartmentSelector() ? 'col-sm-3':'col-sm-6 col-sm-offset-2 padding-left'">
+                <button type="button" ng-click="generalCtrl.addTaskToRelationGroup()" class="btn btn-default"> 
+                    {{(generalCtrl.facilityTask.parentId ? 'Add group Facility task' : 'Create group Facility task') | translate}} 
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

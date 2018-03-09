@@ -1,0 +1,17 @@
+﻿<div class="assign">
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-2 text-right">{{'Departments' | translate}}</label>
+            <div class="col-sm-9">
+                <span>{{'Housing departments operating tasks are available for' | translate}}:</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" data-ng-if="assignCtrl.isAssignsDataResived">
+        <div class="row">
+            <div class="col-sm-9 col-sm-offset-2">
+                <assign-department-picker config="assignCtrl.assignDepartmentPickerConfig"></assign-department-picker>
+            </div>
+        </div>
+    </div>
+</div>

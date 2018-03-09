@@ -1,0 +1,78 @@
+﻿<div class="form-horizontal day-assign">
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-2 control-label">{{'Estimate' | translate}} *</label>
+            <div class="col-sm-7 estimate">
+                <text-control config="dayAssignCtrl.estimateConfig"></text-control>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-2 control-label">{{'Date' | translate}}</label>
+            <div class="col-sm-7 days-of-the-week">
+                <days-per-week-picker config="dayAssignCtrl.daysPerWeekPickerConfig"></days-per-week-picker>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-2 control-label">{{'Performer' | translate}}</label>
+            <div class="col-sm-7">
+                <team-picker config="dayAssignCtrl.teamPickerConfig"></team-picker>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" />
+    <div class="form-group" ng-if="!dayAssignCtrl.isCompleted">
+        <div class="row m-b" ng-if="!dayAssignCtrl.isCanceled">
+            <label class="col-sm-2 control-label">
+                <span>{{'Cancel task' | translate}}</span>
+            </label>
+            <div class="col-sm-7">
+                <div class="row _custom">
+                    <div class="col-md-8">
+                        <select-control data-ng-disabled="dayAssignCtrl.disableCancelTaskControl" config="dayAssignCtrl.cancellationReasonConfig"></select-control>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-default"
+                                type="button"
+                                ng-click="dayAssignCtrl.onCancel()"
+                                data-ng-disabled="dayAssignCtrl.disableCancelTaskButton">
+                            <span>{{'Cancel assignment' | translate}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-b" ng-if="dayAssignCtrl.isCanceled">
+            <label class="col-sm-2 control-label">
+                <span>{{'Cancel task' | translate}}</span>
+            </label>
+            <div class="col-sm-6">
+                <div class="_pt-indent">{{'Task canceled' | translate}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" ng-if="dayAssignCtrl.currentAssign">
+        <div class="row" data-ng-if="dayAssignCtrl.isCompleted && !dayAssignCtrl.isReopened">
+            <label class="col-sm-2 control-label">
+                <span>{{'Reopen task' | translate}}</span>
+            </label>
+            <div class="col-sm-6">
+                <button class="btn btn-default" type="button" ng-click="dayAssignCtrl.onReopen()">
+                    <span>{{'Reopen task' | translate}}</span>
+                </button>
+            </div>
+        </div>
+        <div class="row" ng-if="dayAssignCtrl.isReopened">
+            <label class="col-sm-2 control-label">
+                <span>{{'Reopen task' | translate}}</span>
+            </label>
+            <div class="col-sm-6">
+                <div class="_pt-indent" ng-if="dayAssignCtrl.isReopened">{{'Task reopened' | translate}}</div>
+            </div>
+        </div>
+    </div>
+</div>

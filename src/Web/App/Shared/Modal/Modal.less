@@ -1,0 +1,98 @@
+﻿@import "../../Less/Mixins";
+@import "../../Less/Variables";
+@import "../../Less/fonts";
+
+.modal-header {
+    background: none;
+    border-bottom: none;
+    padding: 27px 20px 0;
+
+    .modal-title {
+        font-size: 22px;
+        font-weight: normal;
+        font-family: 'open_sanslight', Arial, sans-serif;
+        display: block;
+        vertical-align: middle;
+
+        &__title {
+            font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+        }
+    }
+
+    .close {
+        position: absolute;
+        top: -34px;
+        right: 0;
+        color: #fff;
+        text-shadow: none;
+        font-size: 34px;
+        opacity: 0.6;
+    }
+}
+
+.modal-body {
+    padding: 25px 40px;
+
+    h4 {
+        font-weight: 700;
+        margin: 5px 0 17px;
+    }
+
+    h5 {
+        text-align: center;
+        margin: 0 0 20px;
+    }
+
+    .modal-btns-container {
+        border-top: 1px solid @iron;
+        padding: 15px 40px;
+        text-align: right;
+        margin: 40px -40px -25px;
+        background: #f7f9fa;
+        border-radius: 0 0 10px 10px;
+    }
+
+    .modal-btns {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+
+        &__text {
+            display: inline-block;
+            vertical-align: middle;
+            margin: -3px 0 0 3px;
+
+            &.view-mode {
+                display: inline-block;
+            }
+
+            &.edit-mode {
+                display: none;
+            }
+        }
+    }
+}
+
+.modal-backdrop {
+    z-index: 1000;
+
+    &.in {
+        opacity: 0.65;
+    }
+}
+
+.show-edit {
+    .modal-body {
+        .modal-btns {
+            &__text {
+                &.edit-mode {
+                    display: inline-block;
+                }
+
+                &.view-mode {
+                    display: none;
+                }
+            }
+        }
+    }
+}

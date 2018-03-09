@@ -1,0 +1,54 @@
+﻿<div ng-if="!yearPlanCtrl.showCategoryTree || !yearPlanCtrl.selectedHousingDepartment">
+    <h5 class="no-select-value">{{'Please select housing department first' | translate}}</h5>
+</div>
+<div ng-if="yearPlanCtrl.showCategoryTree && yearPlanCtrl.selectedHousingDepartment">
+    <div class="department__table-header js-table-header" ng-show="yearPlanCtrl.categories.length"> 
+        <table class="department__table">
+            <tr>
+                <th class="no-borders no-background"></th>
+                <th class="no-borders no-background"></th>
+                <th ng-repeat="monthWeek in yearPlanCtrl.monthWeeks" colspan="{{monthWeek.weekCount}}">{{monthWeek.monthName | translate}}</th>
+                <th class="no-borders"></th>
+            </tr>
+            <tr>
+                <td class="no-borders no-background"></td>
+                <td class="no-borders"></td>
+                <td class="_week" ng-repeat="week in yearPlanCtrl.totalWeeks">{{::week}}</td>
+                <td class="no-borders"></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <table class="department__table" lazy-load="yearPlanCtrl.loadMoreCategories()" lazy-load-distance="2" lazy-load-stick-header="true" ng-show="yearPlanCtrl.categories.length" ng-class="yearPlanCtrl.categories.length ? '' : 'margin-top'">
+        <tr ng-repeat="node in yearPlanCtrl.categories track by node.id" ng-click="node.isTask ? yearPlanCtrl.editTask(node.id): angular.noop()" class="border-bottom">
+            <td ng-class="::yearPlanCtrl.getHeadersClassNames(node)">
+                <div class="relative">
+                    <div class="background" ng-style="::{'background-color':node.color}"></div>
+                    <div class="department__category" ng-show="::!node.isTask">
+                        <span ng-style="::{'margin-left':(node.level * 10) + 'px'}">{{::node.name}}</span>
+                    </div>
+                    <div class="department__task-holder" ng-show="::node.isTask" ng-style="::{'margin-left':(node.level * 10) + 'px'}">
+                        <div class="department__task-title" ng-class="::(!node.isGroupedJob || node.isParentGroupedJob) ? '' : 'cutted-title'" title="{{yearPlanCtrl.getNodeTitle(node)}}">
+                            {{::node.name}}
+                            <span ng-if="(node.isParentGroupedJob && node.addressListForParentTask[yearPlanCtrl.selectedHousingDepartment.id])"> - {{node.addressListForParentTask[yearPlanCtrl.selectedHousingDepartment.id]}}</span>
+                            <span ng-if="::(node.isGroupedJob && node.address)"> - {{::node.address}}</span>
+                        </div>
+                    </div>
+                    <div class="icon">
+                        <span class="pe-7s-trash"></span>
+                        <span data-ng-if="node.isGroupedJob && !node.isParentGroupedJob && !node.isDisabled" class="pe-7s-home"></span>
+                    </div>
+                </div>
+            </td>
+            <td data-ng-if="::(!node.isTask)" data-ng-repeat="emptyCellWeek in yearPlanCtrl.emptyCellWeekRange" class="no-background no-borders border-transparent"></td>
+            <td ng-if-start="node.isTask"></td>
+            <td ng-repeat="week in node.weeks" ng-class="::yearPlanCtrl.getCssClass(week)">
+                <div class="relative">
+                    <span ng-class="::yearPlanCtrl.getWeekCssClass(week)"></span>
+                </div>
+            </td>
+            <td ng-if-end></td>
+        </tr>
+    </table>
+</div>

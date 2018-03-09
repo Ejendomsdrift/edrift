@@ -1,0 +1,41 @@
+﻿<div>
+    <edit-control config="memberPickerCtrl.editControlConfig">
+        <ui-select ng-if="memberPickerCtrl.config.isMultiple"
+                   ng-model="memberPickerCtrl.config.selectedMembers"
+                   on-select="memberPickerCtrl.onSelect($item)"
+                   on-remove="memberPickerCtrl.onRemove($item)"
+                   multiple class="select-group">
+            <ui-select-match allow-clear="false" placeholder="{{(memberPickerCtrl.config.defaultTextKey ? memberPickerCtrl.config.defaultTextKey : 'Choose a member') | translate}}">
+                <user-avatar data-config="{ url : $item.avatar, name: $item.name }" />
+                <span>{{$item.name}}</span>
+            </ui-select-match>
+            <ui-select-choices repeat="member in memberPickerCtrl.config.members | filter: { name : $select.search } | orderBy: 'name' track by $index">
+                <span ng-if="memberPickerCtrl.config.showTimeView && (member.timeView.workingMinutes || member.timeView.scheduledMinutes)" class="time-box">
+                    <span>
+                        <strong class="_font-blue">{{memberPickerCtrl.getMinutesToViewFormat(member.timeView.scheduledMinutes, false)}}</strong> |
+                    </span>
+                    <span ng-if="!member.timeView.isAbsent">{{memberPickerCtrl.getMinutesToViewFormat(member.timeView.workingMinutes, true)}}</span>
+                    <span ng-if="member.timeView.isAbsent">{{memberPickerCtrl.getMinutesToViewFormat(0, true)}}</span>
+                </span>
+                <user-avatar data-config="{ url : member.avatar, name: member.name }" />
+                <span>{{member.name}}</span>
+            </ui-select-choices>
+        </ui-select>
+
+        <ui-select ng-if="!memberPickerCtrl.config.isMultiple"
+                   ng-model="memberPickerCtrl.config.selectedMember"
+                   on-select="memberPickerCtrl.onSelect($item)"
+                   class="select-group _one-member">
+            <ui-select-match allow-clear="true" placeholder="{{(memberPickerCtrl.config.defaultTextKey ? memberPickerCtrl.config.defaultTextKey : 'Choose a member') | translate}}">
+                <user-avatar data-config="memberPickerCtrl.userAvatarModel" />
+                <span>{{$select.selected.name}}</span>
+            </ui-select-match>
+            <ui-select-choices repeat="member in memberPickerCtrl.config.members | filter: { name : $select.search } | orderBy: 'name' track by member.memberId">
+                <div ng-show="member.memberId != memberPickerCtrl.selectedMember.memberId">
+                    <user-avatar data-config="{ url : member.avatar, name: member.name }" />
+                    <span>{{member.name}}</span>
+                </div>
+            </ui-select-choices>
+        </ui-select>
+    </edit-control>
+</div>

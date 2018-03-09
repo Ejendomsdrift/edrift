@@ -1,0 +1,13 @@
+﻿<div>
+    <ui-select ng-model="multiDepartmentPickerCtrl.ngModel"
+               on-select="multiDepartmentPickerCtrl.onSelect({ $value: $item })"
+               on-remove="multiDepartmentPickerCtrl.onRemove({ $value: $item })"
+               multiple>
+        <ui-select-match placeholder="{{'Choose Housing department' | translate}}" ui-lock-choice="multiDepartmentPickerCtrl.hideUnassignButton($item)">
+            {{$item.name}}
+        </ui-select-match>
+        <ui-select-choices ui-disable-choice="multiDepartmentPickerCtrl.isDisabled(department)" repeat="department in multiDepartmentPickerCtrl.departments | filter:$select.search | orderBy:['name'] track by department.id">
+            {{department.name}}
+        </ui-select-choices>
+    </ui-select>
+</div>

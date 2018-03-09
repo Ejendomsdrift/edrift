@@ -1,0 +1,13 @@
+﻿<div>
+    <edit-control config="timePickerCtrl.editControlConfig">
+        <div uib-timepicker
+             ng-init="timePickerCtrl.init()"
+             ng-model="timePickerCtrl.config.time"
+             ng-change="timePickerCtrl.changeTime()"
+             hour-step="timePickerCtrl.config.hoursStep"
+             minute-step="timePickerCtrl.config.minutesStep"
+             show-meridian="timePickerCtrl.config.showMeridian"
+             data-ng-class="{'_error': !timePickerCtrl.isTimeValid()}">
+        </div>
+    </edit-control>
+</div>

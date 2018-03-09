@@ -1,0 +1,30 @@
+﻿<div class="select-control">
+    <div class="dropdown _pointer">
+        <div data-ng-if="!selectCtrl.isOpened && selectCtrl.isEmpty()" class="form-control" ng-click="selectCtrl.openSelect($event)">
+            <span class="pull-right">
+                <i class="caret" data-ng-if="!selectCtrl.isOpened" ng-click="selectCtrl.openSelect($event)"></i>
+            </span>
+            <span class="form-control__select">{{::selectCtrl.placeholder}}</span>
+        </div>
+        <div class="form-control" data-ng-if="!selectCtrl.isOpened && !selectCtrl.isEmpty()" ng-click="selectCtrl.openSelect($event)">
+            <span class="pull-right">
+                <i class="glyphicon glyphicon-remove" ng-click="selectCtrl.onRemoveHandler()" data-ng-if="!selectCtrl.isOpened && !selectCtrl.isEmpty()" aria-hidden="true"></i>
+                <i class="caret" data-ng-if="!selectCtrl.isOpened" ng-click="selectCtrl.openSelect($event)"></i>
+            </span>
+            <span class="form-control__select">{{selectCtrl.selected.value}}</span>
+        </div>
+        <input type="text" focus ng-keypress="selectCtrl.handleEnterClick($event)" ng-keydown="selectCtrl.keyDownHandler($event)" class="form-control" ng-click="selectCtrl.openSelect($event)" ng-change="selectCtrl.searchHandler()" placeholder="{{selectCtrl.placeholder}}" data-ng-if="selectCtrl.isOpened" ng-model="selectCtrl.searchValue" />
+
+    </div>
+    <div data-ng-if="selectCtrl.isOpened">
+        <ul data-ng-if="selectCtrl.dataList" class="dropdown__list">
+            <li class="dropdown__list-item" id="list-item-showAll" ng-if="selectCtrl.config.showAll" data-ng-click="selectCtrl.onUpdateHandler(selectCtrl.showAllSelectItem, $event)">
+                {{selectCtrl.config.showAllTranslationKey | translate}}
+            </li>
+            <li class="dropdown__list-item" id="list-item-{{::$index}}" ng-repeat="item in selectCtrl.dataList | orderBy:'value' track by item.id"
+                data-ng-click="selectCtrl.onUpdateHandler(item, $event)" data-ng-class="{'item-disable' : selectCtrl.isItemDisabled(item.obj)}">
+                {{::item.value}}
+            </li>
+        </ul>
+    </div>
+</div>

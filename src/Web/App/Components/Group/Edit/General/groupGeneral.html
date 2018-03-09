@@ -1,0 +1,21 @@
+﻿<section class="general">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">{{'Group name' | translate}}</label>
+            <div class="col-sm-6">
+                <text-control config="groupGeneralCtrl.titlePickerConfig"></text-control>
+                <span class="error-label" ng-if="!groupGeneralCtrl.isUnique">
+                    {{'Group Name is not unique' | translate}}
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">{{'Group members' | translate}}</label>
+            <div class="col-sm-6">
+                <member-picker data-config="groupGeneralCtrl.memberPickerConfig"></member-picker>
+            </div>
+        </div>
+
+    </div>
+</section>

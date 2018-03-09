@@ -1,0 +1,29 @@
+﻿<div>
+    <edit-control config="weeksPickerCtrl.editControlConfig">
+        <div class="edit-control time-rage">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="time-rage__holder">
+                        <span class="time-rage__item" ng-repeat="week in weeksPickerCtrl.weeks"
+                              ng-class="week.cssClass"
+                              ng-click="weeksPickerCtrl.weekOnClick(week)">
+                            {{week.number}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-default btn-xs time-rage__btn"
+                            ng-disabled="weeksPickerCtrl.allWeeksSelected"
+                            ng-click="weeksPickerCtrl.selectAllWeeks()">
+                        {{'Select all' | translate}}
+                    </button>
+                    <button class="btn btn-default btn-xs time-rage__btn"
+                            ng-disabled="weeksPickerCtrl.allWeeksDeselected"
+                            ng-click="weeksPickerCtrl.deselectAllWeeks()">
+                        {{'Deselect all' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </edit-control>
+</div>

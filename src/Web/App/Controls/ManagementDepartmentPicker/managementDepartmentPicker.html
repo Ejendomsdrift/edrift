@@ -1,0 +1,14 @@
+﻿<div>
+    <ui-select ng-model="managementDepartmentCtrl.config.selectedDepartments"
+               on-select="managementDepartmentCtrl.onSelect($item)"
+               on-remove="managementDepartmentCtrl.onRemove($item)"
+               multi-select-checker>
+        <ui-select-match placeholder="{{'Choose Management department' | translate}}">
+            <span ng-if="isMultiple">{{$item.name}}</span>
+            <span ng-if="!isMultiple">{{$select.selected.name}}</span>    
+        </ui-select-match>
+        <ui-select-choices repeat="department in managementDepartmentCtrl.departments | filter:$select.search">
+            {{department.name}}
+        </ui-select-choices>
+    </ui-select>
+</div>

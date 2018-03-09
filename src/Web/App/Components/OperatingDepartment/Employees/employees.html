@@ -1,0 +1,103 @@
+﻿<section class="hpanel employee">
+    <div class="main-header">
+        <h2 class="main-header__title">
+            {{'Employees' | translate}}
+            <span class="main-header__text">{{'Assign employees to groups' | translate}}</span>
+        </h2>
+    </div>
+    <div class="content panel-body">
+        <table class="table _valign-m">
+            <thead>
+            <tr>
+                <th></th>
+                <th>{{'Name' | translate}}</th>
+                <th>{{'Absence start' | translate}}</th>
+                <th>{{'Absence end' | translate}}</th>
+                <th>{{'Absence type' | translate}}</th>
+                <th>{{'Delete' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="employeeAbsences in employeesCtrl.employeesAbsencesList" class="employee__item">
+            <tr>
+                <td>
+                    <user-avatar data-config="{ url: employeeAbsences.member.avatar, name: employeeAbsences.member.name }"/>
+                </td>
+                <td>
+                    <span class="font-bold">{{employeeAbsences.member.name}}</span>
+                </td>
+                <td colspan="4" class="no-padding">
+                    <table class="employee__item-table  _valign-m">
+                        <tr ng-repeat="absence in employeeAbsences.absences" class="border-bottom employee__item-status">
+                            <td style="width: 25%;">{{employeesCtrl.getFormattedDateString(absence.startDate)}}</td>
+                            <td style="width: 25%;">{{employeesCtrl.getFormattedDateString(absence.endDate)}}</td>
+                            <td style="width: 25%;">{{absence.text}}</td>
+                            <td>
+                                <span class="delet-icon pe-7s-close" data-ng-click="employeesCtrl.deleteAbsence(employeeAbsences.absences, absence)"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr ng-class="employeeAbsences.absences.length > 0 ? null : 'no-items'">
+                <td colspan="2" class="border-top-none"></td>
+                <td colspan="4" ng-class="employeeAbsences.isAddFormVisible ? 'no-padding' : null">
+                    <div ng-show="!employeeAbsences.isAddFormVisible" class="employee__btn-holder">
+                        <button class="btn btn-primary" ng-click="employeesCtrl.toogleAbsenceBlock(employeeAbsences, true)">{{'Add absence' | translate}}</button>
+                        <button class="btn btn-primary" data-ng-show="employeeAbsences.absences.length" data-ng-click="employeesCtrl.deleteAllAbsencesForMember(employeeAbsences.absences, employeeAbsences.member.memberId)">
+                            {{'Remove all' | translate}}
+                        </button>
+                    </div>
+                    <table class="employee__item-table  _valign-m" ng-show="employeeAbsences.isAddFormVisible">
+                        <tr>
+                            <th style="">{{'Absence start' | translate}}</th>
+                            <th style="">{{'Absence end' | translate}}</th>
+                            <th>{{'Absence type' | translate}}</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="employee__table-day">
+                                    <date-picker config="employeeAbsences.newAbsence.startDatePickerConfig"></date-picker>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="employee__table-day">
+                                    <date-picker config="employeeAbsences.newAbsence.endDatePickerConfig"></date-picker>
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div ng-show="employeeAbsences.newAbsence.isCustomTemplateMode">
+                                    <span ng-class="!employeeAbsences.newAbsence.isValidationActive
+                                          || employeesCtrl.isCustomAbsenceTextValid(employeeAbsences.newAbsence.customAbsenceText) ? '' : '_error'" class="_align">
+                                            <input type="text" class="form-control" ng-model="employeeAbsences.newAbsence.customAbsenceText" />
+                                        </span>
+                                    <span class="delet-icon pe-7s-close _align" ng-click="employeeAbsences.newAbsence.isCustomTemplateMode = false"></span>
+                                </div>
+                                <span ng-class="!employeeAbsences.newAbsence.isValidationActive
+                                      || employeesCtrl.isValidTemplateOption(employeeAbsences.newAbsence.selectedTemplate) ? '' : '_error'">
+                                        <ui-select ng-model="employeeAbsences.newAbsence.selectedTemplate"
+                                                   on-select="employeesCtrl.absenceTemplateSelected($item, employeeAbsences.newAbsence)"
+                                                   ng-show="!employeeAbsences.newAbsence.isCustomTemplateMode">
+                                            <ui-select-match placeholder="{{'Choose a absence reason' | translate}}">{{$select.selected.text}}</ui-select-match>
+                                            <ui-select-choices repeat="template in employeesCtrl.absenceTemplates">{{template.text}}</ui-select-choices>
+                                        </ui-select>
+                                    </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="btn btn-primary" ng-click="employeesCtrl.addAbsence(employeeAbsences.absences, employeeAbsences.newAbsence, employeeAbsences);">{{'Add' | translate}}</span>
+                                <span class="btn btn-default" ng-click="employeesCtrl.toogleAbsenceBlock(employeeAbsences, false)">{{'Close' | translate}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="back-to-top" data-ng-click="employeesCtrl.scrollToTop()" data-ng-class="{'show-btn' : employeesCtrl.isVisibleButton}">
+        <i class="fa fa-chevron-up"></i>
+        <div>{{'Till toppen' | translate}}</div>
+    </div>
+</section>

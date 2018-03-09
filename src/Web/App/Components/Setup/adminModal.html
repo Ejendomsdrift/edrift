@@ -1,0 +1,47 @@
+﻿<div class="create-modal">
+    <div class="modal-header">
+        <a ui-sref="{{commonCtrl.state.Home}}" class="close pe-7s-close"></a>
+        <h3 class="modal-title">{{'Admin functions' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item" ui-sref-active="active">
+                <a ui-sref="{{commonCtrl.state.SetupTranslation}}" class="nav-link">
+                    {{'Resources' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ui-sref-active="active">
+                <a ui-sref="{{commonCtrl.state.SetupCategories}}" class="nav-link">
+                    {{'Operational Categories' | translate}}
+                </a>
+            </li> 
+            <li class="nav-item" ui-sref-active="active">
+                <a ui-sref="{{commonCtrl.state.SetupDangerZone}}" class="nav-link">
+                    {{'Danger zone' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ui-sref-active="active">
+                <a ui-sref="{{commonCtrl.state.AbsenceTemplates}}" class="nav-link">
+                    {{'Absence Templates' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ui-sref-active="active">
+                <a ui-sref="{{commonCtrl.state.CancellingTemplates}}" class="nav-link">
+                    {{'Task cancelling Templates' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ui-sref-active="active">
+                <a ui-sref="{{commonCtrl.state.CoordinatorTemplates}}" class="nav-link">
+                    {{'Coordinators cancelling templates' | translate}}
+                </a>
+            </li>
+        </ul>
+
+        <div ui-view="modalBody"></div>
+
+        <div class="modal-btns-container">
+            <a ui-sref="Home" class="btn btn-default">{{'Close' | translate}}</a>
+        </div>
+    </div>
+</div>

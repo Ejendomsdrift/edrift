@@ -1,0 +1,87 @@
+﻿<section class="form-horizontal operation">
+    <div data-ng-class="tenantCtrl.isActiveWaitIcon ? 'show' : 'hide'" class="load-icon">
+        <img src="/Content/images/load-icon.gif" />
+    </div>
+    <div class="create-modal">
+        <div class="modal-header"
+             ng-class="operatingTaskCtrl.isTaskSaved() && (operatingTaskCtrl.isTenant() || operatingTaskCtrl.isAdHoc() || operatingTaskCtrl.isOther()) ? '' : 'm-b'">
+            <a ng-click="operatingTaskCtrl.redirect()" class="close pe-7s-close"></a>
+            <a ng-click="operatingTaskCtrl.redirect()" class="close__overlay"></a>
+            <div class="creator pull-right" data-ng-if="operatingTaskCtrl.isTaskSaved()">
+                <span>{{operatingTaskCtrl.getFormattedDateString()}}</span>
+                <user-avatar data-config="{ url: operatingTaskCtrl.taskCreationInfo.creatorAvatar, name: operatingTaskCtrl.taskCreationInfo.creatorName }" class="creator__avatar"/>
+                <span>{{operatingTaskCtrl.taskCreationInfo.creatorName}} </span>
+            </div>
+            <h3 class="modal-title" data-ng-if="!operatingTaskCtrl.isTaskSaved()">{{::'Create task' | translate}}</h3>
+            <h3 class="modal-title" data-ng-if="operatingTaskCtrl.isTaskSaved() && !operatingTaskCtrl.isTaskOpenedFromHistoryPage && !operatingTaskCtrl.isTaskCanceled">
+                {{::'Edit' | translate}} <span class="modal-title__title">{{operatingTaskCtrl.title}}</span> ({{operatingTaskCtrl.taskId}})
+            </h3>
+            <span ng-show="operatingTaskCtrl.isUrgent" class="pblock__status _urgent">{{::'Urgent job' | translate}}</span>
+            <h3 class="modal-title" data-ng-if="(operatingTaskCtrl.isTaskSaved() && operatingTaskCtrl.isTaskOpenedFromHistoryPage) || operatingTaskCtrl.isTaskCanceled">
+                <span class="modal-title__title">{{operatingTaskCtrl.title}}</span> ({{operatingTaskCtrl.taskId}})
+            </h3>
+            <h3 class="modal-title" data-ng-if="operatingTaskCtrl.currentHousingDepartmentDisplayName">{{operatingTaskCtrl.currentHousingDepartmentDisplayName}}</h3>
+        </div>
+    </div>
+
+    <div class="modal-body"
+         ng-class="operatingTaskCtrl.isTaskSaved() && (operatingTaskCtrl.isTenant() || operatingTaskCtrl.isAdHoc() || operatingTaskCtrl.isOther()) ? '' : 'border-top'">
+
+        <div>
+            <ul class="nav nav-tabs" data-ng-if="operatingTaskCtrl.isTaskSaved()">
+                <li class="nav-item" data-ng-class="{'active': operatingTaskCtrl.isEditMode()}">
+                    <a ng-click="operatingTaskCtrl.redirectToEditMode()" class="nav-link">
+                        {{::'Main information' | translate}}
+                    </a>
+                </li>
+                <li class="nav-item" data-ng-class="{'active': operatingTaskCtrl.isHistoryMode()}">
+                    <a ng-click="operatingTaskCtrl.redirectToHistory()" class="nav-link">
+                        {{::'History' | translate}}
+                    </a>
+                </li>
+            </ul>
+            <div class="form-group" data-ng-if="!operatingTaskCtrl.isHistoryMode()">
+                <div class="row" data-ng-if="!operatingTaskCtrl.isTaskSaved()">
+                    <label class="col-md-3 control-label">{{::'Task type: ' | translate}}</label>
+                    <div class="col-md-7 type-task" security>
+                        <span class="radio" data-access-key="AdHocCreate">
+                            <input id="adhoc" type="radio" name="operatingTask" ng-click="operatingTaskCtrl.redirectToAdhoc()" checked="checked"/>
+                            <label for="adhoc">{{::'AdHoc task' | translate}}</label>
+                        </span>
+                        <span class="radio" data-access-key="TenantCreate">
+                            <input id="tenant" type="radio" name="operatingTask" ng-click="operatingTaskCtrl.redirectToTenant()" ng-checked="operatingTaskCtrl.isTenant()"/>
+                            <label for="tenant">{{::'Tenant task' | translate}}</label>
+                        </span>
+                        <span class="radio" data-access-key="OtherCreate">
+                            <input id="other" type="radio" name="operatingTask" ng-click="operatingTaskCtrl.redirectToOtherTypeTask()" ng-checked="operatingTaskCtrl.isOther()"/>
+                            <label for="other">{{::'Other' | translate}}</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="row" data-ng-if="operatingTaskCtrl.isTaskSaved()">
+                    <label class="col-md-3 control-label">{{::'Task type: ' | translate}}</label>
+                    <div class="col-md-7 operation__indent" security>
+                        <span class="radio" data-access-key="AdHocCreate">
+                            <input type="radio" name="operating-task" checked disabled/>
+                            <label>{{::'AdHoc task' | translate}}</label>
+                        </span>
+                        <span class="radio" data-access-key="TenantCreate">
+                            <input type="radio" name="operating-task" ng-checked="operatingTaskCtrl.isTenant()" disabled/>
+                            <label>{{::'Tenant task' | translate}}</label>
+                        </span>
+                        <span class="radio" data-access-key="OtherCreate">
+                            <input type="radio" name="operating-task" ng-checked="operatingTaskCtrl.isOther()" disabled/>
+                            <label>{{::'Other' | translate}}</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ui-view="modalBody"></div>
+
+        <div class="modal-btns-container">
+            <button class="btn btn-default" type="button" ng-click="operatingTaskCtrl.redirect()">{{::'Close' | translate}}</button>
+        </div>
+    </div>
+</section>

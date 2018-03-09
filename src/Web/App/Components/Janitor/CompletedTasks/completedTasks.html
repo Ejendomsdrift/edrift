@@ -1,0 +1,33 @@
+﻿<section>
+    <div class="pblock">
+        <div class="pblock__heading">
+            <div class="pblock__head">
+                <h2 class="pblock__head-title">
+                    <span>{{'Completed tasks' | translate}}</span>
+                    <span class="count" ng-if="completedTaskCtrl.jobHeaderList.length">({{completedTaskCtrl.jobHeaderList.length}})</span>
+                </h2>
+            </div>
+        </div>
+
+        <div ng-repeat="jobHeader in completedTaskCtrl.jobHeaderList" class="pblock__item" ng-style="{'background-color':jobHeader.color}"  ng-click="completedTaskCtrl.goToTaskDetails(jobHeader)">
+            <div class="pblock__row">
+                <span ng-if="jobHeader.date">{{completedTaskCtrl.getDateString(jobHeader.date)}}</span>
+            </div>
+            <div class="pblock__title-holder">
+                <span class="pblock__status pull-right">{{completedTaskCtrl.getStatusTranslation(jobHeader.jobStatus) | translate}}</span>
+                <div class="pblock__title-row">
+                    <h2 class="pblock__title">{{jobHeader.title}}</h2>
+                    <div>
+                        <span>{{jobHeader.assignedHousingDepartmentName}}</span>
+                    </div>
+                    <span ng-if="jobHeader.address" class="pblock__title-address">{{jobHeader.address}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-to-top" ng-click="completedTaskCtrl.scrollToTop()">
+            <i class="fa fa-chevron-up"></i>
+            <div>{{'Till toppen' | translate}}</div>
+        </div>
+    </div>
+</section>

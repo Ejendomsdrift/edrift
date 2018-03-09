@@ -1,0 +1,25 @@
+﻿<div>
+    <edit-control config="datePickerCtrl.editControlConfig">
+        <div data-ng-if="datePickerCtrl.isEditableMode() && datePickerCtrl.config.haveStartDateRestriction" class="input-group date datepicker" 
+             data-provide="datepicker" data-date-format="{{datePickerCtrl.config.format}}" data-date-view-mode="{{datePickerCtrl.config.view}}" 
+             data-date-min-view-mode="{{datePickerCtrl.config.view}}" data-date-start-date="new Date()" data-date-autoclose="true" 
+             data-date-set-date="{{datePickerCtrl.config.date}}" data-ng-class="datePickerCtrl.isDateValid() ? '' : '_error'">
+            <input type="text" class="form-control" data-ng-model="datePickerCtrl.config.date" data-ng-change="datePickerCtrl.changeDate()">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </div>
+        </div>
+
+        <div data-ng-if="datePickerCtrl.isEditableMode() && !datePickerCtrl.config.haveStartDateRestriction" class="input-group date datepicker" data-provide="datepicker"
+             data-date-format="{{datePickerCtrl.config.format}}" data-date-view-mode="{{datePickerCtrl.config.view}}" data-date-min-view-mode="{{datePickerCtrl.config.view}}"
+             data-date-autoclose="true" data-date-set-date="{{datePickerCtrl.config.date}}" data-ng-class="datePickerCtrl.isDateValid() ? '' : '_error'">
+            <input type="text" class="form-control" data-ng-model="datePickerCtrl.config.date" data-ng-change="datePickerCtrl.changeDate()">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </div>
+        </div>
+        
+        <div data-ng-if="datePickerCtrl.isViewMode() && !datePickerCtrl.config.date">{{'Plase choose date' | translate}}</div>
+        <div data-ng-if="!datePickerCtrl.isEditableMode()">{{datePickerCtrl.config.date}}</div>
+    </edit-control>
+</div>

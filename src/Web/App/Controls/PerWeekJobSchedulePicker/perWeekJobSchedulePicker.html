@@ -1,0 +1,22 @@
+﻿<div class="days-control">
+    <edit-control config="jobScheduleCtrl.editControlConfig">
+        <div class="row">
+            <div class="col-sm-3">
+                <div data-ng-show="jobScheduleCtrl.isEditableMode()">
+                    <select class="form-control _small custom-select" data-ng-model="jobScheduleCtrl.config.repeatsPerWeek"
+                            data-ng-options="day as day for day in [1,2,3,4,5,6,7]"
+                            data-ng-change="jobScheduleCtrl.changeRepeatPerWeek()"></select>
+                </div>
+                <div data-ng-hide="jobScheduleCtrl.isEditableMode()" class="_pt-indent">
+                    <span class="repeats">{{jobScheduleCtrl.config.repeatsPerWeek}}</span>
+                </div>
+            </div>
+            <div class="days-of-the-week col-sm-9">
+                <span data-ng-repeat="day in jobScheduleCtrl.weekDays" class="checkbox">
+                    <input type="checkbox" data-ng-model="day.isChecked" data-ng-change="jobScheduleCtrl.changeDay(day, $index)" data-ng-checked="day.isChecked">
+                    <label data-ng-class="{'_font-red' : jobScheduleCtrl.isWeekend(day.weekDay)}">{{'day_' + day.alias | translate}}</label>
+                </span>
+            </div>
+        </div>
+    </edit-control>
+</div>

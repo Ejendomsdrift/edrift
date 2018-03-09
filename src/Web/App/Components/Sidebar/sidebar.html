@@ -1,0 +1,94 @@
+﻿<aside id="menu">
+    <div id="navigation">
+        <div class="profile-picture">
+            <span class="profile-picture__link">
+                <a class="logo" data-ng-click="commonCtrl.redirectToDefaultPage()">
+                    <!--<img src="" />-->
+                </a>
+                 <user-avatar class="m-b" data-config="{ url: commonCtrl.currentUser.avatar, name: commonCtrl.currentUser.name, size: 'large' }" />
+            </span>
+            <div class="stats-label text-color">
+                <span class="font-extra-bold font-uppercase">{{commonCtrl.currentUser.name}}</span>
+                <div class="mobile-menu">
+                    <div class="mobile-menu__setting" ng-click="commonCtrl.toggleMobileMenu()">
+                        <span class="mobile-menu__setting-text">{{'Setting' | translate}}</span>
+                        <i class="mobile-menu__icon fa" ng-class="commonCtrl.isMobileMenuOpen ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                    </div>
+                    <div class="burger-menu" ng-click="commonCtrl.toggleMobileMenu()" ng-class="commonCtrl.isMobileMenuOpen ? 'open' : null">
+                        <span class="burger-menu__item"></span>
+                        <span class="burger-menu__item"></span>
+                        <span class="burger-menu__item"></span>
+                        <span class="burger-menu__item"></span>
+                    </div>
+                    <ul class="mobile-menu__list" ng-class="{'_open' : commonCtrl.isMobileMenuOpen}">
+                        <li class="mobile-menu__item">
+                            <span ng-click="commonCtrl.openMobilePage(commonCtrl.state.JanitorCompletedTasks)" class="mobile-menu__link">
+                                <i class="mobile-menu__link-icon fa fa-check-circle"></i>
+                                <span class="mobile-menu__link-text">{{'Completed tasks' | translate}}</span>
+                            </span>
+                        </li>
+                        <li class="mobile-menu__item">
+                            <span ng-click="commonCtrl.openMobilePage(commonCtrl.state.JanitorMap)" class="mobile-menu__link">
+                                <i class="mobile-menu__link-icon fa fa-map-marker"></i>
+                                <span class="mobile-menu__link-text">{{'See jobs in the short' | translate}}</span>
+                            </span>
+                        </li>
+                        <li class="mobile-menu__item" ui-sref-active='active-item' data-ng-click="commonCtrl.openMobilePage(commonCtrl.state.JanitorSettings)">
+                            <a ui-sref="{{commonCtrl.state.JanitorSettings}}" class="mobile-menu__link">
+                                <i class="mobile-menu__link-icon fa fa-cog"></i>
+                                <span class="mobile-menu__link-text">{{'Settings' | translate}}</span>
+                            </a>
+                        </li>
+                        <li class="mobile-menu__item" data-ng-if="!commonCtrl.isADFSMode">
+                            <a href="/" data-ng-click="commonCtrl.Logout()" class="mobile-menu__link">
+                                <i class="mobile-menu__link-icon fa fa-power-off"></i>
+                                <span class="mobile-menu__link-text">{{'Logout' | translate}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav" id="side-menu" security>
+            <li ng-class="{'active-item': $state.includes(commonCtrl.state.WeekPlan)}" data-access-key="LeftMenuItem_WeekPlanGridView" class="nav__item">
+                <a ui-sref="{{commonCtrl.state.WeekPlanGridView}}">{{'Week plan' | translate}}</a>
+            </li>
+            <li ui-sref-active='active-item' data-access-key="LeftMenuItem_Groups" class="nav__item">
+                <a ui-sref="{{commonCtrl.state.Groups}}">{{'Groups' | translate}}</a>
+            </li>
+            <li ui-sref-active='active-item' data-access-key="LeftMenuItem_History" class="nav__item">
+                <a ui-sref="{{commonCtrl.state.History}}">{{'History' | translate}}</a>
+            </li>
+            <li ui-sref-active='active-item' data-access-key="LeftMenuItem_Employees" class="nav__item">
+                <a ui-sref="{{commonCtrl.state.Employees}}">{{'Employees' | translate}}</a>
+            </li>        
+            <li ng-class="{'active-item': $state.includes(commonCtrl.state.YearPlan)}" data-access-key="LeftMenuItem_YearPlanTaskOverview" class="nav__item">
+                <a ui-sref="{{commonCtrl.state.YearPlanTaskOverview}}">{{'Year plan' | translate}}</a>
+            </li>
+            <li ui-sref-active='active-item' data-access-key="LeftMenuItem_Statistics" class="nav__item">
+                <a ui-sref="{{commonCtrl.state.Statistics}}">{{'Statistics' | translate}}</a>
+            </li>
+            <li ng-class="{'active-item': $state.includes(commonCtrl.state.Setup)}" data-access-key="LeftMenuItem_SetupTranslation" class="nav__item">
+                <a ui-sref="{{commonCtrl.state.SetupTranslation}}">{{'Admin functions' | translate}}</a>
+            </li>
+            <li ui-sref-active='active-item' data-access-key="LeftMenuItem_JanitorMyTasks" class="janitor__nav-item js-janitor-my-tasks">
+                <a ui-sref="{{commonCtrl.state.JanitorMyTasks}}">
+                    {{'My tasks' | translate}}
+                    <span class="task-count" ng-if="commonCtrl.myTaskCount">({{commonCtrl.myTaskCount}})</span>
+                </a>
+            </li>
+            <li ui-sref-active='active-item' data-access-key="LeftMenuItem_JanitorOpenedTasks" class="janitor__nav-item js-janitor-open-tasks">
+                <a ui-sref="{{commonCtrl.state.JanitorOpenedTasks}}">
+                    {{'Open tasks' | translate}}
+                    <span class="task-count" ng-if="commonCtrl.openedTaskCount">({{commonCtrl.openedTaskCount}})</span>
+                </a>
+            </li>
+            <li class="janitor__nav-item _create-item">
+                <a data-ng-click="commonCtrl.createOperationalTasks()">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>

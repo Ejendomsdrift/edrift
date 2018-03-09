@@ -1,0 +1,25 @@
+﻿<div>
+    <div class="file-uploader">
+        <div flow-init="uploaderCtrl.config.ngFlowConfig" ng-if="uploaderCtrl.extensions.length" ng-init="uploaderCtrl.initControl($flow)">
+            <div flow-drop flow-btn class="dragover"
+                 flow-drag-enter="style={border:'1px dashed #3791e5', opacity: 1}"
+                 flow-drag-leave="style={}"
+                 ng-style="style"
+                 flow-files-submitted="uploaderCtrl.onSubmitted($flow)"
+                 flow-file-success="uploaderCtrl.onSuccess($message)"
+                 flow-file-added="uploaderCtrl.onAdded($file, uploaderCtrl)"
+                 flow-attrs="{accept:{{uploaderCtrl.extensions}}}">
+                <div class="dragover__item">
+                    <div class="dragover__text">
+                        <span>{{::'Drag And Drop your document OR click here. Allowed file extensions: ' | translate}}</span>
+                        <span ng-repeat="extention in ::uploaderCtrl.extensions">{{::extention}}</span>
+                    </div>
+                </div>
+            </div>
+            <span ng-if="uploaderCtrl.isActiveLoadIcon" class="load-icon">
+                <img src="/Content/images/load-icon.gif" />
+            </span>
+            <div ng-include="uploaderCtrl.config.contentUrl" ng-if="$flow.files.length" class="result-table"></div>
+        </div>
+    </div>
+</div>

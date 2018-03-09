@@ -1,0 +1,15 @@
+﻿<div>
+    <edit-control config="addressCtrl.editControlConfig">
+        <div data-ng-if="addressCtrl.config.isTenant" class="m-b">
+            <select-control config="addressCtrl.selectControlConfig"></select-control>
+        </div>
+        <div data-ng-hide="addressCtrl.isEditableMode() || addressCtrl.config.isTenant" data-ng-class="addressCtrl.config.address.length ? 'm-b' : null">
+            <input type="text" value="{{addressCtrl.config.address}}" placeholder="{{::'Please add location' | translate}}" class="form-control no-disabled m-b" disabled />
+        </div>
+        <div data-ng-class="!addressCtrl.includeValidation || addressCtrl.isValidAddress ? '' : '_error'">
+            <input type="text" class="form-control _pt-indent m-b" placeholder="{{::'Please add location' | translate}}" data-ng-show="(addressCtrl.isEditableMode() && !addressCtrl.config.isTenant)" data-ng-blur="addressCtrl.updateMapAddress()" data-ng-model="addressCtrl.config.address"/>
+            <google-map address="{{addressCtrl.mapAddress}}" on-map-clicked="addressCtrl.updateAddress(address)" is-marker-disabled="addressCtrl.isDisabledMap() || addressCtrl.config.isTenant"></google-map>
+        </div>
+    </edit-control>
+</div>
+

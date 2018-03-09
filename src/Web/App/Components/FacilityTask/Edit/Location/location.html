@@ -1,0 +1,44 @@
+﻿<section class="location form-horizontal">
+
+    <h5 ng-if="!locationCtrl.showSelector && !locationCtrl.addressControlConfig.address">{{'Location does not exist' | translate}}</h5>
+
+    <div class="form-group row" ng-if="locationCtrl.showSelector">
+        <label class="col-sm-2 control-label">{{(locationCtrl.locationModel.isGroupedJob ? 'Grouped Tasks' : 'Departments') | translate}}</label>
+        <div class="col-sm-10 _p-indent">
+            <ui-select ng-if="!locationCtrl.locationModel.isGroupedJob" ng-model="locationCtrl.selectedDepartment" on-select="locationCtrl.updateAddress()">
+                <ui-select-match allow-clear="true" placeholder="{{'Choose department' | translate}}">
+                    <span>{{$select.selected.value}}</span>
+                </ui-select-match>
+                <ui-select-choices repeat="department in locationCtrl.locationModel.departments | filter: $select.search | orderBy:['value'] track by department.id">
+                    <span>{{department.value}}</span>
+                </ui-select-choices>
+            </ui-select>
+
+            <ui-select ng-if="locationCtrl.locationModel.isGroupedJob"
+                       ng-model="locationCtrl.selectedGroupedJob"
+                       on-select="locationCtrl.updateAddress()">
+                <ui-select-match allow-clear="true" placeholder="{{'Choose address' | translate}}">
+                    <span>
+                        {{$select.selected.id}}
+                        <span ng-if="$select.selected.value">- {{$select.selected.value}}</span>
+                    </span>
+                </ui-select-match>
+                <ui-select-choices repeat="jobAddress in locationCtrl.locationModel.groupedTasks | filter: $select.search track by jobAddress.id">
+                    <span>
+                        {{jobAddress.id}}
+                        <span ng-if="jobAddress.value">
+                            - {{jobAddress.value}}
+                        </span>
+                    </span>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+
+    <div class="row" ng-if="(locationCtrl.showSelector && (locationCtrl.selectedDepartment || locationCtrl.selectedGroupedJob)) || locationCtrl.addressControlConfig.address">
+        <label class="col-sm-2 control-label _indent">{{'Address' | translate}}:</label>
+        <div class="col-sm-10">
+            <address-control data-config="locationCtrl.addressControlConfig"></address-control>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,6 @@
+﻿<div class="department__picker" ng-class="!departmentPickerCtrl.includeValidation || departmentPickerCtrl.isDepartmentIdValid ? '' : '_error'">  
+    <select-control config="departmentPickerCtrl.selectControlConfig"></select-control>
+</div>
+<div data-ng-class="departmentPickerCtrl.isActiveWaitIcon ? 'show' : 'hide'" class="load-icon">
+    <img src="/Content/images/load-icon.gif" />
+</div>

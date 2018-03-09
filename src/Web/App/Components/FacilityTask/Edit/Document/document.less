@@ -1,0 +1,31 @@
+﻿@import "../../../../Less/Mixins";
+@import "../../../../Less/Variables";
+@import "../../../../Less/fonts";
+
+.document {
+
+    .file-uploader {
+        margin-bottom: 30px;
+
+        .dragover__item {
+            height: 60px;
+        }
+    }
+
+    &__del {
+        font-size: 26px;
+        cursor: pointer;
+    }
+
+    .table {
+        th:first-child,
+        td:first-child {
+            width: 320px;
+        }
+    }
+
+    &__no-content {
+        padding: 6px 0;
+        font-size: 14px;
+    }
+}

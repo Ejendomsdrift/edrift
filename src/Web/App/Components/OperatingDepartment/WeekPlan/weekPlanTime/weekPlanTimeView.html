@@ -1,0 +1,55 @@
+﻿<div class="row clearfix" data-ng-controller="weekPlanTimeController as timeCtrl" data-ng-init="timeCtrl.init(weekPlanCtrl.selectedWeek, weekPlanCtrl.selectedYear)"
+     ng-show="weekPlanCtrl.selectedDepartment">
+    <div class="col-md-12">
+        <div class="timetable">
+            <div class="timetable__heading">
+                <span class="timetable__week">{{'timetable' | translate}} - {{'week' | translate}} {{timeCtrl.selectedWeek}}</span>
+            </div>
+            <div class="timetable__body">
+                <div class="table-responsive">
+                    <table class="timetable__table table">
+                        <thead>
+                        <tr>
+                            <th class="timetable__col col-md-2 _header">{{'Employee' | translate}}</th>
+                            <th class="timetable__col col-md-1 _header">{{'Mon' | translate}} {{timeCtrl.getDayFromDate(timeCtrl.weekDays[0].date)}}</th>
+                            <th class="timetable__col col-md-1 _header">{{'Tue' | translate}} {{timeCtrl.getDayFromDate(timeCtrl.weekDays[1].date)}}</th>
+                            <th class="timetable__col col-md-1 _header">{{'Wed' | translate}} {{timeCtrl.getDayFromDate(timeCtrl.weekDays[2].date)}}</th>
+                            <th class="timetable__col col-md-1 _header">{{'Thu' | translate}} {{timeCtrl.getDayFromDate(timeCtrl.weekDays[3].date)}}</th>
+                            <th class="timetable__col col-md-1 _header">{{'Fri' | translate}} {{timeCtrl.getDayFromDate(timeCtrl.weekDays[4].date)}}</th>
+                            <th class="timetable__col col-md-1 _header">{{'Sat' | translate}} {{timeCtrl.getDayFromDate(timeCtrl.weekDays[5].date)}}</th>
+                            <th class="timetable__col col-md-1 _header">{{'Sun' | translate}} {{timeCtrl.getDayFromDate(timeCtrl.weekDays[6].date)}}</th>
+                            <th class="timetable__col col-md-1 _header"><strong class="_font-blue">{{'Scheduled hours' | translate}}</strong></th>
+                            <th class="timetable__col col-md-1 _header">{{'Working hours' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="memberTimeView in timeCtrl.timeView.membersTimeView">
+                            <td class="timetable__col">
+                                <user-avatar class="timetable__avatar" data-config="{ url: memberTimeView.memberModel.avatar, name: memberTimeView.memberModel.name }"/>
+                                <span class="timetable__name">{{memberTimeView.memberModel.name}}</span>
+                            </td>
+                            <td class="timetable__col" ng-repeat="dayTimeView in memberTimeView.weekTimeView">
+                                <span ng-if="dayTimeView.scheduledMinutes > 0">
+                                    <strong class="_font-blue">{{timeCtrl.minutesToViewFormat(dayTimeView.scheduledMinutes, false)}}</strong> | 
+                                </span>
+                                {{timeCtrl.minutesToViewFormat(dayTimeView.workingMinutes, true)}}
+                            </td>
+                            <td class="timetable__col">
+                                <strong class="_font-blue">{{timeCtrl.minutesToViewFormat(memberTimeView.weekTotal.scheduledMinutes, true)}}</strong>
+                            </td>
+                            <td class="timetable__col">{{timeCtrl.minutesToViewFormat(memberTimeView.weekTotal.workingMinutes, false)}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td class="timetable__col" colspan="8">{{'Total' | translate}}:</td>
+                            <td class="timetable__col"><strong class="_font-blue">{{timeCtrl.minutesToViewFormat(timeCtrl.timeView.membersTotal.scheduledMinutes)}}</strong></td>
+                            <td class="timetable__col">{{timeCtrl.minutesToViewFormat(timeCtrl.timeView.membersTotal.workingMinutes)}}</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

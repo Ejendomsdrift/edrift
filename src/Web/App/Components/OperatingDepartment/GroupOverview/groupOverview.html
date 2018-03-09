@@ -1,0 +1,59 @@
+﻿<div class="group">
+    <div class="main-header hpanel">
+        <h2 class="main-header__title">
+            {{'Group' | translate}}
+            <span class="main-header__text">{{'Assign employees to groups' | translate}}</span>
+        </h2>
+        <div class="main-header__col text-right">
+            <a class="btn btn-custom" ui-sref="{{groupOverviewCtrl.state.GroupCreate}}">
+                <i class="fa fa-plus"></i>
+                <span class="create-btn-text">{{'Create Group' | translate}}</span>
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="row">
+            <div class="no-select-value" ng-hide="groupOverviewCtrl.groups.length">
+                {{'There are no any groups' | translate}}
+            </div>
+            <table class="table" ng-show="groupOverviewCtrl.groups.length">
+                <thead>
+                <tr>
+                    <th>{{'Group' | translate}}</th>
+                    <th>{{'Employee' | translate}}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="group in groupOverviewCtrl.groups | orderBy: 'name'">
+                    <td>
+                        <label class="control-label">{{group.name}}</label>
+                    </td>
+                    <td>
+                        <div ng-repeat="member in group.members | orderBy: 'name'" class="list-employees">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <user-avatar data-config="{ url: member.avatar, name: member.name }"/>
+                                    <span>{{member.name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <span ng-click="groupOverviewCtrl.editGroup(group.id)" class="btn btn-primary fa fa-pencil"></span>
+                                <span ng-click="groupOverviewCtrl.deleteGroup(group)" class="btn btn-default fa fa-times" title="{{'Remove group' | translate}}"></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="back-to-top" data-ng-click="groupOverviewCtrl.scrollToTop()" data-ng-class="{'show-btn' : groupOverviewCtrl.isVisibleButton}">
+        <i class="fa fa-chevron-up"></i>
+        <div>{{'Till toppen' | translate}}</div>
+    </div>
+</div>

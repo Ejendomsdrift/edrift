@@ -1,0 +1,11 @@
+﻿/* mixins */
+.box-with-border() {
+    background: @white;
+    border: 1px solid @iron;
+    .border-radius(1px);
+}
+
+.border-radius(@radius) {
+    -webkit-border-radius: @radius;
+    border-radius: @radius;
+}

@@ -1,0 +1,73 @@
+﻿@import "../../Less/Mixins";
+@import "../../Less/Variables";
+
+.file-uploader {
+    width: 100%;
+    font-size: 14px;
+    position: relative;
+}
+
+.dragover {
+    border: 1px dashed #727173;
+    .border-radius(8px);
+    opacity: 0.5;
+    margin-right: 23px;
+
+    &:hover {
+        border-color: #3791e5;
+        opacity: 1;
+        cursor: pointer;
+    }
+
+    &__item {
+        padding: 0 10px;
+        height: 132px;
+        text-align: center;
+        width: 100%;
+        display: inline-block;
+        white-space: nowrap;
+
+        &:after {
+            content: '';
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+        }
+    }
+
+    &__text {
+        display: inline-block;
+        vertical-align: middle;
+        white-space: normal;
+
+        span {
+            display: inline-block;
+            margin-right: 5px;
+        }
+    }
+}
+
+.load-icon {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.2);
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 8px;
+    z-index: 1001;
+
+    &__img {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &:after {
+        display: inline-block;
+        height: 100%;
+        content: "";
+        vertical-align: middle;
+    }
+}

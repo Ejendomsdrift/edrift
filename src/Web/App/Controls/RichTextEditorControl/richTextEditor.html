@@ -1,0 +1,14 @@
+﻿<div>
+    <edit-control config="richTextCtrl.editControlConfig">
+        <div data-ng-show="richTextCtrl.isEditableMode()" class="cursor-text rte">
+            <div data-ng-class="richTextCtrl.config.triggerValidate() ? 'show-correct' : 'show-error'">
+                <div summernote config="richTextCtrl.summernoteOptions" data-ng-model="richTextCtrl.config.value"></div>
+                <label class="error-label">{{richTextCtrl.maxDescriptionLength}}</label>
+            </div>
+        </div>
+        <div data-ng-hide="richTextCtrl.isEditableMode()" class="rte">
+            <span data-ng-show="!richTextCtrl.config.value.length">{{'Click here, for adding description' | translate}}</span>
+            <div data-ng-bind-html="richTextCtrl.config.value"></div>
+        </div>
+    </edit-control>
+</div>

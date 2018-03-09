@@ -1,0 +1,100 @@
+﻿<div class="row clearfix top-indent" ng-show="weekPlanGridCtrl.selectedDepartment" data-ng-init="weekPlanGridCtrl.init(weekPlanCtrl.selectedDepartment, weekPlanCtrl.selectedWeek, weekPlanCtrl.selectedYear)">
+    <div class="col-md-2">
+        <div class="notes hpanel">
+            <h3 class="notes__heading">{{'All' | translate}}</h3>
+            <ul class="notes__list apps-container _fixed-height" ui-sortable="weekPlanGridCtrl.sortableOptions" ng-model="weekPlanGridCtrl.backLogTasks" style="min-height: 60px;">
+                <li data-ng-repeat="taskItem in weekPlanGridCtrl.backLogTasks track by taskItem.uniqueId">
+                    <div class="notes__item" ng-show="weekPlanGridCtrl.isAllowedTask(taskItem)" ng-click="weekPlanGridCtrl.assignDay(taskItem)"
+                         ng-style="::{'background-color':taskItem.taskDisplayColor, 'border-color':taskItem.taskDisplayColor}"
+                         ng-class="::{'expired': weekPlanGridCtrl.isTaskExpired(taskItem.weekNumber, weekPlanCtrl.currentWeek)}">
+                        <div class="notes__body">
+                            <span class="notes__week">{{::weekPlanGridCtrl.getWeekNumber(taskItem)}}</span>
+                            <div class="notes__category">
+                                <span>{{taskItem.jobTypeName | translate}}</span>
+                                <span ng-show="::taskItem.tenantTypeName">: {{taskItem.tenantTypeName | translate}}</span>
+                                <span ng-show="::taskItem.isUrgent" class="_font-red">{{'Urgent job' | translate}}</span>
+                                <span ng-show="::taskItem.category.name">: {{taskItem.category.name}}</span>
+                            </div>
+                            <strong class="notes__title">{{::taskItem.title}}</strong>
+                            <span ng-if="::taskItem.address" class="notes__address">{{::taskItem.address}}</span>
+                        </div>
+                        <footer class="notes__footer {{::weekPlanGridCtrl.jobStatusNameList[taskItem.statusId]}}">
+                            <i class="notes__status-icon fa" ng-class="::weekPlanGridCtrl.getClassIcon(taskItem.statusId)"></i>
+                            <span class="notes__status">{{::weekPlanGridCtrl.getStatusTranslation(taskItem.statusId) | translate}}</span>
+                        </footer>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="_custom" ng-class="{'col-md-1': weekPlanCtrl.isShowWeekend, 'col-md-2': !weekPlanCtrl.isShowWeekend}" ng-repeat="day in weekPlanGridCtrl.weekDays" ng-hide="day.dayNumber > 5 && !weekPlanCtrl.isShowWeekend">
+        <div class="notes__col">
+            <div class="notes__item _week-title hpanel" ng-class="::{'active-item': day.isCurrent}">
+                <h4 class="notes__title">{{::day.dayOfWeek | translate}}</h4>
+                <span>{{::weekPlanGridCtrl.getDayNumber(day.date)}}. {{::weekPlanGridCtrl.getMonthName(day.date) | translate}}</span>
+            </div>
+            <ul class="notes__list apps-container" ui-sortable="weekPlanGridCtrl.sortableOptions" data-day="{{day.dayNumber}}" ng-model="day.tasks" style="min-height: 60px;">
+                <li data-ng-repeat="taskItem in day.tasks track by taskItem.uniqueId" class="hpanel" ng-class="::{'not-draggable' : weekPlanGridCtrl.isTaskNotDraggable(taskItem)}">
+                    <div class="notes__item"
+                         ng-show="weekPlanGridCtrl.isAllowedTask(taskItem)"
+                         ng-click="weekPlanGridCtrl.assignDay(taskItem, day.dayNumber, day.date)"
+                         ng-style="::{'background-color':taskItem.taskDisplayColor, 'border-color':taskItem.taskDisplayColor}"
+                         ng-class="::{'expired': weekPlanGridCtrl.isTaskExpired(taskItem.weekNumber, weekPlanGridCtrl.currentWeek), '_non-member': weekPlanGridCtrl.isTaskDoesntHasAssignedUsers(taskItem)}">
+                        <div class="notes__body">
+                            <span class="notes__week">{{::weekPlanGridCtrl.getWeekNumber(taskItem)}}</span>
+                            <div class="notes__category">
+                                <span>{{taskItem.jobTypeName | translate}}</span>
+                                <span ng-show="::taskItem.tenantTypeName">: {{taskItem.tenantTypeName | translate}}</span>
+                                <span ng-show="::taskItem.isUrgent" class="_font-red">{{'Urgent job' | translate}}</span>
+                                <span ng-show="::taskItem.category.name">: {{::taskItem.category.name}}</span>
+                            </div>
+                            <div class="notes__time">
+                                <span>{{::weekPlanGridCtrl.getTaskTimeString(taskItem)}}</span>
+                                <span ng-if="::weekPlanGridCtrl.isTaskDurationNeeded(taskItem)"> - {{::weekPlanGridCtrl.getEstimateTimeString(taskItem)}}</span>
+                            </div>
+                            <strong class="notes__title">{{::taskItem.title}}</strong>
+                            <span ng-if="::taskItem.address" class="notes__address">{{::taskItem.address}}</span>
+                            <span>{{'Estimate/spent time'| translate}}: {{::taskItem.estimate}}/{{::taskItem.spentTime}}</span>
+                            <div ng-hide="::weekPlanGridCtrl.isTaskDoesntHasAssignedUsers(taskItem)">
+                                <div ng-show="::(taskItem.users.length > 0)" class="notes__users">
+                                    <span ng-repeat="user in taskItem.users | limitTo:2" class="notes__avatar">
+                                        <user-avatar data-config="{ url: user.avatar, name: user.name }" />
+                                    </span>
+                                    <span ng-show="::(taskItem.users.length > 2)">
+                                        <span class="notes__count"> + {{::taskItem.users.length - 2}}</span>
+                                    </span>
+                                </div>
+                                <div ng-hide="::(taskItem.users.length > 0)">
+                                    <div class="notes__users" ng-show="::(taskItem.groupId != null)">
+                                        <div class="_pt-indent">{{'all from group' | translate}} {{::taskItem.groupName}}</div>
+                                    </div>
+                                    <div class="notes__users" ng-hide="::taskItem.groupId">
+                                        <div class="_pt-indent">{{::weekPlanGridCtrl.getAssignToLabel(taskItem)}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="notes__footer {{::weekPlanGridCtrl.jobStatusNameList[taskItem.statusId]}}">
+                            <span class="comment-icons" ng-if="taskItem.changeStatusInfo" ng-click="weekPlanGridCtrl.showHideCommenBlock($event, taskItem)">
+                                <i ng-if="taskItem.changeStatusInfo.uploadedFileList.length" class="pe-7s-upload"></i>
+                                <i ng-if="taskItem.changeStatusInfo.changeStatusComment" class="pe-7s-comment"></i>
+                            </span>
+                            <div class="overflow">
+                                <i class="notes__status-icon fa" ng-class="::weekPlanGridCtrl.getClassIcon(taskItem.statusId)"></i>
+                                <span class="notes__status">{{weekPlanGridCtrl.getStatusTranslation(taskItem.statusId) | translate}}</span>
+                                <div ng-if="taskItem.changeStatusInfo && taskItem.changeStatusInfo.cancellationReason">
+                                    <br>
+                                    <span>{{'Cancellation reason' | translate}}: </span>
+                                    <span ng-if="taskItem.changeStatusInfo" class="notes-status">{{taskItem.changeStatusInfo.cancellationReason}}</span>
+                                </div>
+                            </div>
+                            <div class="notes__comment" ng-if="taskItem.changeStatusInfo" ng-show="taskItem.isShowCommentBlock" ng-click="weekPlanGridCtrl.preventOpenAssignPopup($event, taskItem)">
+                                <div data-ng-include="'/app/components/operatingDepartment/weekPlan/weekPlanGrid/commentInfoTooltip.html'"></div>
+                            </div>
+                        </footer>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

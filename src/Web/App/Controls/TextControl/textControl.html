@@ -1,0 +1,9 @@
+﻿<div>
+    <edit-control config="textCtrl.editControlConfig">
+        <div data-ng-if="textCtrl.isEditableMode()" data-ng-class="textCtrl.isConfigValueValid() ? '' : '_error'">
+            <input type="{{textCtrl.config.inputType}}" data-ng-model="textCtrl.config.value" data-ng-blur="textCtrl.setValue()" class="form-control" />
+            <label class="error-label" data-ng-show="textCtrl.isTextLengthNotValid">{{'Allowed size has been exceeded' | translate}}</label>
+        </div>
+        <span data-ng-if="!textCtrl.isEditableMode()" class="text-control__text">{{textCtrl.config.value}}</span>
+    </edit-control>
+</div>

@@ -1,0 +1,27 @@
+﻿<table class="table _valign-m" >
+    <thead>
+        <tr>
+            <th>{{'File name' | translate}}</th>
+            <th>{{'Creator name' | translate}}</th>
+            <th>{{'Creation date' | translate}}</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="file in $flow.files">
+            <td>
+                <span alt="uploadedDocument">{{file.name}}</span>
+            </td>
+            <td>
+                <user-avatar data-config="{ url: uploaderCtrl.currentUser.avatar, name: uploaderCtrl.currentUser.name }" />
+                <span>{{uploaderCtrl.currentUser.name}}</span>
+            </td>
+            <td>
+                {{uploaderCtrl.getFormatedCreationDate()}}
+            </td>
+            <td>
+                <span class="document__del pe-7s-close _pointer" ng-click="file.cancel()"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

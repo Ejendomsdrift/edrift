@@ -1,0 +1,32 @@
+﻿@import "../../Less/Mixins";
+@import "../../Less/Variables";
+
+.has-multiple {
+    .when-has-multiple {
+        display: block;
+    }
+
+    .when-no-multiple {
+        display: none;
+    }
+}
+
+.no-multiple {
+    .when-has-multiple {
+        display: none;
+    }
+
+    .when-no-multiple {
+        display: block;
+    }
+}
+
+.department {
+    &__picker {
+        .ui-select-bootstrap .ui-select-toggle > a.btn {
+            position: static;
+            margin-right: 13px !important;
+            margin-top: -17px;
+        }
+    }
+}

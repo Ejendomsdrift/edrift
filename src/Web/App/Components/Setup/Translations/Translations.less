@@ -1,0 +1,64 @@
+﻿@import "../../../Less/Mixins";
+@import "../../../Less/Variables";
+@import "../../../Less/fonts";
+
+/* Admin functions */
+.admin-panel {
+    &__export {
+        margin: 0 0 10px;
+    }
+
+    .dragover {
+        margin: 0 0 10px;
+    }
+
+    &__block {
+    }
+
+    &__row {
+        margin: 0 0 10px;
+
+        &:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+    }
+
+    &__label {
+        width: 25%;
+        float: left;
+    }
+
+    &__field {
+        width: 75%;
+        float: left;
+    }
+
+    &__field-btn {
+        padding: 10px 0 0;
+    }
+
+    &__table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    &__table-th,
+    &__table-td {
+        padding: 5px 2px;
+    }
+
+    &__table-th:last-child {
+        text-align: center;
+    }
+
+    &__table-td:last-child {
+        text-align: right;
+    }
+
+    .drag__item {
+        margin-bottom: 10px;
+        padding: 0;
+    }
+}

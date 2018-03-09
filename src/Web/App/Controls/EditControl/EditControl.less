@@ -1,0 +1,254 @@
+﻿@import "../../Less/Mixins";
+@import "../../Less/Variables";
+@import "../../Less/fonts";
+
+.edit-control {
+
+    &__bg {
+        position: fixed;
+        top: -9999px;
+        bottom: -9999px;
+        right: -9999px;
+        left: -9999px;
+        z-index: 2;
+    }
+
+    &__content {
+        position: relative;
+        border: 1px solid @white;
+        cursor: pointer;
+        padding: 6px 10px;
+        min-height: 30px;
+        border-radius: 3px 0 0 3px;
+        font-size: 14px;
+
+        &:hover {
+            border-color: @iron;
+
+            .edit-control__btn-edit {
+                display: block;
+            }
+        }
+
+        .days-control & {
+            .days-of-the-week {
+                margin: -5px 0 0;
+                white-space: normal;
+
+                .checkbox {
+                    display: inline-block;
+                    margin: 10px 5px 0 0;
+                }
+            }
+
+            .repeats {
+                display: block;
+                padding: 6px 5px;
+            }
+        }
+
+        .select-group {
+            margin: -7px -13px;
+            width: auto !important;
+        }
+
+        .assign__department-list {
+            margin: -7px -12px;
+        }
+
+        .ui-select-multiple {
+            border-color: @white !important;
+            margin: -7px -13px;
+        }
+
+        .rte {
+            word-wrap: break-word;
+
+            p {
+                margin: 0;
+            }
+        }
+    }
+
+    &__btn-edit {
+        display: none;
+        position: absolute;
+        top: -1px;
+        right: -37px;
+        bottom: -1px;
+        font-size: 13px;
+        .border-radius(0 3px 3px 0);
+        background-color: @iron;
+
+        &:before {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        &:after {
+            content: "";
+            display: inline-block;
+            vertical-align: top;
+            height: 100%;
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+            background-color: @iron;
+        }
+    }
+
+    &__btns {
+        font-size: 13px;
+    }
+
+    .days-of-the-week & {
+        margin: -6px 0 -4px;
+    }
+
+    .drag__item {
+        padding-bottom: 30px;
+    }
+}
+
+._active-edit-control {
+    position: relative;
+    z-index: 2;
+
+    .edit-control__content {
+        border: none;
+        padding: 0;
+
+        .general-and-local-documents &,
+        .days-control &,
+        .days-of-the-week & {
+            border: 1px solid @iron;
+            padding: 6px 12px;
+            .border-radius(3px 3px 0 3px);
+        }
+
+        .days-control & {
+            select.form-control {
+                padding: 5px;
+                margin: 5px 0 0 -5px;
+                .border-radius(4px);
+            }
+        }
+
+        .team-picker {
+            border-radius: 5px;
+            border: 1px solid @iron;
+            padding: 6px 12px;
+
+            .form-control {
+                .border-radius(4px);
+            }
+        }
+
+        .map-container {
+            margin: 0;
+        }
+
+        .time-rage {
+            padding: 6px 12px;
+            border: 1px solid @iron;
+            .border-radius(3px 3px 0 3px);
+        }
+
+        .select-group {
+            margin: 0;
+        }
+
+        .ui-select-multiple {
+            border-color: @iron !important;
+            margin: 0;
+
+            .ui-select-search {
+                display: block;
+            }
+        }
+
+        .rte {
+            margin: -7px -13px;
+
+            .note-editor.note-frame {
+                border-color: @iron;
+            }
+        }
+    }
+
+    .edit-control__btns {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        margin-top: -1px;
+        z-index: 1;
+        background: @iron;
+        padding: 5px;
+        .border-radius(0 0 3px 3px);
+    }
+
+    .form-control {
+        .border-radius(4px 4px 0 4px);
+    }
+
+    .drag__item {
+        .form-control {
+            .border-radius(4px);
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            right: 10px;
+            width: calc(~"100% - 20px") !important;
+            font-size: 13px;
+        }
+    }
+}
+
+._disabled {
+
+    .edit-control__content:hover {
+        border-color: @white;
+        cursor: not-allowed;
+    }
+
+    .department__list-item {
+        cursor: not-allowed;
+    }
+
+    .ui-select-match {
+        cursor: not-allowed;
+    }
+
+    .caret, .btn-link, .close,
+    input.ui-select-search {
+        display: none;
+    }
+
+    .radio label::before {
+        background-color: @iron;
+    }
+}
+
+._create {
+    .edit-control {
+        &__content:hover {
+            border-color: @white;
+        }
+
+        &._create {
+            .ui-select-multiple {
+                border-color: @iron !important;
+            }
+        }
+    }
+
+    ._error {
+        ._create {
+            .ui-select-multiple {
+                border-color: @red !important;
+            }
+        }
+    }
+}

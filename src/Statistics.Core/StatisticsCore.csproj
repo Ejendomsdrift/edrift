@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6B850E01-42E2-4F89-A654-48EBB1867DFB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Statistics.Core</RootNamespace>
+    <AssemblyName>Statistics.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA|AnyCPU'">
+    <OutputPath>bin\QA\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <OutputPath>bin\Production\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\Packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\Packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChartBuildConfigs\AddressVisitsChartConfig.cs" />
+    <Compile Include="ChartBuildConfigs\SpentTimeChartConfig.cs" />
+    <Compile Include="Implementation\ChartDataTypes.cs" />
+    <Compile Include="Implementation\ChartsDataBuilders\SpentTimeChartDataBuilder.cs" />
+    <Compile Include="Implementation\ChartsDataBuilders\TaskTypeRatioChartModelBuilder.cs" />
+    <Compile Include="Implementation\ChartsDataBuilders\AddressVisitsChartModelBuilder.cs" />
+    <Compile Include="Implementation\DayAssignsTimeSpanSelector.cs" />
+    <Compile Include="Implementation\ITasksInfoBuilder.cs" />
+    <Compile Include="Implementation\StatisticEnumExtension.cs" />
+    <Compile Include="Implementation\StatisticFiltersModelBuilder.cs" />
+    <Compile Include="Implementation\StatisticMapperProfile.cs" />
+    <Compile Include="Implementation\TaskChartModelBuilder.cs" />
+    <Compile Include="Implementation\TasksInfoBuilder.cs" />
+    <Compile Include="Implementation\TaskStatisticService.cs" />
+    <Compile Include="Models\AbsenceDataModel.cs" />
+    <Compile Include="Models\AbsenceInfo.cs" />
+    <Compile Include="Models\CancelingReasonDataModel.cs" />
+    <Compile Include="Models\CancelingReasonInfo.cs" />
+    <Compile Include="Models\ChartDataQueryingRestrictions.cs" />
+    <Compile Include="Models\CsvRequestTypes.cs" />
+    <Compile Include="Models\HousingDepartmentStatisticModel.cs" />
+    <Compile Include="Models\ManagementDepartmentStatisticModel.cs" />
+    <Compile Include="Models\StatisticFiltersModel.cs" />
+    <Compile Include="Models\TaskChartModel.cs" />
+    <Compile Include="ChartBuildConfigs\TaskRatioChartBuildConfig.cs" />
+    <Compile Include="Models\TaskInfo.cs" />
+    <Compile Include="Models\TextFileResultModel.cs" />
+    <Compile Include="Models\TimePeriod.cs" />
+    <Compile Include="Profiles\AddressStatisticInfoProfile.cs" />
+    <Compile Include="Profiles\ManagementMapperProfile.cs" />
+    <Compile Include="Profiles\TaskInfoCsvProfiles.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CancellingTemplatesCore.Contract\CancellingTemplatesCore.Contract.csproj">
+      <Project>{FAEC5642-926B-4140-B468-7B800087C7FB}</Project>
+      <Name>CancellingTemplatesCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CategoryCore.Contract\CategoryCore.Contract.csproj">
+      <Project>{7623684A-6EA0-44CF-9C5F-4C507662124E}</Project>
+      <Name>CategoryCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeManagementCore.Contract\AbsenceTemplatesCore.Contract.csproj">
+      <Project>{83A6B545-C6B5-4805-A5D6-74C3FF7E573E}</Project>
+      <Name>AbsenceTemplatesCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{6971B2FC-D156-4671-B2CA-EDBC6FA3FA7F}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManagementDepartmentCore.Contract\ManagementDepartmentCore.Contract.csproj">
+      <Project>{7CB1259C-112D-461B-A940-7379618DC5CA}</Project>
+      <Name>ManagementDepartmentCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MemberCore.Contract\MemberCore.Contract.csproj">
+      <Project>{47BC5D0C-F6C7-4C86-9F71-DFFD66CEA359}</Project>
+      <Name>MemberCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Statistics.Contract\StatisticsCore.Contract.csproj">
+      <Project>{A16D8D09-284F-4D9C-AA28-BE1FF38F5FF6}</Project>
+      <Name>StatisticsCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatusCore.Contract\StatusCore.Contract.csproj">
+      <Project>{C26C786E-1D2E-452E-BA71-197D255C489E}</Project>
+      <Name>StatusCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Translations\Translations.csproj">
+      <Project>{7D882F35-5EAC-46AA-BC38-645A860D3DE0}</Project>
+      <Name>Translations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YearlyPlanning.Contract\YearlyPlanning.Contract.csproj">
+      <Project>{563E54E5-F69C-4227-AE8A-AEAD320AEA3B}</Project>
+      <Name>YearlyPlanning.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YearlyPlanning\YearlyPlanning.csproj">
+      <Project>{CBFEA228-DE0B-4DF9-9AEC-4373B476D171}</Project>
+      <Name>YearlyPlanning</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

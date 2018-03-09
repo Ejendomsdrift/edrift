@@ -1,0 +1,31 @@
+﻿<div class="row clearfix" data-ng-controller="weekPlanListController as listCtrl" 
+     data-ng-init="listCtrl.init(weekPlanCtrl.selectedDepartment, weekPlanCtrl.selectedWeek, weekPlanCtrl.selectedYear)" 
+     data-ng-show="weekPlanCtrl.selectedDepartment">
+    <div class="col-md-12">
+        <ul class="nav nav-tabs">
+            <li class="nav-item" ng-class="{'active': listCtrl.isActive(listCtrl.weekPlanListViewTabEnum.current)}" data-ng-click="listCtrl.loadCurrentTasks()">
+                <a ui-sref="{{listCtrl.state.WeekPlanListViewCurrentTasks}}" class="nav-link">
+                    {{'Current_tasks' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ng-class="{'active': listCtrl.isActive(listCtrl.weekPlanListViewTabEnum.completed)}" data-ng-click="listCtrl.loadCompletedTasks()">
+                <a ui-sref="{{listCtrl.state.WeekPlanListViewCompletedTasks}}" class="nav-link">
+                    {{'Completed_tasks' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ng-class="{'active': listCtrl.isActive(listCtrl.weekPlanListViewTabEnum.notCompleted)}" data-ng-click="listCtrl.loadNotCompletedTasks()">
+                <a ui-sref="{{listCtrl.state.WeekPlanListViewNotCompletedTasks}}" class="nav-link">
+                    {{'Not_completed_tasks' | translate}}
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content" >
+            <div class="tab-pane active">
+                <div class="table-responsive" ui-view="content"></div>
+                <input type="button" ng-if="listCtrl.isAllowedPreviousWeeks" value="{{listCtrl.loadMoreTitle}}" class="btn btn-custom center-block table__load-more" 
+                       data-ng-click="listCtrl.loadMore()" />
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,8 @@
+﻿<div>
+    <edit-control config="textAreaCtrl.editControlConfig">
+        <div data-ng-if="textAreaCtrl.isEditableMode()" data-ng-class="textAreaCtrl.isConfigValueValid() ? '' : '_error'">
+            <textarea data-ng-model="textAreaCtrl.config.value" class="form-control" data-ng-blur="textAreaCtrl.setValue()">{{textAreaCtrl.config.value}}</textarea>
+        </div>
+        <span data-ng-if="!textAreaCtrl.isEditableMode()">{{textAreaCtrl.config.value}}</span>
+    </edit-control>
+</div>

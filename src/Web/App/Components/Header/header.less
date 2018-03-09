@@ -1,0 +1,60 @@
+﻿@import "../../Less/Mixins";
+@import "../../Less/Variables";
+@import "../../Less/fonts";
+
+#header {
+    background-color: #fff;
+    display: block;
+    height: 62px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    border-bottom: 1px solid #e4e5e7;
+
+    .light-version {
+        border-right: 1px solid #e4e5e7;
+        width: 181px;
+    }
+
+    .color-line {
+        background: @blue;
+    }
+}
+
+.fixed-navbar #header {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.user-role {
+    padding: 11px 20px;
+    float: left;
+
+    &__select {
+        display: inline-block;
+        vertical-align: middle;
+        width: 250px;
+        margin: 0 15px 0 0;
+        cursor: pointer;
+
+        &:not(._user) {
+            width: 360px;
+        }
+    }
+}
+
+.navbar-nav {
+    li {
+        .nav__switch {
+            padding: 10px;
+            cursor: default;
+
+            &:hover {
+                background: inherit;
+            }
+        }
+    }
+}

@@ -1,0 +1,47 @@
+﻿<div data-ng-controller="weekPlanController as weekPlanCtrl" data-ng-init="weekPlanCtrl.init()" class="department">
+    <div class="main-header">
+        <h2 class="main-header__title">{{'Schedule week' | translate}}</h2>
+        <div class="main-header__col">
+            <div class="main-header__row">
+                <div class="main-header__housing" ng-show="!weekPlanCtrl.isTimeSubPage() || !weekPlanCtrl.selectedDepartment">
+                    <department-picker ng-model="weekPlanCtrl.selectedDepartment"
+                                       config="weekPlanCtrl.departmentPickerConfig">
+                    </department-picker>
+                </div>
+                <div class="main-header__year">
+                    <year-week-selector config="weekPlanCtrl.yearWeekSelectorConfig"></year-week-selector>
+                </div>
+                <div class="main-header__holder-btns" data-ng-if="weekPlanCtrl.selectedDepartment">
+                    <span class="main-header__btn m-r" ng-class="{'hide' : !weekPlanCtrl.isGridSubPage()}">
+                        <a class="btn btn-custom" data-ng-click="weekPlanCtrl.createOperationalTask()">
+                            <i class="fa fa-plus"></i>
+                            <span class="create-btn-text">{{'Create task' | translate}}</span>
+                        </a>
+                    </span>
+                    <span class="main-header__btn">
+                        <a class="btn" ng-click="weekPlanCtrl.weekWithWeekend()" ng-class="{'btn-custom' : weekPlanCtrl.isShowWeekend ,
+                                                                                    'btn-default' : !weekPlanCtrl.isShowWeekend,
+                                                                                    'hidden' : weekPlanCtrl.isListSubPage(),
+                                                                                    'hide' : weekPlanCtrl.isTimeSubPage()}">
+                            <span class="create-btn-text">{{'Weekend' | translate}}</span>
+                            <span data-ng-show="weekPlanCtrl.weekendJobCount > 0" class="count">({{weekPlanCtrl.weekendJobCount}})</span>
+                        </a>
+                    </span>
+                    <span class="main-header__view _selector"><a class="fa fa-th" ng-click="weekPlanCtrl.redirectToGridView()" ng-class="{'active' : weekPlanCtrl.isGridSubPage()}"></a></span>
+                    <span class="main-header__view _selector"><a class="fa fa-bars" ng-click="weekPlanCtrl.redirectToListView()" ng-class="{'active' : weekPlanCtrl.isListSubPage()}"></a></span>
+                    <span class="main-header__view _selector"><i class="fa fa-clock-o" ng-click="weekPlanCtrl.redirectToTimeSubPage()" ng-class="{'active' : weekPlanCtrl.isTimeSubPage()}"></i></span>
+                </div>
+            </div>
+            <div class="main-header__member" ng-show="weekPlanCtrl.selectedDepartment">
+                <member-picker data-config="weekPlanCtrl.memberPickerConfig"></member-picker>
+            </div>
+        </div>
+    </div>
+    <div ng-show="weekPlanCtrl.selectedDepartment" ui-view="content" class="content-week"></div>
+    <div class="no-select-value" ng-show="!weekPlanCtrl.selectedDepartment">{{'Choose HD to view week plan'| translate}}</div>
+    <div class="back-to-top" data-ng-click="weekPlanCtrl.scrollToTop()" data-ng-class="{'show-btn' : weekPlanCtrl.isVisibleButton}">
+        <i class="fa fa-chevron-up"></i>
+        <div>{{'Till toppen' | translate}}</div>
+    </div>
+</div>
+

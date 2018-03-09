@@ -1,0 +1,25 @@
+﻿@import "../../../Less/Mixins";
+@import "../../../Less/Variables";
+@import "../../../Less/fonts";
+
+.create-popup {
+    &.is-assign {
+        .when-assign {
+            display: block;
+        }
+
+        .when-create {
+            display: none;
+        }
+    }
+
+    &.is-create {
+        .when-assign {
+            display: none;
+        }
+
+        .when-create {
+            display: block;
+        }
+    }
+}

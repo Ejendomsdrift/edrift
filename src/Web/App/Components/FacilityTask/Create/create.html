@@ -1,0 +1,81 @@
+﻿<div class="create-popup" data-ng-class="createCtrl.selectedTask ? 'is-assign' : 'is-create'" security>
+    <div class="modal-header">
+        <a ng-click="createCtrl.redirect()" class="close pe-7s-close"></a>
+        <a ng-click="createCtrl.redirect()" class="close__overlay"></a>
+        <h3 class="modal-title">{{'Create operation task' | translate}}</h3>
+    </div>
+
+    <div class="modal-body">
+        <ul class="nav nav-tabs">
+            <li class="nav-item active">
+                <a class="nav-link">
+                    {{'Create Task' | translate}}
+                </a>
+            </li>
+        </ul>
+
+        <div class="form-horizontal">
+            <div class="form-group" data-access-key="FacilityTask_Create_Category">
+                <label class="col-sm-2 control-label">{{'Select where the task belong to' | translate}} *</label>
+                <div class="col-sm-10" data-ng-class="{'_error' : !createCtrl.isCategoryValid() || !createCtrl.isTaskSelected() }">
+                    <div class="tree-holder">
+                        <category-tree config="createCtrl.categoryTreeConfig"
+                                       selected-id="createCtrl.selectedId"
+                                       on-select="createCtrl.categoryTreeSelected($task, $category)">
+                        </category-tree>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group when-create" data-access-key="FacilityTask_Create_AddTaskUnderSelectedCategory">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <input id="confirmCreation" type="checkbox" data-ng-model="createCtrl.confirmCreation" ng-click="createCtrl.userMadeChanges()">
+                        <label for="confirmCreation">{{'I want to add a new task under the selected category' | translate}} *</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group when-create" data-access-key="FacilityTask_Create_TitleCoordinator">
+                <label class="col-sm-2 control-label">{{'Task title' | translate}} *</label>
+                <div class="col-sm-10" data-ng-class="{'_error' : !createCtrl.isTitleValid() }">
+                    <input type="text" class="form-control" data-ng-change="createCtrl.userMadeChanges()" focus data-ng-model="createCtrl.taskTitle" enter="createCtrl.create()" data-ng-disabled="!createCtrl.confirmCreation"/>
+                    <label class="error-label" data-ng-if="createCtrl.isTitleLengthExceeded()">{{'Allowed title size has been exceeded' | translate}}</label>
+                </div>
+            </div>
+
+            <div class="form-group when-create" data-access-key="FacilityTask_Create_TitleAdmin">
+                <label class="col-sm-2 control-label">{{'Task title' | translate}} *</label>
+                <div class="col-sm-10" data-ng-class="{'_error' : !createCtrl.isTitleValid() }">
+                    <input type="text" data-ng-change="createCtrl.userMadeChanges()" class="form-control" enter="createCtrl.create()" focus data-ng-model="createCtrl.taskTitle" />
+                    <label class="error-label" data-ng-if="createCtrl.isTitleLengthExceeded()">{{'Allowed title size has been exceeded' | translate}}</label>
+                </div>
+            </div>
+
+
+            <div class="form-group when-assign">
+                <label class="col-sm-2 control-label">{{'Departments' | translate}} *</label>
+                <div class="col-sm-10" data-ng-class="{'_error' : !createCtrl.isAssignedDepartmentValid() }">
+                    <multi-department-picker data-ng-model="createCtrl.assignDepartments">
+                    </multi-department-picker>
+                </div>
+            </div>
+
+            <div class="form-group" data-access-key="FacilityTask_Create_SubmitButton">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary when-create" data-ng-click="createCtrl.create()">
+                        {{'Create task button' | translate}}
+                    </button>
+                    <button type="button" class="btn btn-primary when-assign" data-ng-click="createCtrl.assign()"
+                            data-ng-disabled="!createCtrl.selectedTask">
+                        {{'Assign task button' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-btns-container">
+            <a class="btn btn-default" ng-click="createCtrl.redirect()">{{'Cancel' | translate}}</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+﻿<div class="popup">
+    <div class="popup__header">
+        <span class="popup__title">{{'Comments' | translate}}</span>
+        <span class="popup__close pe-7s-close" ng-click="weekPlanGridCtrl.showHideCommenBlock($event, taskItem)"></span>
+    </div>
+    <div class="popup__body">
+        <div class="popup__row">
+            <user-avatar data-config="{ url: taskItem.changeStatusInfo.avatar, name: taskItem.changeStatusInfo.name }" class="avatar" />
+            <span>{{weekPlanGridCtrl.getFormattedDateString(taskItem.changeStatusInfo.changeStatusDate)}}</span>
+            <span class="avatar-name">{{taskItem.changeStatusInfo.name}}</span>
+        </div>
+        <div class="popup__row" ng-if="taskItem.changeStatusInfo.uploadedFileList.length > 0">
+            <label class="popup__label">{{'Attached files' | translate}}: </label>
+            <div class="popup__holder">
+                <div data-ng-repeat="uploadedFile in taskItem.changeStatusInfo.uploadedFileList">
+                    <a href="{{uploadedFile.link}}" target="_blank" class="popup__link">
+                        {{uploadedFile.fileName}}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="popup__row" data-ng-if="taskItem.changeStatusInfo.changeStatusComment">
+            <label class="popup__label">{{'Comment' | translate}}: </label>
+            <div class="popup__holder">{{taskItem.changeStatusInfo.changeStatusComment}}</div>
+        </div>
+        <div class="popup__row" data-ng-if="taskItem.changeStatusInfo.cancellationReason">
+            <label class="popup__label">{{'Cancellation  reason' | translate}}: </label>
+            <div class="popup__holder">{{taskItem.changeStatusInfo.cancellationReason}}</div>
+        </div>
+    </div>
+</div>

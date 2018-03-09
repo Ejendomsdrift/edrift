@@ -1,0 +1,51 @@
+﻿<div>
+    <edit-control config="teamPickerCtrl.editControlConfig">
+        <div data-ng-class="teamPickerCtrl.isActiveWaitIcon ? 'show' : 'hide'" class="load-icon">
+            <img src="/Content/images/load-icon.gif" />
+        </div>
+        <div class="team-picker">
+            <div class="row" ng-class="!teamPickerCtrl.includeValidation || teamPickerCtrl.isGroupIdValid ? '' : '_error'">
+                <div class="col-sm-12">
+                    <ui-select ng-model="teamPickerCtrl.config.selectedGroup" on-select="teamPickerCtrl.selectGroup($item)">
+                        <ui-select-match allow-clear="true" placeholder="{{'Choose a group' | translate}}">
+                            <span ng-bind="$select.selected.name"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="group in teamPickerCtrl.groups | filter: { name : $select.search } track by group.id">
+                            <span ng-bind-html="group.name | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="form-group" ng-show="teamPickerCtrl.config.selectedGroup">
+                <div class="col-sm-12">
+                    <div class="_pt-indent">
+                        <span class="assign-to radio">
+                            <input type="radio" id="openToAllMembers" ng-model="teamPickerCtrl.state" ng-value="{{teamPickerCtrl.states.openToAll}}" ng-click="teamPickerCtrl.changeState()"/>
+                            <label for="openToAllMembers">{{(teamPickerCtrl.config.groupId ? 'Open task for selected group' : 'Open to all') | translate}}</label>
+                        </span>
+                        <span class="assign-to radio">
+                            <input type="radio" id="allMembers" ng-model="teamPickerCtrl.state" ng-value="{{teamPickerCtrl.states.assignedToAll}}" ng-click="teamPickerCtrl.changeState()"/>
+                            <label for="allMembers">{{(teamPickerCtrl.config.groupId ? 'All janitors in group' : 'Assign to all') | translate}}</label>
+                        </span>
+                        <span class="assign-to radio">
+                            <input type="radio" id="specificMembers" ng-model="teamPickerCtrl.state" ng-value="{{teamPickerCtrl.states.assignedToSelected}}" ng-click="teamPickerCtrl.changeState()"/>
+                            <label for="specificMembers">{{'Select janitor' | translate}}</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'_error': !teamPickerCtrl.isValidMemberSelector()}" ng-hide="teamPickerCtrl.state == teamPickerCtrl.states.openToAll || !teamPickerCtrl.config.selectedGroup || teamPickerCtrl.config.isAssignedToAllUsers">
+                <div class="col-sm-12">
+                    <member-picker data-config="teamPickerCtrl.memberPickerConfig"></member-picker>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{'_error': !teamPickerCtrl.isValidTeamLeadSelector()}" ng-show="teamPickerCtrl.state != teamPickerCtrl.states.openToAll && teamPickerCtrl.config.selectedGroup && (teamPickerCtrl.config.isAssignedToAllUsers || teamPickerCtrl.leadPickerConfig.members.length > 1)">
+                <div class="col-sm-12">
+                    <label>{{'Team Lead' | translate}}</label>
+                    <member-picker data-config="teamPickerCtrl.leadPickerConfig"></member-picker>
+                </div>
+            </div>
+        </div>
+    </edit-control>
+</div>

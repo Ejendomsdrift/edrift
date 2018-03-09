@@ -1,0 +1,349 @@
+﻿<section class="statistic">
+    <div class="main-header hpanel">
+        <div class="main-header__sorting">
+            <h2 class="main-header__title">{{'Statistics' | translate}}</h2>
+        </div>
+        <div class="statistic__filter">
+            <div class="statistic__col">
+                <label>{{'From' | translate}}</label>
+                <div class="input-group date datepicker" id="start-date-datepicker" data-date-format="{{statisticsCtrl.dateFormat}}" data-provide="datepicker" data-date-autoclose="true">
+                    <input type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="statistic__col">
+                <label>{{'To' | translate}}</label>
+                <div class="input-group date datepicker" id="end-date-datepicker" data-date-format="{{statisticsCtrl.dateFormat}}" data-provide="datepicker" data-date-autoclose="true">
+                    <input type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="statistic__col">
+                <input type="button" data-ng-click="statisticsCtrl.getStatistics()" value="{{'Get' | translate}}" class="btn btn-custom" />
+            </div>
+            <div class="statistic__col">
+                <label>{{'Vis' | translate}}:</label>
+                <input type="button" data-ng-click="statisticsCtrl.setViewType(statisticsCtrl.viewType.Custom, statisticsCtrl.viewNameCustomHours)" value="{{'Hours' | translate}}"
+                       class="btn" data-ng-class="statisticsCtrl.activeViewType === statisticsCtrl.viewType.Custom ? 'btn-custom' : 'btn-group'" />
+                <input type="button" data-ng-click="statisticsCtrl.setViewType(statisticsCtrl.viewType.Percentage)" value="{{'%' | translate}}"
+                       class="btn" data-ng-class="statisticsCtrl.activeViewType === statisticsCtrl.viewType.Percentage ? 'btn-custom' : 'btn-group'" />
+                <input type="button" data-ng-click="statisticsCtrl.setViewType(statisticsCtrl.viewType.Quantitative)" value="{{'Quantity' | translate}}"
+                       class="btn" data-ng-class="statisticsCtrl.activeViewType === statisticsCtrl.viewType.Quantitative ? 'btn-custom' : 'btn-group'" />
+            </div>
+        </div>
+    </div>
+    <div ui-view class="hpanel">
+        <div class="row m-b">
+            <div class="col-sm-4" data-ng-class="{'hidden': !statisticsCtrl.facilityTasksVsTenantTasks.isDataLoaded, 'chart__empty': statisticsCtrl.facilityTasksVsTenantTasks.isDataEmpty}">
+                <div class="panel-body">
+                    <h5>{{'Fordeling BS vs Drift' | translate}}</h5>
+                    <div id="facilityTasksVsTenantTasks-chart__holder" class="chart__holder">
+                        <canvas class="chart-height" width="300" height="300"></canvas>
+                    </div>
+                    <div class="chart__empty-img">
+                        <img src="../../../Content/images/circle.jpg" alt="" />
+                    </div>
+                    <div id="facilityTasksVsTenantTasks-chart__total" class="text-center font-bold m-t" data-ng-class="{'hidden': statisticsCtrl.facilityTasksVsTenantTasks.isDataEmpty}"></div>
+                </div>
+                <div class="panel-footer">
+                    <div class="panel-footer__row">
+                        <div class="row">
+                            <div class="col-sm-6 md-picker">
+                                <management-department-picker data-is-multiple="true"
+                                                              data-departments="statisticsCtrl.facilityTasksVsTenantTasks.managementDepartments"
+                                                              data-config="statisticsCtrl.facilityTasksVsTenantTasks.managementDepartmentPickerConfig">
+                                </management-department-picker>
+                            </div>
+                            <div class="col-sm-6 md-picker">
+                                <simple-department-picker data-config="statisticsCtrl.facilityTasksVsTenantTasks.simpleDepartmentPickerConfig"
+                                                          data-departments="statisticsCtrl.facilityTasksVsTenantTasks.housingDepartments"></simple-department-picker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right _pt-indent" data-ng-class="{'hidden': statisticsCtrl.facilityTasksVsTenantTasks.isDataEmpty}">
+                        <input type="button" data-ng-click="statisticsCtrl.downloadCsv(statisticsCtrl.facilityTasksVsTenantTasks)" value="{{'Exporter til CSV' | translate}}" class="btn-csv" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8" data-ng-class="{'hidden': !statisticsCtrl.spentTimeVsFacilityTasks.isDataLoaded, 'chart__empty' : statisticsCtrl.spentTimeVsFacilityTasks.isDataEmpty}">
+                <div class="panel-body">
+                    <h5>{{'FacilityTasks_SpentTime' | translate}}</h5>
+                    <div id="spentTimeVsFacilityTasks-chart__holder" class="chart__holder">
+                        <canvas class="chart-height" width="1043" height="485"></canvas>
+                    </div>
+                    <div class="chart__empty-img">
+                        <img src="../../../Content/images/schedule.jpg" alt="" />
+                    </div>
+                    <div id="spentTimeVsFacilityTasks-chart__total" class="text-center font-bold m-t" data-ng-class="{'hidden': statisticsCtrl.spentTimeVsFacilityTasks.isDataEmpty}"></div>
+                </div>
+                <div class="panel-footer">
+                    <div class="panel-footer__row">
+                        <div class="panel-footer__col">
+                            <management-department-picker data-is-multiple="true"
+                                                          data-departments="statisticsCtrl.spentTimeVsFacilityTasks.managementDepartments"
+                                                          data-config="statisticsCtrl.spentTimeVsFacilityTasks.managementDepartmentPickerConfig">
+                            </management-department-picker>
+                        </div>
+                        <div class="panel-footer__col">
+                            <simple-department-picker data-departments="statisticsCtrl.spentTimeVsFacilityTasks.housingDepartments"
+                                                      data-config="statisticsCtrl.spentTimeVsFacilityTasks.simpleDepartmentPickerConfig">
+                            </simple-department-picker>
+                        </div>
+                        <div class="panel-footer__col">
+                            <div class="department__block-category js-category-filter">
+                                <category-tree config="statisticsCtrl.spentTimeVsFacilityTasks.categoryTree.config"
+                                               on-select="statisticsCtrl.spentTimeVsFacilityTasks.categoryTree.onSelected($task, $category)"
+                                               selected-id="null">
+                                </category-tree>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right _pt-indent" data-ng-class="{'hidden': statisticsCtrl.spentTimeVsFacilityTasks.isDataEmpty}">
+                        <input type="button" data-ng-click="statisticsCtrl.downloadCsv(statisticsCtrl.spentTimeVsFacilityTasks)" value="{{'Exporter til CSV' | translate}}" class="btn-csv" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-b">
+            <!--<div class="col-sm-4" data-ng-class="{'hidden': !statisticsCtrl.completedVsOverdueTasks.isDataLoaded, 'chart__empty': statisticsCtrl.completedVsOverdueTasks.isDataEmpty}">
+                <div class="panel-body">
+                    <h5>{{'Overskredede opgaver' | translate}}</h5>
+                    <div id="completedVsOverdueTasks-chart__holder" class="chart__holder">
+                        <canvas class="chart-height"></canvas>
+                    </div>
+                    <div class="chart__empty-img">
+                        <img src="../../../Content/images/circle.jpg" alt="" />
+                    </div>
+                    <div id="completedVsOverdueTasks-chart__total" class="text-center font-bold m-t" data-ng-class="{'hidden': statisticsCtrl.completedVsOverdueTasks.isDataEmpty}"></div>
+                </div>
+                <div class="panel-footer">
+                    <div class="panel-footer__row">
+                        <div class="row">
+                            <div class="col-sm-6 md-picker">
+                                <management-department-picker data-is-multiple="true"
+                                                              data-departments="statisticsCtrl.completedVsOverdueTasks.managementDepartments"
+                                                              data-config="statisticsCtrl.completedVsOverdueTasks.managementDepartmentPickerConfig">
+                                </management-department-picker>
+                            </div>
+                            <div class="col-sm-6 md-picker">
+                                <simple-department-picker data-config="statisticsCtrl.completedVsOverdueTasks.simpleDepartmentPickerConfig"
+                                                          data-departments="statisticsCtrl.completedVsOverdueTasks.housingDepartments"></simple-department-picker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right _pt-indent" data-ng-class="{'hidden': statisticsCtrl.completedVsOverdueTasks.isDataEmpty}">
+                        <input type="button" data-ng-click="statisticsCtrl.downloadCsv(statisticsCtrl.completedVsOverdueTasks)" value="{{'Exporter til CSV' | translate}}" class="btn-csv" />
+                    </div>
+                </div>
+            </div>-->
+            <div class="col-sm-4" data-ng-class="{'hidden': !statisticsCtrl.unprocessedVsProcessedTasks.isDataLoaded, 'chart__empty' : statisticsCtrl.unprocessedVsProcessedTasks.isDataEmpty}">
+                <div class="panel-body">
+                    <h5>{{'UnprocessedVsProcessedTasks' | translate}}</h5>
+                    <div id="unprocessedVsProcessedTasks-chart__holder" class="chart__holder">
+                        <canvas class="chart-height"></canvas>
+                    </div>
+                    <div class="chart__empty-img">
+                        <img src="../../../Content/images/circle.jpg" alt="" />
+                    </div>
+                    <div id="unprocessedVsProcessedTasks-chart__total" class="text-center font-bold m-t" data-ng-class="{'hidden': statisticsCtrl.unprocessedVsProcessedTasks.isDataEmpty}"></div>
+                </div>
+                <div class="panel-footer">
+                    <div class="panel-footer__row">
+                        <div class="row">
+                            <div class="col-sm-6 md-picker">
+                                <management-department-picker data-is-multiple="true"
+                                                              data-departments="statisticsCtrl.unprocessedVsProcessedTasks.managementDepartments"
+                                                              data-config="statisticsCtrl.unprocessedVsProcessedTasks.managementDepartmentPickerConfig">
+                                </management-department-picker>
+                            </div>
+                            <div class="col-sm-6 md-picker">
+                                <simple-department-picker data-departments="statisticsCtrl.unprocessedVsProcessedTasks.housingDepartments"
+                                                          data-config="statisticsCtrl.unprocessedVsProcessedTasks.simpleDepartmentPickerConfig">
+                                </simple-department-picker>
+                            </div>
+                        </div>
+                        <div class="row m-t">
+                            <div class="col-sm-12 md-picker">
+                                <select-control data-config="statisticsCtrl.unprocessedVsProcessedTasks.cancelingReasonsPickerConfig">
+                                </select-control>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right _pt-indent" data-ng-class="{'hidden': statisticsCtrl.unprocessedVsProcessedTasks.isDataEmpty}">
+                        <input type="button" data-ng-click="statisticsCtrl.downloadCsv(statisticsCtrl.unprocessedVsProcessedTasks)" value="{{'Exporter til CSV' | translate}}" class="btn-csv" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8" data-ng-class="{'hidden': !statisticsCtrl.spentTimeVsTenantTasks.isDataLoaded, 'chart__empty': statisticsCtrl.spentTimeVsTenantTasks.isDataEmpty}">
+                <div class="panel-body">
+                    <h5>{{'Timeforbrug ved beboerhenvendelser' | translate}}</h5>
+                    <div id="spentTimeVsTenantTasks-chart__holder" class="chart__holder">
+                        <canvas class="chart-height" width="1043" height="485"></canvas>
+                    </div>
+                    <div class="chart__empty-img">
+                        <img src="../../../Content/images/schedule.jpg" alt="" />
+                    </div>
+                    <div id="spentTimeVsTenantTasks-chart__total" class="text-center font-bold m-t" data-ng-class="{'hidden': statisticsCtrl.spentTimeVsTenantTasks.isDataEmpty}"></div>
+                </div>
+                <div class="panel-footer">
+                    <div class="panel-footer__row">
+                        <div class="panel-footer__col">
+                            <management-department-picker data-is-multiple="true"
+                                                          data-departments="statisticsCtrl.spentTimeVsTenantTasks.managementDepartments"
+                                                          data-config="statisticsCtrl.spentTimeVsTenantTasks.managementDepartmentPickerConfig">
+                            </management-department-picker>
+                        </div>
+                        <div class="panel-footer__col">
+                            <simple-department-picker data-config="statisticsCtrl.spentTimeVsTenantTasks.simpleDepartmentPickerConfig"
+                                                      data-departments="statisticsCtrl.spentTimeVsTenantTasks.housingDepartments"></simple-department-picker>
+                        </div>
+                        <div class="panel-footer__col">
+                            <div class="text-right _pt-indent" data-ng-class="{'hidden': statisticsCtrl.spentTimeVsTenantTasks.isDataEmpty}">
+                                <input type="button" data-ng-click="statisticsCtrl.downloadCsv(statisticsCtrl.spentTimeVsTenantTasks)" value="{{'Exporter til CSV' | translate}}" class="btn-csv" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-b">
+            <div class="col-sm-4" data-ng-class="{'hidden': !statisticsCtrl.unprocessedVsProcessedTasks.isDataLoaded, 'chart__empty' : statisticsCtrl.unprocessedVsProcessedTasks.isDataEmpty}">
+                <!--<div class="panel-body"> TODO Chart move up
+                    <h5>{{'UnprocessedVsProcessedTasks' | translate}}</h5>
+                    <div id="unprocessedVsProcessedTasks-chart__holder" class="chart__holder">
+                        <canvas class="chart-height"></canvas>
+                    </div>
+                    <div class="chart__empty-img">
+                        <img src="../../../Content/images/circle.jpg" alt="" />
+                    </div>
+                    <div id="unprocessedVsProcessedTasks-chart__total" class="text-center font-bold m-t" data-ng-class="{'hidden': statisticsCtrl.unprocessedVsProcessedTasks.isDataEmpty}"></div>
+                </div>
+                <div class="panel-footer">
+                    <div class="panel-footer__row">
+                        <div class="row">
+                            <div class="col-sm-6 md-picker">
+                                <management-department-picker data-is-multiple="true"
+                                                              data-departments="statisticsCtrl.unprocessedVsProcessedTasks.managementDepartments"
+                                                              data-config="statisticsCtrl.unprocessedVsProcessedTasks.managementDepartmentPickerConfig">
+                                </management-department-picker>
+                            </div>
+                            <div class="col-sm-6 md-picker">
+                                <simple-department-picker data-departments="statisticsCtrl.unprocessedVsProcessedTasks.housingDepartments"
+                                                          data-config="statisticsCtrl.unprocessedVsProcessedTasks.simpleDepartmentPickerConfig">
+                                </simple-department-picker>
+                            </div>
+                        </div>
+                        <div class="row m-t">
+                            <div class="col-sm-12 md-picker">
+                                <select-control data-config="statisticsCtrl.unprocessedVsProcessedTasks.cancelingReasonsPickerConfig">
+                                </select-control>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right _pt-indent" data-ng-class="{'hidden': statisticsCtrl.unprocessedVsProcessedTasks.isDataEmpty}">
+                        <input type="button" data-ng-click="statisticsCtrl.downloadCsv(statisticsCtrl.unprocessedVsProcessedTasks)" value="{{'Exporter til CSV' | translate}}" class="btn-csv" />
+                    </div>
+                </div>-->
+            </div>
+            <div class="col-sm-8" data-ng-class="{'hidden': !statisticsCtrl.cancelingTenantReason.isDataLoaded, 'chart__empty': statisticsCtrl.cancelingTenantReason.isDataEmpty}">
+                <div class="panel-body">
+                    <h5>{{'Canceled Tennant separation by Reasons' | translate}}</h5>
+                    <div id="cancelingTenantReason-chart__holder" class="chart__holder">
+                        <canvas class="chart-height" width="1043" height="485"></canvas>
+                    </div>
+                    <div class="chart__empty-img">
+                        <img src="../../../Content/images/schedule.jpg" alt="" />
+                    </div>
+                    <div id="cancelingTenantReason-chart__total" class="text-center font-bold m-t" data-ng-class="{'hidden': statisticsCtrl.cancelingTenantReason.isDataEmpty}"></div>
+                </div>
+                <div class="panel-footer">
+                    <div class="panel-footer__row">
+                        <div class="panel-footer__col">
+                            <management-department-picker data-is-multiple="true"
+                                                          data-departments="statisticsCtrl.cancelingTenantReason.managementDepartments"
+                                                          data-config="statisticsCtrl.cancelingTenantReason.managementDepartmentPickerConfig">
+                            </management-department-picker>
+                        </div>
+                        <div class="panel-footer__col">
+                            <simple-department-picker data-departments="statisticsCtrl.cancelingTenantReason.housingDepartments"
+                                                      data-config="statisticsCtrl.cancelingTenantReason.simpleDepartmentPickerConfig">
+                            </simple-department-picker>
+                        </div>
+                        <div class="panel-footer__col">
+                            <div class="text-right _pt-indent" data-ng-class="{'hidden': statisticsCtrl.cancelingTenantReason.isDataEmpty}">
+                                <input type="button" data-ng-click="statisticsCtrl.downloadCsv(statisticsCtrl.cancelingTenantReason)" value="{{'Exporter til CSV' | translate}}" class="btn-csv" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4" data-ng-class="{'hidden': !statisticsCtrl.tenantTasksVsVisitsAmount.isDataLoaded, 'chart__empty': statisticsCtrl.tenantTasksVsVisitsAmount.isDataEmpty}">
+                <div id="hiden" ng-if="false">
+                    <!-- TODO Don't delete it! Chart hiden. If uncomment delete div with id "hiden".
+                    <!--data-ng-class="{'hidden': !statisticsCtrl.absenceReason.isDataLoaded, 'chart__empty': statisticsCtrl.absenceReason.isDataEmpty}"-->
+                    <!--<div class="panel-body">
+                        <h5>{{'Absence' | translate}}</h5>
+                        <div id="absenceReason-chart__holder" class="chart__holder">
+                            <canvas class="chart-height" width="1043" height="485"></canvas>
+                        </div>
+                        <div class="chart__empty-img">
+                            <img src="../../../Content/images/schedule.jpg" alt=""/>
+                        </div>
+                        <div id="absenceReason-chart__total" class="text-center font-bold m-t" data-ng-class="{'hidden': statisticsCtrl.absenceReason.isDataEmpty}"></div>
+                    </div>
+                    <div class="panel-footer height">
+                        <div class="panel-footer__row">&nbsp;</div>
+                        <div class="text-right _pt-indent padding-bpttom" data-ng-class="{'hidden': statisticsCtrl.absenceReason.isDataEmpty}">
+                            <input type="button" data-ng-click="statisticsCtrl.downloadCsv(statisticsCtrl.absenceReason)" value="{{'Exporter til CSV' | translate}}" class="btn-csv"/>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="panel-body">
+                    <h5>{{'TenantTasksVsVisitsAmount' | translate}}</h5>
+                    <div id="tenantTasksVsVisitsAmount-chart__holder" class="chart__holder">
+                        <canvas class="chart-height"></canvas>
+                    </div>
+                    <div class="chart__empty-img">
+                        <img src="../../../Content/images/schedule.jpg" alt="" />
+                    </div>
+                    <div id="tenantTasksVsVisitsAmount-chart__total" class="text-center font-bold m-t" data-ng-class="{'hidden': statisticsCtrl.tenantTasksVsVisitsAmount.isDataEmpty}"></div>
+                </div>
+                <div class="panel-footer">
+                    <div class="panel-footer__row">
+                        <div class="row">
+                            <div class="col-sm-6 md-picker">
+                                <management-department-picker data-is-multiple="true"
+                                                              data-departments="statisticsCtrl.tenantTasksVsVisitsAmount.managementDepartments"
+                                                              data-config="statisticsCtrl.tenantTasksVsVisitsAmount.managementDepartmentPickerConfig">
+                                </management-department-picker>
+                            </div>
+                            <div class="col-sm-6 md-picker">
+                                <simple-department-picker data-departments="statisticsCtrl.tenantTasksVsVisitsAmount.housingDepartments"
+                                                          data-config="statisticsCtrl.tenantTasksVsVisitsAmount.simpleDepartmentPickerConfig">
+                                </simple-department-picker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right _pt-indent" data-ng-class="{'hidden': statisticsCtrl.tenantTasksVsVisitsAmount.isDataEmpty}">
+                        <input type="button" data-ng-click="statisticsCtrl.downloadCsv(statisticsCtrl.tenantTasksVsVisitsAmount)" value="{{'Exporter til CSV' | translate}}" class="btn-csv" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-ng-class="statisticsCtrl.isActiveLoadIcon ? 'show' : 'hide'" class="load-icon">
+        <img src="/Content/images/load-icon.gif" />
+    </div>
+    <div class="back-to-top" data-ng-click="statisticsCtrl.scrollToTop()" data-ng-class="{'show-btn' : statisticsCtrl.isVisibleButton}">
+        <i class="fa fa-chevron-up"></i>
+        <div>{{'Till toppen' | translate}}</div>
+    </div>
+</section>

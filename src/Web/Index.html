@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="boligdrift">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title translate="Site_Title"></title>
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/Content/Compiled/libs.css">
+    <link rel="stylesheet" href="/Content/Compiled/bundle.css">
+</head>
+<body data-ng-controller="commonPageController as commonCtrl" class="fixed-navbar fixed-sidebar" ng-class="{'janitor' : commonCtrl.isJanitor()}">
+    <div ng-show="commonCtrl.isAuthorizedUser" id="wrapper" ng-show="$state.$current.name !== commonCtrl.state.Authorization">
+        <!-- Header include -->
+        <div data-ng-include="'/app/components/header/header.html'"></div>
+        <!-- Left sidebar/navigation include -->
+        <div ng-show="commonCtrl.isAuthorizedUser" data-ng-include="'/app/components/sidebar/sidebar.html'" ng-show="$state.$current.name !== commonCtrl.state.Authorization"></div>
+        <div class="content animate-panel" data-child="hpanel">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div ui-view="main" class="wrapper"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ui-view="login" class="wrapper" ng-show="$state.$current.name === commonCtrl.state.Authorization"></div>
+    <toast dismissontimeout="false"></toast>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5jY8MX2__snkWJr7Oi69lgVDwoV4p2fE&language=da&region=DK"></script>
+    <!-- inject:js -->
+    <script src="/Content/Compiled/libs.js"></script>
+    <script src="/Content/Compiled/scripts-a55c9087a2.js"></script>
+    <!-- endinject -->
+    <script src="/signalr/hubs"></script>
+</body>
+</html>

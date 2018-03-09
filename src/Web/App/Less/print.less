@@ -1,0 +1,83 @@
+﻿@import "Variables";
+
+@media print {
+    * {
+        color: @black !important;
+        background: @white !important;
+        overflow: visible !important;
+        height: auto !important;
+        position: static !important;
+        border-color: @black !important;
+        max-height: none !important;
+        min-height: 0 !important;
+        float: none !important;
+    }
+
+    body {
+        min-width: 320px !important;
+        font-size: 14px;
+    }
+
+    .ng-toast,
+    .nav-tabs,
+    .main-header,
+    #menu,
+    #header,
+    .table__load-more {
+        display: none;
+    }
+
+    .table-holder,
+    .content,
+    .fixed-navbar #wrapper {
+        padding: 0;
+        margin: 0;
+    }
+
+    .timetable__body,
+    .content-week {
+        padding: 0;
+    }
+
+    .notes {
+        border: none;
+        padding: 10px 0;
+
+        &__list {
+            padding: 0 !important;
+        }
+
+        &__item {
+            border-color: @black !important;
+            page-break-inside: avoid;
+        }
+    }
+
+    .col-md-1._custom, .col-md-2._custom {
+        padding: 0 15px;
+    }
+
+    .timetable__body,
+    .timetable__heading,
+    .department .tab-content {
+        border: none;
+    }
+
+    .timetable__heading {
+        border-bottom: 1px solid @black;
+        margin: 0;
+    }
+
+    .timetable {
+        &__name {
+            display: block;
+            padding-top: 5px;
+        }
+
+        &__col {
+            &:first-child {
+                text-align: center;
+            }
+        }
+    }
+}

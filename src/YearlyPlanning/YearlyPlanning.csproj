@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CBFEA228-DE0B-4DF9-9AEC-4373B476D171}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YearlyPlanning</RootNamespace>
+    <AssemblyName>YearlyPlanning</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Develop|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Develop\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Demo|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Demo\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Dev\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|AnyCPU'">
+    <OutputPath>bin\Stage\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA|AnyCPU'">
+    <OutputPath>bin\QA\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <OutputPath>bin\Production\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\Packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentAssertions.Core">
+      <HintPath>..\packages\FluentAssertions.4.11.0\lib\net45\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Packages\MongoDB.Bson.2.3.0\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Packages\MongoDB.Driver.2.3.0\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Packages\MongoDB.Driver.Core.2.3.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\Packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DayAssignDomain.cs" />
+    <Compile Include="FacilityTaskDepartmentAssign.cs" />
+    <Compile Include="Handlers\DayAssignViewModelGenerator.cs" />
+    <Compile Include="Handlers\DayAssignCommandHandler.cs" />
+    <Compile Include="Handlers\JobAssignCommandHandler.cs" />
+    <Compile Include="Handlers\JobAssignViewModelGenerator.cs" />
+    <Compile Include="Handlers\JobViewModelGenerator.cs" />
+    <Compile Include="Handlers\OperationalTaskCommandHandler.cs" />
+    <Compile Include="Handlers\OperationalTaskViewModelGenerator.cs" />
+    <Compile Include="JobAssignDomain.cs" />
+    <Compile Include="Models\ApproximateSpentTimeModel.cs" />
+    <Compile Include="Models\ChangeStatusUploadedFile.cs" />
+    <Compile Include="Models\ChangeStatusInfo.cs" />
+    <Compile Include="Models\ChangeStatusModel.cs" />
+    <Compile Include="Models\DefaultUtcWorkingTimeModel.cs" />
+    <Compile Include="Models\JobRelatedByAddressModel.cs" />
+    <Compile Include="Models\MemberDayAssignFilterModel.cs" />
+    <Compile Include="Models\TaskDataFilterModel.cs" />
+    <Compile Include="Models\FormattedJobAssign.cs" />
+    <Compile Include="Models\GuideCommentModel.cs" />
+    <Compile Include="Models\NewDayAssignModel.cs" />
+    <Compile Include="Models\WeekJobsResultModel.cs" />
+    <Compile Include="Models\WeekPlanFilterModel.cs" />
+    <Compile Include="Models\WeekPlanGridModel.cs" />
+    <Compile Include="Models\WeekPlanJobModel.cs" />
+    <Compile Include="Profiles\DayAssignMapperProfile.cs" />
+    <Compile Include="Models\WeekPlanParamsModel.cs" />
+    <Compile Include="Profiles\GuideCommentMapperProfile.cs" />
+    <Compile Include="ReadModel\DepartmentYearPlanViewModel.cs" />
+    <Compile Include="ReadModel\GuideComment.cs" />
+    <Compile Include="ReadModel\IJobAssignProvider.cs" />
+    <Compile Include="ReadModel\JobAssignProvider.cs" />
+    <Compile Include="ReadModel\JobDetailsModel.cs" />
+    <Compile Include="ReadModel\JobCounterModel.cs" />
+    <Compile Include="ReadModel\JobHeaderModel.cs" />
+    <Compile Include="ReadModel\PeriodMembersEstimationModel.cs" />
+    <Compile Include="ReadModel\YearPlanItem.cs" />
+    <Compile Include="ReadModel\YearPlanItemViewModel.cs" />
+    <Compile Include="ReadModel\HousingDepartmentYearPlanModel.cs" />
+    <Compile Include="ReadModel\YearPlanWeekData.cs" />
+    <Compile Include="Services\DayAssignService.cs" />
+    <Compile Include="Services\GuideCommentService.cs" />
+    <Compile Include="Services\ITimeSheduleService.cs" />
+    <Compile Include="Services\IYearlyPlanService.cs" />
+    <Compile Include="OperationalTask.cs" />
+    <Compile Include="ReadModel\DayAssign.cs" />
+    <Compile Include="ReadModel\DayAssignProvider.cs" />
+    <Compile Include="ReadModel\Job.cs" />
+    <Compile Include="Configuration\IYearlyPlanningConfiguration.cs" />
+    <Compile Include="ReadModel\FacilityTaskDepartmentAssignViewModel.cs" />
+    <Compile Include="JobDomain.cs" />
+    <Compile Include="Handlers\JobCommandHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadModel\IDayAssignProvider.cs" />
+    <Compile Include="ReadModel\IJobProvider.cs" />
+    <Compile Include="ReadModel\JobProvider.cs" />
+    <Compile Include="Services\IWeekPlanService.cs" />
+    <Compile Include="ReadModel\IOperationalTaskProvider.cs" />
+    <Compile Include="ReadModel\OperationalTaskProvider.cs" />
+    <Compile Include="Models\OperationalTaskModel.cs" />
+    <Compile Include="ReadModel\TaskIdGenerator.cs" />
+    <Compile Include="ReadModel\WeekPlanListViewModel.cs" />
+    <Compile Include="Services\OperationalTaskService.cs" />
+    <Compile Include="Services\TimeSheduleService.cs" />
+    <Compile Include="Services\WeekPlanService.cs" />
+    <Compile Include="Services\JobService.cs" />
+    <Compile Include="Services\YearlyPlanService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CategoryCore.Contract\CategoryCore.Contract.csproj">
+      <Project>{7623684a-6ea0-44cf-9c5f-4c507662124e}</Project>
+      <Name>CategoryCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeManagementCore.Contract\AbsenceTemplatesCore.Contract.csproj">
+      <Project>{83A6B545-C6B5-4805-A5D6-74C3FF7E573E}</Project>
+      <Name>AbsenceTemplatesCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GroupsContract\GroupsContract.csproj">
+      <Project>{1981AB7A-F2F4-4828-8472-48217139EA32}</Project>
+      <Name>GroupsContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManagementDepartmentCore.Contract\ManagementDepartmentCore.Contract.csproj">
+      <Project>{7cb1259c-112d-461b-a940-7379618dc5ca}</Project>
+      <Name>ManagementDepartmentCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileStorage.Contract\FileStorage.Contract.csproj">
+      <Project>{99C96F09-5046-4E15-ACEC-31D7775ECB2E}</Project>
+      <Name>FileStorage.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Groups\Groups.csproj">
+      <Project>{34bff228-8677-431b-93c1-428bdf6c1ce9}</Project>
+      <Name>Groups</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{6971B2FC-D156-4671-B2CA-EDBC6FA3FA7F}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MemberCore.Contract\MemberCore.Contract.csproj">
+      <Project>{47BC5D0C-F6C7-4C86-9F71-DFFD66CEA359}</Project>
+      <Name>MemberCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MongoRepository.Contract\MongoRepository.Contract.csproj">
+      <Project>{bd1617a5-3651-4be2-b5f3-e249829ecc94}</Project>
+      <Name>MongoRepository.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Statistics.Contract\StatisticsCore.Contract.csproj">
+      <Project>{A16D8D09-284F-4D9C-AA28-BE1FF38F5FF6}</Project>
+      <Name>StatisticsCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatusCore.Contract\StatusCore.Contract.csproj">
+      <Project>{c26c786e-1d2e-452e-ba71-197d255c489e}</Project>
+      <Name>StatusCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YearlyPlanning.Contract\YearlyPlanning.Contract.csproj">
+      <Project>{563E54E5-F69C-4227-AE8A-AEAD320AEA3B}</Project>
+      <Name>YearlyPlanning.Contract</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

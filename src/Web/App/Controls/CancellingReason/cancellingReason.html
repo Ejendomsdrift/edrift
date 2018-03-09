@@ -1,0 +1,48 @@
+﻿<section>
+    <div class="admin-panel__block m-b">
+        <div class="admin-panel__row">
+            <div class="row">
+                <label class="col-sm-3">{{'Create new reason for cancelling' | translate}}</label>
+                <div class="col-sm-3">
+                    <input class="form-control" type="text" data-ng-model="cancellingReasonCtrl.newTemplateText" />
+                </div>
+                <div class="col-sm-4">
+                    <ui-select data-ng-model="cancellingReasonCtrl.selectedTaskType"
+                               on-select="cancellingReasonCtrl.onSelectTaskType($item.id)"
+                               on-remove="cancellingReasonCtrl.onRemoveTaskType($item.id)"
+                               multiple>
+                        <ui-select-match allow-clear="true" placeholder="{{'Choose task type' | translate}}">
+                            <span data-ng-bind="$item.name"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="taskType in cancellingReasonCtrl.taskTypeList | filter: { name : $select.search }">
+                            <span data-ng-bind-html="taskType.name | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="col-sm-1 text-right">
+                    <input type="button" value="Add" class="btn btn-primary" data-ng-click="cancellingReasonCtrl.create()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row" ng-if="cancellingReasonCtrl.config.templates.length > 0">
+        <div class="col-sm-12">
+            <table class="table">
+                <tr>
+                    <th>{{'Cancelling' | translate}}</th>
+                    <th>{{'Allowed task type' | translate}}</th>
+                    <th class="text-right">{{'Remove' | translate}}</th>
+                </tr>
+                <tr data-ng-repeat="template in cancellingReasonCtrl.config.templates">
+                    <td>{{template.text}}</td>
+                    <td>
+                        <div data-ng-repeat="taskType in template.jobTypeList">{{cancellingReasonCtrl.taskTypeList[taskType].name}}</div>
+                    </td>
+                    <td class="text-right">
+                        <input type="button" class="btn btn-default" value="Delete" data-ng-click="cancellingReasonCtrl.delete(template)" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>

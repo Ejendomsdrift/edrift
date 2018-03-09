@@ -1,0 +1,77 @@
+﻿@import '../../../Less/fonts';
+@import '../../../Less/Mixins';
+@import '../../../Less/Variables';
+
+.employee {
+    .table {
+        table-layout: fixed;
+        width: 100%;
+
+        tbody {
+            border-top: none !important;
+        }
+    }
+
+    .delet-icon {
+        font-size: 24px;
+        cursor: pointer;
+        display: inline-block;
+        padding: 2px;
+    }
+
+    &__item-status {
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    &__item-table {
+        width: 100%;
+        table-layout: fixed;
+
+        td, th {
+            padding: 8px;
+        }
+
+        th {
+            font-size: 12px;
+        }
+
+        .table-icon {
+            position: absolute;
+            top: 7px;
+            right: 5px;
+            font-size: 18px;
+        }
+    }
+
+    .no-items {
+        > td {
+            border-top: none;
+            padding: 0;
+        }
+
+        .employee__btn-holder {
+            position: absolute;
+            top: -43px;
+            left: 8px;
+        }
+    }
+
+    &__table-day {
+        width: 150px;
+
+        .edit-control__content {
+            padding: 0;
+        }
+    }
+
+    ._align {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+.border-top-none {
+    border-top: none !important;
+}

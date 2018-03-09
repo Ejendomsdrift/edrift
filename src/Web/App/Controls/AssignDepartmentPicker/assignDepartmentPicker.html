@@ -1,0 +1,20 @@
+﻿<div>
+    <edit-control config="assignDepartmentCtrl.editControlConfig">
+        <div class="tree-hold" data-ng-hide="assignDepartmentCtrl.isEditableMode()">
+            <div class="text-center" data-ng-show="assignDepartmentCtrl.config.value.length == 0">{{'Click here to assign departments' | translate}}</div>
+            <ul class="assign__department-list">
+                <li class="assign__department-item"
+                    data-ng-repeat="assign in assignDepartmentCtrl.config.value">
+                    {{assign.name}}
+                </li>
+            </ul>
+        </div>
+        <div data-ng-show="assignDepartmentCtrl.isEditableMode()">
+            <multi-department-picker data-ng-model="assignDepartmentCtrl.config.value"
+                                     data-ng-hidden="assignDepartmentCtrl.config.hidden"
+                                     on-select="assignDepartmentCtrl.onSelect($value)"
+                                     on-remove="assignDepartmentCtrl.onRemove($value)">
+            </multi-department-picker>
+        </div>
+    </edit-control>
+</div>

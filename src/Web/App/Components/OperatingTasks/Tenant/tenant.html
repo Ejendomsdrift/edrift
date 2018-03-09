@@ -1,0 +1,237 @@
+﻿<section class="tenant" id="tenant-task">
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Task type' | translate}}: *</label>
+            <div class="col-md-7">
+                <tenant-task-picker config="tenantCtrl.taskTypePickerConfig"></tenant-task-picker>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 text-right">{{::'Urgent' | translate}}: </label>
+            <div class="col-md-7 type-task">
+                <span class="checkbox">
+                    <input type="checkbox" data-ng-model="tenantCtrl.task.isUrgent" data-ng-disabled="tenantCtrl.disableUrgentCheckbox" data-ng-change="tenantCtrl.urgentOnChange()">
+                    <label>&nbsp;</label>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Date' | translate}}: *</label>
+            <div class="col-md-3">
+                <date-picker config="tenantCtrl.datePickerConfig"></date-picker>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group _time">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Time' | translate}}: *</label>
+            <div class="col-md-3">
+                <time-picker config="tenantCtrl.timePickerConfig"></time-picker>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Estimated time' | translate}}: *</label>
+            <div class="col-md-7">
+                <text-control config="tenantCtrl.estimatePickerConfig" class="operation__time-control"></text-control>
+                <span>{{::'hours' | translate}}</span>
+                <span class="time pe-7s-clock"></span>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="form-group" ng-if="tenantCtrl.isAllowChooseDepartment">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Housing department' | translate}}: *</label>
+            <div class="col-md-7">
+                <department-picker ng-model="tenantCtrl.selectedDepartment" config="tenantCtrl.departmentPickerConfig"></department-picker>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Task title' | translate}}: *</label>
+            <div class="col-md-7">
+                <text-control config="tenantCtrl.titlePickerConfig"></text-control>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Task description' | translate}}: </label>
+            <div class="col-md-7">
+                <text-area-control config="tenantCtrl.descriptionPickerConfig"></text-area-control>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Address' | translate}}:</label>
+            <div class="col-md-7">
+                <address-control data-config="tenantCtrl.addressControlConfig"></address-control>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Documents:' | translate}}</label>
+            <div class="col-md-9 operation__indent">
+                <div ng-if="!tenantCtrl.isTaskSaved">
+                    <file-uploader config="tenantCtrl.ordinalFileUploaderConfig">
+                    </file-uploader>
+                </div>
+
+                <div ng-if="tenantCtrl.isTaskSaved">
+                    <file-uploader config="tenantCtrl.instantFileUploaderConfig" data-ng-show="tenantCtrl.showFileUploader">
+                    </file-uploader>
+
+                    <table class="table _valign-m" ng-if="tenantCtrl.task.uploads.length">
+                        <thead>
+                            <tr>
+                                <th>{{::'File name' | translate}}</th>
+                                <th>{{::'Creator name' | translate}}</th>
+                                <th>{{::'Creation date' | translate}}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="document in tenantCtrl.task.uploads">
+                                <td>
+                                    <a file-downloader ng-href="{{document.path}}" alt="uploadedDocument">{{document.fileName}}</a>
+                                </td>
+                                <td>
+                                    <user-avatar data-config="{ url: document.uploader.avatar, name: document.uploader.name }" />
+                                    <span>{{document.uploader.name}}</span>
+                                </td>
+                                <td>
+                                    {{tenantCtrl.getFormatedCreationDate(document.creationDate)}}
+                                </td>
+                                <td>
+                                    <span class="document__del pe-7s-close _pointer" ng-click="tenantCtrl.deleteDocument(document)" data-ng-show="tenantCtrl.showDeleteDocumentButton"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Name of resident' | translate}}:</label>
+            <div class="col-md-7">
+                <text-control config="tenantCtrl.namePickerConfig"></text-control>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Phone' | translate}}:</label>
+            <div class="col-md-7">
+                <text-control config="tenantCtrl.phonePickerConfig" class="operation__number-holder"></text-control>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Comment' | translate}}:</label>
+            <div class="col-md-7">
+                <text-area-control config="tenantCtrl.commentPickerConfig"></text-area-control>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" ng-if="tenantCtrl.isAllowAssignMembers" />
+
+    <div class="form-group" ng-if="tenantCtrl.isAllowAssignMembers">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Responsible' | translate}}: *</label>
+            <div class="col-md-7">
+                <team-picker config="tenantCtrl.teamPickerConfig"></team-picker>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" ng-if="!tenantCtrl.isTaskSaved && tenantCtrl.showSaveButton">
+        <div class="row">
+            <div class="col-md-7 col-md-offset-3 operation__indent">
+                <button class="btn btn-primary" type="button" ng-click="tenantCtrl.save()">
+                    <span>{{::'Save' | translate}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group janitor-button" data-ng-if="tenantCtrl.showJanitorButtons">
+        <div class="row">
+            <div class="col-md-7 col-md-offset-3 operation__indent">
+                <button class="btn btn-primary" type="button" data-ng-click="tenantCtrl.assignToMe()">
+                    <span>{{::'Assign on me' | translate}}</span>
+                </button>
+                <button class="btn btn-primary" type="button" data-ng-click="tenantCtrl.openTask()">
+                    <span>{{::'Open task' | translate}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" data-ng-if="tenantCtrl.isTaskSaved" />
+
+    <div class="form-group" ng-if="tenantCtrl.isTaskSaved">
+        <div class="row m-b" ng-if="!tenantCtrl.isCompleted">
+            <label class="col-md-3 control-label">
+                <span>{{::'Cancel task' | translate}}:</span>
+            </label>
+            <div class="col-sm-7">
+                <div ng-if="!tenantCtrl.task.isCanceled" class="row _custom">
+                    <div class="col-md-8">
+                        <select-control data-ng-disabled="tenantCtrl.disableCancelTaskControl" config="tenantCtrl.cancellationReasonConfig">
+                        </select-control>
+                    </div>
+                    <div class="col-md-4 operation__indent">
+                        <button class="btn btn-default"
+                                type="button"
+                                ng-click="tenantCtrl.cancel()"
+                                data-ng-disabled="tenantCtrl.disableCancelTaskButton">
+                            <span>{{::'Cancel assignment' | translate}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="_pt-indent" ng-if="tenantCtrl.task.isCanceled">
+                <span>{{::'Task canceled' | translate}}</span>
+            </div>
+        </div>
+
+        <div class="row" ng-if="tenantCtrl.isCompleted">
+            <label class="col-md-3 control-label">
+                <span>{{::'Reopen task' | translate}}:</span>
+            </label>
+            <div class="col-md-7 operation__indent">
+                <button class="btn btn-default" type="button" ng-click="tenantCtrl.onReopen()" data-ng-disabled="tenantCtrl.disableReOpenTaskButton">
+                    <span>{{::'Reopen task' | translate}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

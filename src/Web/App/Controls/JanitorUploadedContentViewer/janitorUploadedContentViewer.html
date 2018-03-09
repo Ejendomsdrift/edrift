@@ -1,0 +1,12 @@
+﻿<div class="upload-list">
+    <div data-ng-if="janitorUploadedContentCtrl.isImage()" data-ng-repeat="uploadData in janitorUploadedContentCtrl.config.value" class="upload-list__item">
+        <img class="upload-list__img" data-ng-src="{{uploadData.path}}" alt="{{uploadData.fileName}}">
+        <span class="upload-list__del pe-7s-close js-delete-file" data-ng-click="janitorUploadedContentCtrl.deleteFile(uploadData.fileId)"></span>
+    </div>
+    <div data-ng-if="janitorUploadedContentCtrl.isVideo()" data-ng-repeat="uploadData in janitorUploadedContentCtrl.config.value" class="upload-list__item">
+        <video controls>
+            <source data-ng-src="{{uploadData.path}}" type="video/mp4">
+        </video>
+        <span class="upload-list__del pe-7s-close js-delete-file" data-ng-click="janitorUploadedContentCtrl.deleteFile(uploadData.fileId)"></span>
+    </div>
+</div>

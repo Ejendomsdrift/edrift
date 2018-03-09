@@ -1,0 +1,960 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A642EA1B-7E1C-46C9-956A-B954605C6D19}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Web</RootNamespace>
+    <AssemblyName>Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
+    <RestorePackages>true</RestorePackages>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Hangfire.Core, Version=1.6.17.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Packages\Hangfire.Core.1.6.17\lib\net45\Hangfire.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.Mongo, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Packages\Hangfire.Mongo.0.5.2\lib\net45\Hangfire.Mongo.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.Ninject, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Packages\Hangfire.Ninject.1.2.0\lib\net45\Hangfire.Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.SqlServer, Version=1.6.17.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Packages\Hangfire.SqlServer.1.6.17\lib\net45\Hangfire.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageProcessor, Version=2.4.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Packages\ImageProcessor.2.4.5.0\lib\net45\ImageProcessor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageProcessor.Web, Version=4.6.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Packages\ImageProcessor.Web.4.6.6.0\lib\net45\ImageProcessor.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Packages\MongoDB.Bson.2.3.0\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Packages\MongoDB.Driver.2.3.0\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Packages\MongoDB.Driver.Core.2.3.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\Packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Conventions.3.2.0.0\lib\net45-full\Ninject.Extensions.Conventions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.WebApi, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.WebApi.3.2.4.0\lib\net45-full\Ninject.Web.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.WebApi.WebHost, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.WebApi.WebHost.3.2.4.0\lib\net45-full\Ninject.Web.WebApi.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\Packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.1.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App\app.config.js" />
+    <Content Include="App\app.module.js" />
+    <Content Include="App\Components\Administration\History\history.html" />
+    <Content Include="App\Components\Administration\History\historyController.js" />
+    <Content Include="App\Components\Administration\YearPlan\departmentOverviewContent.html" />
+    <Content Include="App\Components\Administration\YearPlan\yearPlanService.js" />
+    <Content Include="App\Components\Authorization\AuthorizationView.html" />
+    <Content Include="App\Components\Authorization\authorizationController.js" />
+    <Content Include="App\Components\FacilityTask\Edit\edit.html" />
+    <Content Include="App\Components\FacilityTask\Edit\editController.js" />
+    <Content Include="App\Components\FacilityTask\Edit\Responsible\responsible.html" />
+    <Content Include="App\Components\FacilityTask\Edit\Responsible\responsibleController.js" />
+    <Content Include="App\Components\FacilityTask\Edit\Location\location.html" />
+    <Content Include="App\Components\FacilityTask\Edit\Location\locationController.js" />
+    <Content Include="App\Components\Group\Create\groupCreate.html" />
+    <Content Include="App\Components\Group\Create\groupCreateController.js" />
+    <Content Include="App\Components\Group\Edit\groupEdit.html" />
+    <Content Include="App\Components\Group\Edit\groupEditController.js" />
+    <Content Include="App\Components\Group\Edit\General\groupGeneral.html" />
+    <Content Include="App\Components\Group\Edit\General\groupGeneralController.js" />
+    <Content Include="App\Components\Janitor\centralFeed.html" />
+    <Content Include="App\Components\Janitor\centralFeedController.js" />
+    <Content Include="App\Components\Janitor\CompletedTasks\completedTasks.html" />
+    <Content Include="App\Components\Janitor\CompletedTasks\completedTasksController.js" />
+    <Content Include="App\Components\Janitor\janitorService.js" />
+    <Content Include="App\Components\Janitor\Map\janitorMap.html" />
+    <Content Include="App\Components\Janitor\Map\janitorMapController.js" />
+    <Content Include="App\Components\Janitor\MyTasks\myTasks.html" />
+    <Content Include="App\Components\Janitor\MyTasks\myTasksController.js" />
+    <Content Include="App\Components\Janitor\OpenTasks\openTasks.html" />
+    <Content Include="App\Components\Janitor\OpenTasks\openTasksController.js" />
+    <Content Include="App\Components\Janitor\Settings\janitorSettings.html" />
+    <Content Include="App\Components\Janitor\Settings\janitorSettingsController.js" />
+    <Content Include="App\Components\Janitor\TaskDetails\taskDetails.html" />
+    <Content Include="App\Components\Janitor\TaskDetails\taskDetailsController.js" />
+    <Content Include="App\Components\OperatingDepartment\Employees\employees.html" />
+    <Content Include="App\Components\OperatingDepartment\Employees\employeesController.js" />
+    <Content Include="App\Components\OperatingDepartment\GroupOverview\groupOverview.html" />
+    <Content Include="App\Components\OperatingDepartment\GroupOverview\groupOverviewController.js" />
+    <Content Include="App\Components\OperatingDepartment\GroupOverview\groupOverviewService.js" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlanGrid\commentInfoTooltip.html" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlanList\completedTasksContent.html" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlanList\currentTasksContent.html" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlanList\notCompletedTasksContent.html" />
+    <Content Include="App\Components\OperatingTasks\AdHoc\adHoc.html" />
+    <Content Include="App\Components\FacilityTask\Edit\DayAssign\dayAssign.html" />
+    <Content Include="App\Components\FacilityTask\Edit\DayAssign\dayAssignController.js" />
+    <Content Include="App\Components\OperatingTasks\operatingTask.html" />
+    <Content Include="App\Components\OperatingTasks\operatingTask.less" />
+    <Content Include="App\Components\OperatingTasks\operatingTaskController.js" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlanGrid\weekPlanGridController.js" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlanList\weekPlanListController.js" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlanList\weekPlanListView.html" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlanGrid\weekPlanGridView.html" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlan.html" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlanController.js" />
+    <Content Include="App\Components\OperatingTasks\AdHoc\adHocController.js" />
+    <Content Include="App\Components\Administration\YearPlan\taskOverviewContent.html" />
+    <Content Include="App\Components\Administration\YearPlan\yearPlan.html" />
+    <Content Include="App\Components\Administration\YearPlan\yearPlanController.js" />
+    <Content Include="App\Components\FacilityTask\Edit\Assign\assign.html" />
+    <Content Include="App\Components\FacilityTask\Create\create.html" />
+    <Content Include="App\Components\FacilityTask\Create\createController.js" />
+    <Content Include="App\Components\FacilityTask\Edit\Assign\assignController.js" />
+    <Content Include="App\Components\FacilityTask\Edit\Document\documentController.js" />
+    <Content Include="App\Components\FacilityTask\Edit\General\general.html" />
+    <Content Include="App\Components\FacilityTask\Edit\Document\document.html" />
+    <Content Include="App\Components\FacilityTask\Edit\General\generalController.js" />
+    <Content Include="App\Components\FacilityTask\Edit\Guide\guide.html" />
+    <Content Include="App\Components\FacilityTask\Edit\Guide\guideController.js" />
+    <Content Include="App\Components\FacilityTask\Edit\Interval\intervalController.js" />
+    <Content Include="App\Components\FacilityTask\Edit\Interval\interval.html" />
+    <Content Include="App\Components\Header\Header.html" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlanService.js" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlanTime\weekPlanTimeController.js" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlanTime\weekPlanTimeView.html" />
+    <Content Include="App\Components\Common\commonPageController.js" />
+    <Content Include="App\Components\OperatingDepartment\Employees\employees.less" />
+    <Content Include="App\Components\OperatingTasks\Other\other.html" />
+    <Content Include="App\Components\OperatingTasks\Other\otherController.js" />
+    <Content Include="App\Components\OperatingTasks\History\modalHistoryController.js" />
+    <Content Include="App\Components\OperatingTasks\History\history.html" />
+    <Content Include="App\Components\OperatingTasks\Tenant\tenant.html" />
+    <Content Include="App\Components\OperatingTasks\Tenant\tenantController.js" />
+    <Content Include="App\Components\Setup\CancellingTemplates\cancellingTemplates.html" />
+    <Content Include="App\Components\Setup\CancellingTemplates\cancellingTemplatesController.js" />
+    <Content Include="App\Components\Setup\AbsenceTemplates\absenceTemplates.html" />
+    <Content Include="App\Components\Setup\AbsenceTemplates\absenceTemplatesController.js" />
+    <Content Include="App\Components\Setup\adminModal.html" />
+    <Content Include="App\Components\Setup\CoordinatorTemplates\coordinatorTemplates.html" />
+    <Content Include="App\Components\Setup\CoordinatorTemplates\coordinatorTemplatesController.js" />
+    <Content Include="App\Components\Setup\DangerZone\dangerZone.html" />
+    <Content Include="App\Components\Setup\DangerZone\dangerZoneController.js" />
+    <Content Include="App\Components\Setup\OperationalCategories\operationalCategories.html" />
+    <Content Include="App\Components\Setup\OperationalCategories\operationCategoriesController.js" />
+    <Content Include="App\Components\Setup\Translations\adminTranslationsController.js" />
+    <Content Include="App\Components\Setup\Translations\translations.html" />
+    <Content Include="App\Components\Sidebar\sidebar.html" />
+    <Content Include="App\Components\Header\headerController.js" />
+    <Content Include="App\Components\Statistics\statisticsController.js" />
+    <Content Include="App\Controls\AssignDepartmentPicker\assignDepartmentPicker.html" />
+    <Content Include="App\Controls\AssignDepartmentPicker\assignDepartmentPicker.js" />
+    <Content Include="App\Controls\AssignDepartmentPicker\assignDepartmentPickerModel.js" />
+    <Content Include="App\Controls\AddressControl\addressControl.html" />
+    <Content Include="App\Controls\AddressControl\addressControl.js" />
+    <Content Include="App\Controls\AddressControl\addressControlModel.js" />
+    <Content Include="App\Controls\CancellingReason\cancellingReason.html" />
+    <Content Include="App\Controls\CancellingReason\cancellingReason.js" />
+    <Content Include="App\Controls\CancellingReason\cancellingReasonModel.js" />
+    <Content Include="App\Controls\CategoryTreePicker\categoryTreePicker.html" />
+    <Content Include="App\Controls\CategoryTreePicker\categoryTreePicker.js" />
+    <Content Include="App\Controls\CategoryTreePicker\categoryTreePickerModel.js" />
+    <Content Include="App\Controls\DatePicker\datePicker.html" />
+    <Content Include="App\Controls\DatePicker\datePicker.js" />
+    <Content Include="App\Controls\DatePicker\datePickerModel.js" />
+    <Content Include="App\Controls\DepartmentPicker\departmentPickerModel.js" />
+    <Content Include="App\Controls\DepartmentPicker\SimpleDepartmentPicker\simpleDepartmentPicker.html" />
+    <Content Include="App\Controls\DepartmentPicker\SimpleDepartmentPicker\simpleDepartmentPicker.js" />
+    <Content Include="App\Controls\EditControl\editControl.html" />
+    <Content Include="App\Controls\EditControl\editControl.js" />
+    <Content Include="App\Controls\EditControl\editControlModel.js" />
+    <Content Include="App\Controls\HistoryControl\historyControl.html" />
+    <Content Include="App\Controls\HistoryControl\historyControl.js" />
+    <Content Include="App\Controls\HistoryControl\historyModel.js" />
+    <Content Include="App\Controls\JanitorUploadedContentViewer\janitorUploadedContentViewer.html" />
+    <Content Include="App\Controls\JanitorUploadedContentViewer\janitorUploadedContentViewer.js" />
+    <Content Include="App\Controls\JanitorUploadedContentViewer\janitorUploadedContentViewerModel.js" />
+    <Content Include="App\Controls\ManagementDepartmentPicker\managementDepartmentPicker.html" />
+    <Content Include="App\Controls\ManagementDepartmentPicker\managementDepartmentPicker.js" />
+    <Content Include="App\Controls\MultiSelectChecker\multiSelectChecker.js" />
+    <Content Include="App\Controls\SelectControl\selectControl.html" />
+    <Content Include="App\Controls\SelectControl\selectControl.js" />
+    <Content Include="App\Controls\SelectControl\selectControlModel.js" />
+    <Content Include="App\Shared\Directives\fileDownloader.js" />
+    <Content Include="App\Controls\FileUploader\fileUploaderModel.js" />
+    <Content Include="App\Controls\FileUploader\contentView\documentsView.html" />
+    <Content Include="App\Controls\DaysPerWeekPicker\daysPerWeekPicker.html" />
+    <Content Include="App\Controls\DaysPerWeekPicker\daysPerWeekPicker.js" />
+    <Content Include="App\Controls\DaysPerWeekPicker\daysPerWeekPickerModel.js" />
+    <Content Include="App\Controls\DepartmentPicker\SingleSelectDepartmentPicker\departmentPicker.html" />
+    <Content Include="App\Controls\DepartmentPicker\SingleSelectDepartmentPicker\departmentPicker.js" />
+    <Content Include="App\Controls\JobMapControl\jobMapControl.html" />
+    <Content Include="App\Controls\JobMapControl\jobMapControl.js" />
+    <Content Include="App\Controls\MemberPicker\memberPicker.html" />
+    <Content Include="App\Controls\MemberPicker\memberPicker.js" />
+    <Content Include="App\Controls\MemberPicker\memberPickerModel.js" />
+    <Content Include="App\Controls\PerWeekJobSchedulePicker\perWeekJobSchedulePicker.html" />
+    <Content Include="App\Controls\PerWeekJobSchedulePicker\perWeekJobSchedulePicker.js" />
+    <Content Include="App\Controls\PerWeekJobSchedulePicker\perWeekJobSchedulePickerModel.js" />
+    <Content Include="App\Controls\PhoneInputControl\phoneInputControl.html" />
+    <Content Include="App\Controls\PhoneInputControl\phoneInputControl.js" />
+    <Content Include="App\Controls\PhoneInputControl\phoneInputControlModel.js" />
+    <Content Include="App\Controls\RichTextEditorControl\richTextEditor.html" />
+    <Content Include="App\Controls\RichTextEditorControl\richTextEditor.js" />
+    <Content Include="App\Controls\RichTextEditorControl\richTextEditorModel.js" />
+    <Content Include="App\Controls\TenantTypePicker\tenantTaskPicker.html" />
+    <Content Include="App\Controls\TenantTypePicker\tenantTaskPicker.js" />
+    <Content Include="App\Controls\TenantTypePicker\tenantTaskPickerModel.js" />
+    <Content Include="App\Controls\TextAreaControl\textAreaControl.js" />
+    <Content Include="App\Controls\TextAreaControl\textAreaControl.html" />
+    <Content Include="App\Controls\TextAreaControl\textAreaControlModel.js" />
+    <Content Include="App\Controls\TextControl\textControl.html" />
+    <Content Include="App\Controls\TextControl\textControl.js" />
+    <Content Include="App\Controls\TextControl\textControlModel.js" />
+    <Content Include="App\Controls\TimePicker\timePicker.html" />
+    <Content Include="App\Controls\TimePicker\timePicker.js" />
+    <Content Include="App\Controls\TimePicker\timePickerModel.js" />
+    <Content Include="App\Controls\UploadedContentViewer\uploadedContentViewer.html" />
+    <Content Include="App\Controls\UploadedContentViewer\uploadedContentViewer.js" />
+    <Content Include="App\Controls\UploadedContentViewer\uploadedContentViewerModel.js" />
+    <Content Include="App\Controls\YearWeekSelector\yearWeekSelector.html" />
+    <Content Include="App\Controls\YearWeekSelector\yearWeekSelector.js" />
+    <Content Include="App\Controls\TeamPicker\teamPickerModel.js" />
+    <Content Include="App\Controls\TeamViewer\teamViewer.html" />
+    <Content Include="App\Controls\TeamViewer\teamViewer.js" />
+    <Content Include="App\Controls\TeamViewer\teamViewerModel.js" />
+    <Content Include="App\Controls\UserAvatar\userAvatar.html" />
+    <Content Include="App\Controls\UserAvatar\userAvatar.js" />
+    <Content Include="App\Controls\UserAvatar\userAvatarModel.js" />
+    <Content Include="App\Controls\WeeksPicker\weeksPickerModel.js" />
+    <Content Include="App\Shared\Directives\enter.js" />
+    <Content Include="App\Shared\Directives\lazyload.js" />
+    <Content Include="App\Shared\Directives\security.js" />
+    <Content Include="App\Shared\Enums\contentType.js" />
+    <Content Include="App\Shared\Enums\controlMode.js" />
+    <Content Include="App\Shared\Enums\controlSecurityKey.js" />
+    <Content Include="App\Shared\Enums\datePickerFormatType.js" />
+    <Content Include="App\Shared\Enums\datePickerViewType.js" />
+    <Content Include="App\Shared\Enums\entitySortDirection.js" />
+    <Content Include="App\Shared\Enums\historyControlColumns.js" />
+    <Content Include="App\Shared\Enums\inputType.js" />
+    <Content Include="App\Shared\Enums\jobStatus.js" />
+    <Content Include="App\Shared\Enums\JobStatusPlatformKey.js" />
+    <Content Include="App\Shared\Enums\month.js" />
+    <Content Include="App\Shared\Enums\onDemandUploaderView.js" />
+    <Content Include="App\Shared\Enums\keyCodes.js" />
+    <Content Include="App\Shared\Enums\pages.js" />
+    <Content Include="App\Shared\Enums\phoneMask.js" />
+    <Content Include="App\Shared\Enums\tabSecurityKey.js" />
+    <Content Include="App\Shared\Enums\teamPickerState.js" />
+    <Content Include="App\Shared\Enums\tenantTaskType.js" />
+    <Content Include="App\Shared\Enums\state.js" />
+    <Content Include="App\Shared\Enums\weekDays.js" />
+    <Content Include="App\Shared\Enums\weekPlanListViewTab.js" />
+    <Content Include="App\Shared\Helpers\dateHelper.js" />
+    <Content Include="App\Shared\Helpers\treeHelper.js" />
+    <Content Include="App\Shared\Interceptors\httpInterceptorService.js" />
+    <Content Include="App\Controls\DepartmentPicker\MultiSelectDepartmentPicker\multiDepartmentPicker.html" />
+    <Content Include="App\Controls\DepartmentPicker\MultiSelectDepartmentPicker\multiDepartmentPicker.js" />
+    <Content Include="App\Controls\GoogleMap\googleMap.html" />
+    <Content Include="App\Controls\GoogleMap\googleMap.js" />
+    <Content Include="App\Controls\TeamPicker\teamPicker.html" />
+    <Content Include="App\Controls\TeamPicker\teamPicker.js" />
+    <Content Include="App\Controls\WeeksPicker\weeksPicker.html" />
+    <Content Include="App\Controls\WeeksPicker\weeksPicker.js" />
+    <Content Include="App\Shared\Enums\jobType.js" />
+    <Content Include="App\Shared\polyfills.js" />
+    <Content Include="App\Shared\Providers\cancellingTemplatesProvider.js" />
+    <Content Include="App\Shared\Providers\absenceTemplatesProvider.js" />
+    <Content Include="App\Shared\Providers\adminToolsProvider.js" />
+    <Content Include="App\Shared\Providers\employeesManagementProvider.js" />
+    <Content Include="App\Shared\Providers\historyProvider.js" />
+    <Content Include="App\Shared\Providers\jobProvider.js" />
+    <Content Include="App\Shared\Providers\managementProvider.js" />
+    <Content Include="App\Controls\NativeCarousel\nativeCarousel.html" />
+    <Content Include="App\Controls\NativeCarousel\nativeCarousel.js" />
+    <Content Include="App\Controls\CategoryTree\categoryTree.html" />
+    <Content Include="App\Controls\CategoryTree\categoryTree.js" />
+    <Content Include="App\Controls\FileUploader\fileUploader.html" />
+    <Content Include="App\Controls\FileUploader\fileUploader.js" />
+    <Content Include="App\Shared\Directives\confirmation.js" />
+    <Content Include="App\Shared\Directives\focus.js" />
+    <Content Include="App\Shared\Enums\role.js" />
+    <Content Include="App\Shared\Providers\authorizationProvider.js" />
+    <Content Include="App\Shared\Providers\categoryProvider.js" />
+    <Content Include="App\Shared\Providers\departmentProvider.js" />
+    <Content Include="App\Shared\Providers\groupProvider.js" />
+    <Content Include="App\Shared\Providers\memberProvider.js" />
+    <Content Include="App\Shared\Providers\operationalTaskProvider.js" />
+    <Content Include="App\Shared\Providers\securityProvider.js" />
+    <Content Include="App\Shared\Providers\settingProvider.js" />
+    <Content Include="App\Shared\Providers\statisticsProvider.js" />
+    <Content Include="App\Shared\Providers\uploadDataProvider.js" />
+    <Content Include="App\Shared\Providers\weekPlanProvider.js" />
+    <Content Include="App\Shared\Providers\yearPlanProvider.js" />
+    <Content Include="App\Shared\Services\operationalTaskService.js" />
+    <Content Include="App\Shared\Services\securityService.js" />
+    <Content Include="App\Shared\Services\urlService.js" />
+    <Content Include="App\Shared\toastService.js" />
+    <Content Include="App\Shared\Modal\confirmCtrl.js" />
+    <Content Include="App\Shared\Providers\calendarProvider.js" />
+    <Content Include="App\Components\OperatingDepartment\GroupOverview\groupOverview.less" />
+    <Content Include="App\Components\Group\Edit\General\groupGeneral.less" />
+    <Content Include="App\Less\mainHeader.less" />
+    <Content Include="App\Controls\EditControl\editControl.less" />
+    <Content Include="App\Components\Janitor\janitor.less" />
+    <Content Include="App\Controls\MemberPicker\memberPicker.less" />
+    <Content Include="App\Less\fonts.less" />
+    <Content Include="App\Components\Janitor\janitorMobile.less" />
+    <Content Include="App\Controls\UserAvatar\userAvatar.less" />
+    <Content Include="App\Controls\TeamViewer\teamViewer.less" />
+    <Content Include="App\Controls\AssignDepartmentPicker\assignDepartmentPicker.less" />
+    <Content Include="App\Controls\CategoryTreePicker\categoryTreePicker.less" />
+    <Content Include="App\Controls\JobMapControl\jobMapControl.less" />
+    <Content Include="App\Controls\RichTextEditorControl\richTextEditor.less" />
+    <Content Include="App\Controls\TextAreaControl\textAreaControl.less" />
+    <Content Include="App\Controls\UploadedContentViewer\uploadedContentViewer.less" />
+    <Content Include="App\Controls\DaysPerWeekPicker\daysPerWeekPicker.less" />
+    <Content Include="App\Less\print.less" />
+    <Content Include="App\Components\Statistics\statistics.less" />
+    <Content Include="App\Controls\YearWeekSelector\yearWeekSelector.less" />
+    <Content Include="App\Controls\HistoryControl\historyControl.less" />
+    <Content Include="App\Controls\JanitorUploadedContentViewer\janitorUploadedContentViewer.less" />
+    <Content Include="App\Controls\PerWeekJobSchedulePicker\perWeekJobSchedulePicker.less" />
+    <Content Include="App\Controls\SelectControl\selectControl.less" />
+    <None Include="App\_references.js" />
+    <Content Include="Content\css\font-awesome.css" />
+    <Content Include="Content\css\helper.css" />
+    <Content Include="Content\css\pe-icon-7-stroke.css" />
+    <Content Include="Content\css\theme\animate.css" />
+    <Content Include="Content\css\theme\metisMenu.css" />
+    <Content Include="Content\css\theme\style.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\Pe-icon-7-stroke.svg" />
+    <Content Include="Content\images\arrow-down.png" />
+    <Content Include="Content\images\bg-hidden-tasks.png" />
+    <Content Include="Content\images\circle.jpg" />
+    <Content Include="Content\images\default_avatar.png" />
+    <Content Include="Content\images\file.png" />
+    <Content Include="Content\images\folder-closed.png" />
+    <Content Include="Content\images\folder.png" />
+    <Content Include="Content\images\img-01.jpg" />
+    <Content Include="Content\images\img-02.jpg" />
+    <Content Include="Content\images\img-03.jpg" />
+    <Content Include="Content\images\img-04.jpg" />
+    <Content Include="Content\images\load-icon.gif" />
+    <Content Include="Content\images\node-closed-2.png" />
+    <Content Include="Content\images\node-closed-light.png" />
+    <Content Include="Content\images\node-closed.png" />
+    <Content Include="Content\images\node-opened-2.png" />
+    <Content Include="Content\images\node-opened-light.png" />
+    <Content Include="Content\images\node-opened.png" />
+    <Content Include="Content\images\profile_small.jpg" />
+    <Content Include="Content\images\sample.png" />
+    <Content Include="Content\images\schedule.jpg" />
+    <Content Include="Content\images\tree-img.png" />
+    <Content Include="Content\libs\angular-bootstrap\index.js" />
+    <Content Include="Content\libs\angular-bootstrap\ui-bootstrap-csp.css" />
+    <Content Include="Content\libs\angular-bootstrap\ui-bootstrap-tpls.js" />
+    <Content Include="Content\libs\angular-bootstrap\ui-bootstrap-tpls.min.js" />
+    <Content Include="Content\libs\angular-bootstrap\ui-bootstrap.js" />
+    <Content Include="Content\libs\angular-bootstrap\ui-bootstrap.min.js" />
+    <Content Include="Content\libs\angular-datepicker.css" />
+    <Content Include="Content\libs\blueimp-gallery\css\blueimp-gallery.css" />
+    <Content Include="Content\libs\blueimp-gallery\img\error.png" />
+    <Content Include="Content\libs\blueimp-gallery\img\error.svg" />
+    <Content Include="Content\libs\blueimp-gallery\img\loading.gif" />
+    <Content Include="Content\libs\blueimp-gallery\img\play-pause.png" />
+    <Content Include="Content\libs\blueimp-gallery\img\play-pause.svg" />
+    <Content Include="Content\libs\blueimp-gallery\img\video-play.png" />
+    <Content Include="Content\libs\blueimp-gallery\img\video-play.svg" />
+    <Content Include="Content\libs\blueimp-gallery\js\blueimp-gallery.js" />
+    <Content Include="Content\libs\bootstrap.min.css" />
+    <Content Include="Content\libs\chart-middleware\app-bootstrap-date-picker-provider.js" />
+    <Content Include="Content\libs\chart-middleware\app-chartjs-provider.js" />
+    <Content Include="Content\libs\chart-middleware\app-common.js" />
+    <Content Include="Content\libs\chart-middleware\app-xhr-blob-download-file-provider.js" />
+    <Content Include="Content\libs\chart-middleware\chart-middleware.js" />
+    <Content Include="Content\libs\pipeline\pipeline.js" />
+    <Content Include="Content\libs\stack-worker\stack-worker.js" />
+    <Content Include="Content\libs\tree-control-attribute.css" />
+    <Content Include="Content\libs\underscore\underscore-min.js" />
+    <Content Include="Content\libs\underscore\underscore.js" />
+    <Content Include="Global.asax" />
+    <Content Include="gulpfile.js" />
+    <Content Include="gulp\gulp.config.js" />
+    <Content Include="Index.html" />
+    <Content Include="App\Components\Statistics\statistics.html" />
+    <Content Include="App\Components\history.html" />
+    <Content Include="App\Components\groups.html" />
+    <Content Include="robots.txt" />
+    <Content Include="NLog.config" />
+    <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.4.js" />
+    <Content Include="Scripts\jquery-1.6.4.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\CancelingTemplatesController.cs" />
+    <Compile Include="Controllers\AbsenceTemplatesController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\AuthorizationController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\EmployeesManagementController.cs" />
+    <Compile Include="Controllers\HistoryController.cs" />
+    <Compile Include="Controllers\ManagementController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Controllers\OperationalTaskController.cs" />
+    <Compile Include="Controllers\SecurityController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
+    <Compile Include="Controllers\SyncController.cs" />
+    <Compile Include="Controllers\JobController.cs" />
+    <Compile Include="Controllers\TranslationController.cs" />
+    <Compile Include="Controllers\AdminToolsController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\WeekPlanController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\YearPlanController.cs" />
+    <Compile Include="Core\Attributes\CompressFilterAttribute.cs" />
+    <Compile Include="Core\Attributes\LogExceptionFilterAttribute.cs" />
+    <Compile Include="Core\Hangfire\AuthorizationFilter.cs" />
+    <Compile Include="Core\Hubs\ManagementHub.cs" />
+    <Compile Include="Core\Hubs\JanitorHub.cs" />
+    <Compile Include="Core\Configurations\MongoDBConfiguration.cs" />
+    <Compile Include="Core\Providers\UserIdProvider.cs" />
+    <Compile Include="Core\MapperProfiles\AbsenceInfoMapperProfile.cs" />
+    <Compile Include="Core\MapperProfiles\CancellingTemplateMapperProfile.cs" />
+    <Compile Include="Core\MapperProfiles\CategoryMapperProfile.cs" />
+    <Compile Include="Core\MapperProfiles\DayAssignMapperProfile.cs" />
+    <Compile Include="Core\MapperProfiles\GroupMapperProfile.cs" />
+    <Compile Include="Core\MapperProfiles\GuideCommentMapperProfile.cs" />
+    <Compile Include="Core\MapperProfiles\JobAssignMapperProfile.cs" />
+    <Compile Include="Core\MapperProfiles\JobMapperProfile.cs" />
+    <Compile Include="Core\MapperProfiles\MemberMapperProfile.cs" />
+    <Compile Include="Core\MapperProfiles\SecurityPermissionMapperProfile.cs" />
+    <Compile Include="Core\MapperProfiles\TimePeriodMapperProfile.cs" />
+    <Compile Include="Core\MapperProfiles\WeekPlanMapperProfile.cs" />
+    <Compile Include="Core\WebConstants.cs" />
+    <Compile Include="Core\Bootstrap.cs" />
+    <Compile Include="Core\HandlersProvider.cs" />
+    <Compile Include="Core\MapperProfiles\ManagementMapperProfile.cs" />
+    <Compile Include="Core\StopCamelCaseAttribute.cs" />
+    <Compile Include="Enums\Pages.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AddressInfoRequest.cs" />
+    <Compile Include="Models\ApproximateSpentTimeViewModel.cs" />
+    <Compile Include="Models\AssignAdHockToDayModel.cs" />
+    <Compile Include="Models\CancellingTemplateViewModel.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
+    <Compile Include="Models\ChangeJobStatusModel.cs" />
+    <Compile Include="Models\CopyAssignDepartmentDataViewModel.cs" />
+    <Compile Include="Models\CurrentUserContextViewModel.cs" />
+    <Compile Include="Models\EmployeeTimeFilterViewModel.cs" />
+    <Compile Include="Models\Group\GroupViewModel.cs" />
+    <Compile Include="Models\HousingDepartmentViewModel.cs" />
+    <Compile Include="Models\GuidCommentViewModel.cs" />
+    <Compile Include="Models\JanitorUploadsModel.cs" />
+    <Compile Include="Models\JobDepartmentsViewModel.cs" />
+    <Compile Include="Models\JobFilterViewModel.cs" />
+    <Compile Include="Models\JobCounterViewModel.cs" />
+    <Compile Include="Models\NewEmployeeAbsenceInfoModel.cs" />
+    <Compile Include="Models\ManagementDepartmentTimeView.cs" />
+    <Compile Include="Models\GroupAssignMemberModel.cs" />
+    <Compile Include="Models\FacilityTaskAssignDepartmentModel.cs" />
+    <Compile Include="Models\FacilityTaskAssignModel.cs" />
+    <Compile Include="Models\Group\GroupMemberViewModel.cs" />
+    <Compile Include="Models\Group\MemberViewModel.cs" />
+    <Compile Include="Models\JobDetailsViewModel.cs" />
+    <Compile Include="Models\JobHeaderViewModel.cs" />
+    <Compile Include="Models\MemberModelWithTimeView.cs" />
+    <Compile Include="Models\MemberSettingsUpdateModel.cs" />
+    <Compile Include="Models\MemberSettingsViewModel.cs" />
+    <Compile Include="Models\MemberSpentTimeModel.cs" />
+    <Compile Include="Models\MemberTimeView.cs" />
+    <Compile Include="Models\NewDayAssignViewModel.cs" />
+    <Compile Include="Models\NewGroupModel.cs" />
+    <Compile Include="Models\OperationalTaskChangeDateModel.cs" />
+    <Compile Include="Models\Security\RuleViewModel.cs" />
+    <Compile Include="Models\Security\SecurityKeyModel.cs" />
+    <Compile Include="Models\Security\SecurityPermissionViewModel.cs" />
+    <Compile Include="Models\Security\SequrityQueryViewModel.cs" />
+    <Compile Include="Models\SignalR\SignalRClientModel.cs" />
+    <Compile Include="Models\Task\AdHocViewModel.cs" />
+    <Compile Include="Models\Task\FormattedJobAssignViewModel.cs" />
+    <Compile Include="Models\Task\JobAssignViewModel.cs" />
+    <Compile Include="Models\Task\JobLocationViewModel.cs" />
+    <Compile Include="Models\Task\JobViewModel.cs" />
+    <Compile Include="Models\Task\NewAdHocTaskModel.cs" />
+    <Compile Include="Models\Task\NewOperationalTaskModel.cs" />
+    <Compile Include="Models\Task\NewOtherTaskModel.cs" />
+    <Compile Include="Models\Task\NewTenantTaskModel.cs" />
+    <Compile Include="Models\Task\OperationalTaskViewModel.cs" />
+    <Compile Include="Models\Task\OtherTaskViewModel.cs" />
+    <Compile Include="Models\Task\TenantViewModel.cs" />
+    <Compile Include="Models\Task\UploaderViewModel.cs" />
+    <Compile Include="Models\Task\UploadFileViewModel.cs" />
+    <Compile Include="Models\TimePeriodViewModel.cs" />
+    <Compile Include="Models\TimeViewModel.cs" />
+    <Compile Include="Models\UpdatedUploadListModel.cs" />
+    <Compile Include="Models\WeekPlanTaskRequestViewModel.cs" />
+    <Compile Include="Models\WeekTaskViewModel.cs" />
+    <Compile Include="Models\AddFileDataModel.cs" />
+    <Compile Include="Models\NewFacilityTaskModel.cs" />
+    <Compile Include="Models\CustomResponseDataModel.cs" />
+    <Compile Include="Models\TotalWeeksViewModel.cs" />
+    <Compile Include="Models\YearPlanViewModel.cs" />
+    <Compile Include="Models\YearWeeksViewModel.cs" />
+    <Compile Include="Models\ManagementViewModel.cs" />
+    <Compile Include="Enums\UploadedContentFolderPath.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="package.json" />
+    <Content Include="App\Components\FacilityTask\Create\create.less" />
+    <Content Include="Content\libs\angular-bootstrap\.bower.json" />
+    <Content Include="Content\libs\angular-bootstrap\.gitignore" />
+    <Content Include="Content\libs\angular-bootstrap\.npmignore" />
+    <Content Include="Content\libs\angular-bootstrap\bower.json" />
+    <Content Include="Content\libs\angular-bootstrap\package.json" />
+    <Content Include="Content\libs\angular-bootstrap\README.md" />
+    <Content Include=".bowerrc" />
+    <Content Include="bower.json" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\Pe-icon-7-stroke.eot" />
+    <Content Include="Content\fonts\Pe-icon-7-stroke.ttf" />
+    <Content Include="Content\fonts\Pe-icon-7-stroke.woff" />
+    <Content Include="App\app.less" />
+    <Content Include="App\Controls\FileUploader\fileUploader.less" />
+    <Content Include="App\Controls\NativeCarousel\nativeCarousel.less" />
+    <Content Include="App\Components\Sidebar\Sidebar.less" />
+    <Content Include="App\Components\Header\header.less" />
+    <Content Include="App\Components\OperatingDepartment\WeekPlan\weekPlan.less" />
+    <Content Include="App\Shared\Switchers.less" />
+    <Content Include="App\Controls\DepartmentPicker\DepartmentPicker.less" />
+    <Content Include="App\Components\Administration\YearPlan\yearPlan.less" />
+    <Content Include="App\Components\FacilityTask\Edit\edit.less" />
+    <Content Include="App\Less\Variables.less" />
+    <Content Include="App\Less\Mixins.less" />
+    <Content Include="App\Components\FacilityTask\Edit\Interval\interval.less" />
+    <Content Include="App\Controls\CategoryTree\categoryTree.less" />
+    <Content Include="App\Shared\Modal\Modal.less" />
+    <Content Include="App\Components\Setup\Translations\Translations.less" />
+    <Content Include="App\Components\FacilityTask\Edit\Document\document.less" />
+    <Content Include="App\Less\Edrift-custom.less" />
+    <Content Include="App\Components\FacilityTask\Edit\DayAssign\dayAssign.less" />
+    <Content Include="App\Controls\TeamPicker\teamPicker.less" />
+    <Content Include="App\Controls\WeeksPicker\weeksPicker.less" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\opensans-bold-webfont.woff" />
+    <Content Include="Content\fonts\opensans-bold-webfont.woff2" />
+    <Content Include="Content\fonts\opensans-bolditalic-webfont.woff" />
+    <Content Include="Content\fonts\opensans-bolditalic-webfont.woff2" />
+    <Content Include="Content\fonts\opensans-extrabold-webfont.woff" />
+    <Content Include="Content\fonts\opensans-extrabold-webfont.woff2" />
+    <Content Include="Content\fonts\opensans-extrabolditalic-webfont.woff" />
+    <Content Include="Content\fonts\opensans-extrabolditalic-webfont.woff2" />
+    <Content Include="Content\fonts\opensans-italic-webfont.woff" />
+    <Content Include="Content\fonts\opensans-italic-webfont.woff2" />
+    <Content Include="Content\fonts\opensans-light-webfont.woff" />
+    <Content Include="Content\fonts\opensans-light-webfont.woff2" />
+    <Content Include="Content\fonts\opensans-lightitalic-webfont.woff" />
+    <Content Include="Content\fonts\opensans-lightitalic-webfont.woff2" />
+    <Content Include="Content\fonts\opensans-regular-webfont.woff" />
+    <Content Include="Content\fonts\opensans-regular-webfont.woff2" />
+    <Content Include="Content\fonts\opensans-semibold-webfont.woff" />
+    <Content Include="Content\fonts\opensans-semibold-webfont.woff2" />
+    <Content Include="Content\fonts\opensans-semibolditalic-webfont.woff" />
+    <Content Include="Content\fonts\opensans-semibolditalic-webfont.woff2" />
+    <Content Include="Content\fonts\summernote.eot" />
+    <Content Include="Content\fonts\summernote.ttf" />
+    <Content Include="Content\fonts\summernote.woff" />
+    <Content Include="Content\libs\stack-worker\stack-worker.js.map" />
+    <Content Include="Content\libs\pipeline\pipeline.js.map" />
+    <Content Include="Content\libs\underscore\underscore-min.map" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CancellingTemplatesCore.Contract\CancellingTemplatesCore.Contract.csproj">
+      <Project>{faec5642-926b-4140-b468-7b800087c7fb}</Project>
+      <Name>CancellingTemplatesCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CancellingTemplatesCore\CancellingTemplatesCore.csproj">
+      <Project>{76c755ab-0293-406d-a1a4-a4ad7ce549be}</Project>
+      <Name>CancellingTemplatesCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CategoryCore.Contract\CategoryCore.Contract.csproj">
+      <Project>{7623684A-6EA0-44CF-9C5F-4C507662124E}</Project>
+      <Name>CategoryCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CategoryCore\CategoryCore.csproj">
+      <Project>{6AD48913-6E5E-442C-A41F-E73942A97657}</Project>
+      <Name>CategoryCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeManagementCore.Contract\AbsenceTemplatesCore.Contract.csproj">
+      <Project>{83A6B545-C6B5-4805-A5D6-74C3FF7E573E}</Project>
+      <Name>AbsenceTemplatesCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeManagementCore\AbsenceTemplatesCore.csproj">
+      <Project>{3C8E43EA-F4FD-435C-A713-4C6DBC7D9689}</Project>
+      <Name>AbsenceTemplatesCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HistoryCore.Contract\HistoryCore.Contract.csproj">
+      <Project>{48e0898d-26fc-4778-b010-d147ae087ee7}</Project>
+      <Name>HistoryCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HistoryCore\HistoryCore.csproj">
+      <Project>{f2ddc6b2-a515-4aa5-ad55-e20de32866dd}</Project>
+      <Name>HistoryCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManagementDepartmentCore.Contract\ManagementDepartmentCore.Contract.csproj">
+      <Project>{7cb1259c-112d-461b-a940-7379618dc5ca}</Project>
+      <Name>ManagementDepartmentCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManagementDepartmentCore\ManagementDepartmentCore.csproj">
+      <Project>{536b77f8-ffb7-4de1-9c05-b1464d9ea673}</Project>
+      <Name>ManagementDepartmentCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileStorage.Contract\FileStorage.Contract.csproj">
+      <Project>{99C96F09-5046-4E15-ACEC-31D7775ECB2E}</Project>
+      <Name>FileStorage.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileStorage\FileStorage.csproj">
+      <Project>{15C8DD73-FF68-431C-9367-3E175AB5D607}</Project>
+      <Name>FileStorage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GroupsContract\GroupsContract.csproj">
+      <Project>{1981ab7a-f2f4-4828-8472-48217139ea32}</Project>
+      <Name>GroupsContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Groups\Groups.csproj">
+      <Project>{34bff228-8677-431b-93c1-428bdf6c1ce9}</Project>
+      <Name>Groups</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{6971B2FC-D156-4671-B2CA-EDBC6FA3FA7F}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MemberCore.Authentication\MemberCore.Authentication.csproj">
+      <Project>{E08BDA0E-A27D-4D7A-B73B-56B2F0652F29}</Project>
+      <Name>MemberCore.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MemberCore.Contract\MemberCore.Contract.csproj">
+      <Project>{47BC5D0C-F6C7-4C86-9F71-DFFD66CEA359}</Project>
+      <Name>MemberCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MemberCore\MemberCore.csproj">
+      <Project>{9553E06C-6ACA-4A6D-B31B-1544CD10EACE}</Project>
+      <Name>MemberCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MongoEventStore\MongoEventStore.csproj">
+      <Project>{3284D4C1-8AA3-4DB8-B298-AE2D8799E01D}</Project>
+      <Name>MongoEventStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MongoRepository.Contract\MongoRepository.Contract.csproj">
+      <Project>{bd1617a5-3651-4be2-b5f3-e249829ecc94}</Project>
+      <Name>MongoRepository.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MongoRepository\MongoRepository.csproj">
+      <Project>{e2c867c0-91a8-4f02-8476-b134efc24e2a}</Project>
+      <Name>MongoRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SecurityCore.Contract\SecurityCore.Contract.csproj">
+      <Project>{426843CB-3BAE-411D-A40F-EF9A109F97FC}</Project>
+      <Name>SecurityCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SecurityCore\SecurityCore.csproj">
+      <Project>{0CF20C80-ADFC-4385-9708-92CCEE79553E}</Project>
+      <Name>SecurityCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Statistics.Contract\StatisticsCore.Contract.csproj">
+      <Project>{A16D8D09-284F-4D9C-AA28-BE1FF38F5FF6}</Project>
+      <Name>StatisticsCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Statistics.Core\StatisticsCore.csproj">
+      <Project>{6B850E01-42E2-4F89-A654-48EBB1867DFB}</Project>
+      <Name>StatisticsCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatusCore.Contract\StatusCore.Contract.csproj">
+      <Project>{c26c786e-1d2e-452e-ba71-197d255c489e}</Project>
+      <Name>StatusCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatusCore\StatusCore.csproj">
+      <Project>{b2a8afbb-e3f5-4e8d-aa53-7cbec7b82388}</Project>
+      <Name>StatusCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SyncDataService\SyncDataService.csproj">
+      <Project>{5efae61d-fbd2-4cd6-9483-c22987ba75a4}</Project>
+      <Name>SyncDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Translations\Translations.csproj">
+      <Project>{7d882f35-5eac-46aa-bc38-645a860d3de0}</Project>
+      <Name>Translations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YearlyPlanning.Contract\YearlyPlanning.Contract.csproj">
+      <Project>{563E54E5-F69C-4227-AE8A-AEAD320AEA3B}</Project>
+      <Name>YearlyPlanning.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YearlyPlanning\YearlyPlanning.csproj">
+      <Project>{cbfea228-de0b-4df9-9aec-4373b476d171}</Project>
+      <Name>YearlyPlanning</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Demo|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56741</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:56741/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\Web\Microsoft.Web.Publishing.Tasks.dll" />
+  <Target Name="BeforeBuild">
+    <Message Text="Executing TransformXml for Web.$(Configuration).config" Importance="normal" />
+    <TransformXml Source="Web.config" Transform="Web.$(Configuration).config" Destination="Web.config" ContinueOnError="False" StackTrace="True" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,71 @@
+﻿<div class="admin-panel">
+    <div class="admin-panel__export">
+        <input type="button" value="{{'Export' | translate}}" data-ng-click="adminTranslationsCtrl.exportResources()" class="btn btn-primary"/>
+    </div>
+    <div class="drag">
+        <div class="drag__item">
+            <div class="dragover" flow-init="{target:'/api/translation/import', testChunks:false}">
+                <div class="dragover__item" flow-drop flow-btn
+                     flow-drag-enter="style={border:'4px solid green'}"
+                     flow-drag-leave="style={}"
+                     flow-files-submitted="$flow.upload()"
+                     flow-complete="adminTranslationsCtrl.afterImport($flow)">
+                    {{'Drag And Drop your file OR click here' | translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="admin-panel__block">
+        <div class="admin-panel__row">
+            <label class="admin-panel__label">{{'Create new resource' | translate}}</label>
+            <div class="admin-panel__field">
+                <input class="form-control" type="text" data-ng-model="adminTranslationsCtrl.newResourceAlias"/>
+                <div class="admin-panel__field-btn">
+                    <input type="button" value="{{'Create' | translate}}"
+                           data-ng-click="adminTranslationsCtrl.createResource()"
+                           data-ng-disabled="!adminTranslationsCtrl.newResourceAlias.length" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>        
+        <div class="admin-panel__row">
+            <label class="admin-panel__label">{{'Filter' | translate}}</label>
+            <div class="admin-panel__field">
+                <input class="form-control" type="text" data-ng-model="adminTranslationsCtrl.searchText" />
+            </div>
+        </div>
+    </div>
+    <div class="admin-panel__table-hold">
+        <table class="admin-panel__table">
+            <tr>
+                <th class="admin-panel__table-th" style="width: 250px">{{'Alias' | translate}}</th>
+                <th class="admin-panel__table-th">{{'Language' | translate}}</th>
+                <th class="admin-panel__table-th">{{'Description' | translate}}</th>
+                <th class="admin-panel__table-th">{{'Translation' | translate}}</th>
+                <th class="admin-panel__table-th">{{'Actions' | translate}}</th>
+            </tr>
+            <tr data-ng-repeat="res in adminTranslationsCtrl.resources | filter: adminTranslationsCtrl.searchText">
+                <td class="admin-panel__table-td">{{res.alias}}</td>
+                <td class="admin-panel__table-td">{{res.language}}</td>
+                <td class="admin-panel__table-td">
+                    <span data-ng-if="!res.isEditMode">{{res.description}}</span>
+                    <input class="form-control" data-ng-if="res.isEditMode" type="text" data-ng-model="res.description" />
+                </td>
+                <td class="admin-panel__table-td">
+                    <span data-ng-if="!res.isEditMode">{{res.translation}}</span>
+                    <input class="form-control" data-ng-if="res.isEditMode" type="text" data-ng-model="res.translation" />
+                </td>
+                <td class="admin-panel__table-td">
+                    <input class="btn btn-primary" data-ng-if="!res.isEditMode"
+                           type="button"
+                           value="{{'Edit' | translate}}"
+                           data-ng-click="adminTranslationsCtrl.editResource(res)" />
+                    <input class="btn btn-primary" data-ng-if="res.isEditMode"
+                           type="button"
+                           value="{{'Save' | translate}}"
+                           data-ng-click="adminTranslationsCtrl.saveResource(res)" />
+                    <input class="btn btn-default" type="button" value="{{'Delete' | translate}}" data-ng-click="adminTranslationsCtrl.deleteResource(res)" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

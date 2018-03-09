@@ -1,0 +1,200 @@
+﻿<section class="other" id="other-task">
+    <div data-ng-class="otherCtrl.isActiveWaitIcon ? 'show' : 'hide'" class="load-icon">
+        <img src="/Content/images/load-icon.gif" />
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Date' | translate}}: *</label>
+            <div class="col-md-3">
+                <date-picker config="otherCtrl.datePickerConfig"></date-picker>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group _time">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Time' | translate}}: *</label>
+            <div class="col-md-3">
+                <time-picker config="otherCtrl.timePickerConfig"></time-picker>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Estimated time' | translate}}: *</label>
+            <div class="col-md-7">
+                <text-control config="otherCtrl.estimatePickerConfig" class="operation__time-control"></text-control>
+                <span>{{::'hours' | translate}}</span>
+                <span class="time pe-7s-clock"></span>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider"/>
+
+    <div class="form-group" ng-show="otherCtrl.isAllowChooseDepartment">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Housing department' | translate}}: *</label>
+            <div class="col-md-7">
+                <department-picker ng-model="otherCtrl.selectedDepartment" config="otherCtrl.departmentPickerConfig"></department-picker>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Task title' | translate}}: *</label>
+            <div class="col-md-7">
+                <text-control config="otherCtrl.titlePickerConfig"></text-control>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Task description' | translate}}: </label>
+            <div class="col-md-7">
+                <text-area-control config="otherCtrl.descriptionPickerConfig"></text-area-control>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Address' | translate}}:</label>
+            <div class="col-md-7">
+                <address-control data-config="otherCtrl.addressControlConfig"></address-control>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Documents:' | translate}}</label>
+            <div class="col-md-9 operation__indent">
+                <div ng-if="!otherCtrl.isTaskSaved">
+                    <file-uploader config="otherCtrl.ordinalFileUploaderConfig">
+                    </file-uploader>
+                </div>
+
+                <div ng-if="otherCtrl.isTaskSaved">
+
+                    <file-uploader config="otherCtrl.instantFileUploaderConfig" data-ng-show="otherCtrl.showFileUploader">
+                    </file-uploader>
+
+                    <table class="table _valign-m" ng-if="otherCtrl.task.uploads.length">
+                        <thead>
+                        <tr>
+                            <th>{{::'File name' | translate}}</th>
+                            <th>{{::'Creator name' | translate}}</th>
+                            <th>{{::'Creation date' | translate}}</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="document in otherCtrl.task.uploads">
+                            <td>
+                                <a file-downloader ng-href="{{document.path}}" alt="uploadedDocument">{{document.fileName}}</a>
+                            </td>
+                            <td>
+                                <user-avatar data-config="{ url: document.uploader.avatar, name: document.uploader.name }"/>
+                                <span>{{document.uploader.name}}</span>
+                            </td>
+                            <td>
+                                {{otherCtrl.getFormatedCreationDate(document.creationDate)}}
+                            </td>
+                            <td>
+                                <span class="document__del pe-7s-close _pointer" ng-click="otherCtrl.deleteDocument(document)" data-ng-show="otherCtrl.showDeleteDocumentButton"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" ng-if="otherCtrl.isAllowAssignMembers"/>
+
+    <div class="form-group" ng-if="otherCtrl.isAllowAssignMembers">
+        <div class="row">
+            <label class="col-md-3 control-label">{{::'Responsible' | translate}}: *</label>
+            <div class="col-md-7">
+                <team-picker config="otherCtrl.teamPickerConfig"></team-picker>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" ng-if="!otherCtrl.isTaskSaved && otherCtrl.showSaveButton">
+        <div class="row">
+            <div class="col-md-7 col-md-offset-3 operation__indent">
+                <button class="btn btn-primary" type="button" ng-click="otherCtrl.save()">
+                    <span>{{::'Save' | translate}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group janitor-button" data-ng-if="otherCtrl.showJanitorButtons">
+        <div class="row">
+            <div class="col-md-7 col-md-offset-3 operation__indent">
+                <button class="btn btn-primary" type="button" data-ng-click="otherCtrl.assignToMe()">
+                    <span>{{::'Assign on me' | translate}}</span>
+                </button>
+                <button class="btn btn-primary" type="button" data-ng-click="otherCtrl.openTask()">
+                    <span>{{::'Open task' | translate}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" data-ng-if="otherCtrl.isTaskSaved"/>
+
+    <div class="form-group" ng-if="otherCtrl.isTaskSaved">
+        <div class="row m-b" ng-if="!otherCtrl.isCompleted">
+            <label class="col-md-3 control-label">
+                <span>{{::'Cancel task' | translate}}:</span>
+            </label>
+            <div class="col-sm-7">
+                <div ng-if="!otherCtrl.task.isCanceled" class="row _custom">
+                    <div class="col-md-8">
+                        <select-control data-ng-disabled="otherCtrl.disableCancelTaskControl" config="otherCtrl.cancellationReasonConfig">
+                        </select-control>
+                    </div>
+                    <div class="col-md-4 operation__indent">
+                        <button class="btn btn-default"
+                                type="button"
+                                ng-click="otherCtrl.cancel()"
+                                data-ng-disabled="otherCtrl.disableCancelTaskButton">
+                            <span>{{::'Cancel assignment' | translate}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="_pt-indent" ng-if="otherCtrl.task.isCanceled">
+                <span>{{::'Task canceled' | translate}}</span>
+            </div>
+        </div>
+        <div class="row" ng-if="otherCtrl.isCompleted && !otherCtrl.isReopened">
+            <label class="col-md-3 control-label">
+                <span>{{::'Reopen task' | translate}}:</span>
+            </label>
+            <div class="col-md-7 operation__indent">
+                <button class="btn btn-default" type="button" ng-click="otherCtrl.onReopen()">
+                    <span>{{::'Reopen task' | translate}}</span>
+                </button>
+            </div>
+        </div>
+        <div class="row" ng-if="otherCtrl.isReopened">
+            <label class="col-md-3 control-label">
+                <span>{{::'Reopen task' | translate}}:</span>
+            </label>
+            <div class="col-md-7 operation__indent">
+                <div class="_pt-indent">
+                    <span>{{::'Task reopened' | translate}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,63 @@
+﻿<section>
+    <div class="pblock">
+        <div class="pblock__heading">
+            <div class="pblock__head">
+                <h2 class="pblock__head-title">
+                    <span>{{'My tasks' | translate}}</span>
+                </h2>
+            </div>
+            <div class="pblock__heading-btn">
+                <a class="btn btn-custom" data-ng-click="myTaskCtrl.createOperationalTask()">
+                    <i class="fa fa-plus"></i>
+                    <span class="create-btn-text">{{'Create task' | translate}}</span>
+                </a>
+            </div>
+        </div>
+        <div data-ng-repeat="jobHeader in myTaskCtrl.jobHeaderList" class="pblock__item _pointer" data-ng-click="myTaskCtrl.goToTaskDetails($event, jobHeader)"
+             data-ng-style="{'background-color':jobHeader.color}">
+            <div class="pblock__row no-padding overflow">
+                <div class="pull-left">
+                    <span data-ng-if="jobHeader.date">{{myTaskCtrl.getDateString(jobHeader.date)}}</span>
+                    <div>
+                        <span data-ng-if="jobHeader.date && myTaskCtrl.isTaskTenantOrOther(jobHeader.jobType)" class="padding-top">
+                            {{myTaskCtrl.getTimeString(jobHeader.date)}}
+                            <span data-ng-if="myTaskCtrl.isTaskDurationNeeded(jobHeader)"> - {{myTaskCtrl.getEstimateTimeString(jobHeader)}} </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="pblock__col overflow" data-ng-if="myTaskCtrl.isStartTimeLabelVisible(jobHeader)">
+                    <div data-ng-class="myTaskCtrl.isTaskOverdue(jobHeader) ? '_font-red' : ''" class="inline-el">
+                        <i class="pe-7s-timer time-icon"></i>
+                        <span>{{myTaskCtrl.getTimeBeforeStartString(jobHeader.date)}}</span>
+                        <span>{{myTaskCtrl.getTimeBeforeStartLabel(jobHeader)}}</span>
+                    </div>
+                </div>
+                <div class="pblock__estimate-time" data-ng-if="myTaskCtrl.isHaveEstimations(jobHeader)">
+                    <span>{{'Estimated time' | translate}}: {{myTaskCtrl.getEstimateTimeInHoursString(jobHeader)}} {{'time' | translate}}</span>
+                </div>
+            </div>
+            <div class="pblock__title-holder">
+                <div class="pull-right text-right">
+                    <span class="pblock__status">{{myTaskCtrl.getStatusTranslation(jobHeader.jobStatus) |translate}}</span>
+                    <div>
+                        <span class="pblock__status _urgent" data-ng-if="jobHeader.isUrgent">{{'Urgent job' | translate}}</span>
+                    </div>
+                </div>
+                <div class="pblock__title-row">
+                    <h2 class="pblock__title">{{jobHeader.title}}</h2>
+                    <div>
+                        <span>{{jobHeader.assignedHousingDepartmentName}}</span>
+                    </div>
+                    <span data-ng-if="jobHeader.address" class="pblock__title-address">{{jobHeader.address}}</span>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="back-to-top" data-ng-click="myTaskCtrl.scrollToTop()" data-ng-class="{'show-btn' : myTaskCtrl.isVisibleButton}">
+            <i class="fa fa-chevron-up"></i>
+            <div>{{'Till toppen' | translate}}</div>
+        </div>
+    </div>
+</section>

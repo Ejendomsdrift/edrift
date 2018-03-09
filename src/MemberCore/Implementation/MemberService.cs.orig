@@ -1,0 +1,344 @@
+﻿using Infrastructure.Extensions;
+using Infrastructure.Helpers;
+using MemberCore.Authentication.Interfaces;
+using MemberCore.Contract.Enums;
+using MemberCore.Contract.Interfaces;
+using MemberCore.Models;
+using MongoRepository.Contract.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using ManagementDepartmentCore.Contract.Interfaces;
+using Infrastructure.Constants;
+using SecurityCore.Contract.Interfaces;
+using System.Linq.Expressions;
+using System.Web;
+
+namespace MemberCore.Implementation
+{
+    public class MemberService : IMemberService
+    {
+        private readonly IRepository<Member> memberRepository;
+        private readonly IAuthenticationService authenticationService;
+        private readonly IManagementDepartmentService managementDepartmentService;
+        private readonly IUrlHelper urlHelper;
+        private readonly IFileHelper fileHelper;
+        private readonly ISecurityService securityService;
+        private readonly IAppSettingHelper appSettingHelper;
+
+        public MemberService(
+            IRepository<Member> memberRepository,
+            IAuthenticationService authenticationService,
+            IFileHelper fileHelper,
+            IUrlHelper urlHelper,
+            IManagementDepartmentService managementDepartmentService,
+            ISecurityService securityService,
+            IAppSettingHelper appSettingHelper)
+        {
+            this.memberRepository = memberRepository;
+            this.authenticationService = authenticationService;
+            this.fileHelper = fileHelper;
+            this.urlHelper = urlHelper;
+            this.managementDepartmentService = managementDepartmentService;
+            this.securityService = securityService;
+            this.appSettingHelper = appSettingHelper;
+        }
+
+        public void SyncMembers(object syncMembers, IEnumerable<Guid> activeUserIds)
+        {
+            if (syncMembers == null)
+            {
+                return;
+            }
+
+            var members = syncMembers.Deserialize<IEnumerable<SyncMember>>().Where(i => i.RoleList.HasValue());
+
+            foreach (var syncMember in members)
+            {
+                var member = syncMember.Map<Member>();
+
+                //TO-DO Remove this after implementation functionality for SuperAdmin
+                var superAdminRole = member.RoleList.FirstOrDefault(i => i.RoleId == (int) RoleType.SuperAdmin);
+                if (superAdminRole != null && member.RoleList.All(i => i.RoleId != (int) RoleType.Administrator))
+                {
+                    member.RoleList.Insert(0, new Role
+                    {
+                        IsDeleted = false,
+                        ManagementDepartmentId = superAdminRole.ManagementDepartmentId,
+                        RoleId = (int) RoleType.Administrator
+                    });
+                }
+                //End
+
+                member.HasAvatar = syncMember.AvatarFileContent.HasValue();
+
+                var oldMember = memberRepository.Query.FirstOrDefault(d => d.UserName == member.UserName);
+                if (oldMember != null)
+                {
+                    member.RoleList = GetUpdatedRoleList(member.RoleList, oldMember.RoleList);
+                    member.Id = oldMember.Id;
+                }
+
+                memberRepository.Save(member);
+
+                if (syncMember.AvatarFileContent.HasValue())
+                {
+                    SaveAvatar(member.Id, syncMember.AvatarFileContent);
+                }
+            }
+
+            var updatedUserNames = members.Select(i => i.UserName);
+            DeactivateMembers(updatedUserNames, activeUserIds);
+        }
+
+        public IEnumerable<IMemberModel> GetByIds(IEnumerable<Guid> ids)
+        {
+            if (!ids.HasValue())
+            {
+                return Enumerable.Empty<IMemberModel>();
+            }
+
+            var members = memberRepository.Query.Where(i => !i.IsDeleted && ids.Contains(i.Id)).ToList();
+            var result = members.Select(MapMember);
+            return result;
+        }
+
+        public IEnumerable<IMemberModel> GetAll()
+        {
+            var members = memberRepository.Query.Where(i => !i.IsDeleted).ToList();
+            var result = members.Select(MapMember);
+            return result;
+        }
+
+        public IMemberModel GetCurrentUser()
+        {
+            var userName = authenticationService.GetCurrentUserName();
+            var result = GetByUserName(userName);
+            return result;
+        }
+
+        public IEnumerable<IManagementDepartmentModel> GetUserManagementDepartments(Guid id)
+        {
+            Member member = memberRepository.Query.First(i => i.Id == id);
+            IEnumerable<string> managementDepartmentSyncIds = member.RoleList.Where(i => !i.IsDeleted).Select(r => r.ManagementDepartmentId);
+            return managementDepartmentService.GetManagementDepartmentsBySyncIds(managementDepartmentSyncIds);
+        }
+
+        public IMemberModel GetById(Guid id)
+        {
+            var user = memberRepository.Query.FirstOrDefault(i => i.Id == id);
+            var result = MapMember(user);
+            return result;
+        }
+
+        public IMemberModel GetByUserName(string userName)
+        {
+            var user = memberRepository.Query.FirstOrDefault(i => i.UserName == userName);
+            var result = MapMember(user);
+            return result;
+        }
+
+        public IMemberModel GetByEmail(string email)
+        {
+            var user = memberRepository.Query.FirstOrDefault(i => i.Email == email.ToLowerInvariant());
+            var result = MapMember(user);
+            return result;
+        }
+
+        public IEnumerable<IMemberModel> GetEmployeesByManagementDepartment(Guid managementDepartmentId)
+        {
+            var result = GetEmployeesByManagementDepartmentIds(new List<Guid> { managementDepartmentId });
+            return result;
+        }
+
+<<<<<<< HEAD
+        public IEnumerable<IMemberModel> GetMembersByManagementDepartment(Guid managementDepartmentId)
+        {
+            var management = managementDepartmentService.GetManagementDepartmentById(managementDepartmentId);
+
+            return memberRepository
+                .Find(m => m.RoleList
+                    .Any(r =>
+                        r.ManagementDepartmentId == management.SyncDepartmentId && !r.IsDeleted && r.RoleId != (int) RoleType.Administrator &&
+                        r.RoleId != (int) RoleType.SuperAdmin))
+                .Select(MapMember);
+        }
+
+=======
+>>>>>>> origin/develop
+        public void UpdateMember(Guid memberId, int daysAhead, Guid? departmentId)
+        {
+            var member = memberRepository.Query.First(m => m.Id == memberId);
+            if (member != null)
+            {
+                member.DaysAhead = daysAhead;
+                member.DepartmentId = departmentId;
+                memberRepository.Save(member);
+            }
+        }
+
+        public IEnumerable<IMemberModel> GetAllowedMembersForJob(Guid managementDepartmentId)
+        {
+            var allowedRolesForAssigningOnJob = appSettingHelper.GetAppSetting<string>(Constants.AppSetting.AllowedRolesForAssigningOnJob);
+            var management = managementDepartmentService.GetManagementDepartmentById(managementDepartmentId);
+<<<<<<< HEAD
+            var allowedRoleIds = securityService.GetRoles(allowedRolesForAssigningOnJob).Select(i => (int) i);
+            var members = memberRepository.Query.Where(m => m.RoleList.Any(r => r.ManagementDepartmentId == management.SyncDepartmentId &&
+                                                                                !r.IsDeleted && allowedRoleIds.Contains(r.RoleId))).ToList();
+            var result = members.Select(MapMember);
+=======
+            var allowedRoleIds = securityService.GetRoles(allowedRolesForAssigningOnJob).Select(i => (int)i);
+            var members = memberRepository.Query.Where(m => !m.IsDeleted &&
+                                                            m.RoleList.Any(r => r.ManagementDepartmentId == management.SyncDepartmentId &&
+                                                                                !r.IsDeleted && allowedRoleIds.Contains(r.RoleId)));
+            var result = members.ToList().Select(MapMember);
+>>>>>>> origin/develop
+            return result;
+        }
+
+        public void ClearCurrentRole(Guid memberId)
+        {
+            memberRepository.UpdateSingleProperty(memberId, m => m.CurrentRole, null);
+        }
+
+        public IEnumerable<IMemberModel> GetAllowedMembersForJob(IEnumerable<Guid> memberIds = null)
+        {
+            var allowedRolesForAssigningOnJob = appSettingHelper.GetAppSetting<string>(Constants.AppSetting.AllowedRolesForAssigningOnJob);
+<<<<<<< HEAD
+            var allowedRoleIds = securityService.GetRoles(allowedRolesForAssigningOnJob).Select(i => (int) i);
+            Expression<Func<Member, bool>> filter = i => i.RoleList.Any(r => allowedRoleIds.Contains(r.RoleId));
+=======
+            var allowedRoleIds = securityService.GetRoles(allowedRolesForAssigningOnJob).Select(i => (int)i);
+            Expression<Func<Member, bool>> filter = i => !i.IsDeleted && i.RoleList.Any(r => !r.IsDeleted && allowedRoleIds.Contains(r.RoleId));
+>>>>>>> origin/develop
+
+            if (memberIds.HasValue())
+            {
+                filter = filter.And(i => memberIds.Contains(i.Id));
+            }
+
+            var members = memberRepository.Query.Where(filter).ToList();
+            var result = members.Select(MapMember).ToList();
+            return result;
+        }
+
+        private IEnumerable<IMemberModel> GetEmployeesByManagementDepartmentIds(IEnumerable<Guid> ids)
+        {
+            var syncIds = managementDepartmentService.GetManagementSyncIds(ids);
+            var roleIds = new List<int> { (int)RoleType.Administrator, (int)RoleType.SuperAdmin };
+
+            var employees = memberRepository.Query.Where(i => !i.IsDeleted &&
+                                i.RoleList.Any(r => !r.IsDeleted &&
+                                                    syncIds.Contains(r.ManagementDepartmentId) &&
+                                                    !roleIds.Contains(r.RoleId)));
+
+            var result = employees.ToList().Select(MapMember);
+            return result;
+        }
+
+        private IMemberModel MapMember(Member member)
+        {
+            if (member == null)
+            {
+                return null;
+            }
+
+            var activeRoles = member.RoleList.Where(i => !i.IsDeleted).OrderBy(x => x.RoleId);
+            var managementSyncIds = activeRoles.Select(i => i.ManagementDepartmentId);
+            var currentRole = GetCurrentRole(member);
+            var role = activeRoles.FirstOrDefault(x => x.RoleId == (int) currentRole);
+            var managementDepartmentIdsToSyncIds = managementDepartmentService.ManagementDepartmentIdsByRoles(managementSyncIds);
+            var managementsToActiveRolesRelation = GetManagementsToActiveRolesRelation(activeRoles, managementDepartmentIdsToSyncIds);
+            var resultMember = new MemberModel
+            {
+                MemberId = member.Id,
+                Name = member.Name,
+                UserName = member.UserName,
+                IsDeleted = member.IsDeleted,
+                Roles = activeRoles.Select(i => (RoleType) i.RoleId),
+                CurrentRole = currentRole,
+                Avatar = member.HasAvatar ? urlHelper.GetAvatarUrl(member.Id) : string.Empty,
+                Email = member.Email,
+                WorkingPhone = member.WorkingPhone,
+                MobilePhone = member.MobilePhone,
+                DaysAhead = member.DaysAhead ?? Constants.Common.DefaultMemberDayAhead,
+                DepartmentId = member.DepartmentId ?? managementsToActiveRolesRelation.SelectMany(pair => pair.Value).FirstOrDefault(),
+                ManagementsToActiveRolesRelation = managementsToActiveRolesRelation,
+                ManagementDepartmentSyncId = role.ManagementDepartmentId
+            };
+
+            return resultMember;
+        }
+
+        private IDictionary<RoleType, IEnumerable<Guid>> GetManagementsToActiveRolesRelation(IEnumerable<Role> roles,
+            IDictionary<string, Guid> managementDepartmentIdsToSyncId)
+        {
+            var result = roles.GroupBy(r => (RoleType) r.RoleId, r => r.ManagementDepartmentId)
+                .ToDictionary(g => g.Key, g => g.Select(syncId => managementDepartmentIdsToSyncId[syncId]));
+            return result;
+        }
+
+        private void SaveAvatar(Guid memberId, byte[] avatarFileContent)
+        {
+            var filePath = urlHelper.GetAvatarUrl(memberId);
+            fileHelper.SaveFile(filePath, avatarFileContent);
+        }
+
+        private void DeactivateMembers(IEnumerable<string> updatedUserNames, IEnumerable<Guid> activeUserIds)
+        {
+            memberRepository.UpdateManySingleProperty(i => !updatedUserNames.Contains(i.UserName) && !activeUserIds.Contains(i.Id), m => m.IsDeleted, true);
+        }
+
+        private List<Role> GetUpdatedRoleList(List<Role> newRoles, List<Role> oldRoles)
+        {
+            var result = newRoles.HasValue() ? new HashSet<Role>(newRoles) : new HashSet<Role>();
+
+            foreach (var oldRole in oldRoles)
+            {
+                var newRole = result.FirstOrDefault(i => i.Equals(oldRole));
+                if (newRole == null)
+                {
+                    oldRole.IsDeleted = true;
+                    result.Add(oldRole);
+                }
+                else
+                {
+                    newRole.Id = oldRole.Id;
+                }
+            }
+
+            return result.ToList();
+        }
+
+        public void SwitchMemberToNextAvailableRole(Guid memberId)
+        {
+            var switchPlatformButtonKey = appSettingHelper.GetAppSetting<string>(Constants.AppSetting.SwitchPlatformButton);
+            var member = memberRepository.Query.First(m => m.Id == memberId);
+            var allowedRoleList = securityService.GetRoles(switchPlatformButtonKey).OrderByDescending(x => x.GetSortIndex()).ToList();
+            var memberRoles = member.RoleList.Select(r => (RoleType) r.RoleId).ToArray();
+            var currentRole = GetCurrentRole(member);
+            var nextRole = GetNextRole(currentRole, allowedRoleList);
+            memberRepository.UpdateSingleProperty(memberId, m => m.CurrentRole, nextRole);
+        }
+
+        private RoleType GetNextRole(RoleType? currenRole, List<RoleType> roles)
+        {
+            if (currenRole.HasValue && roles.Any(x => x == currenRole))
+            {
+                roles.Remove(currenRole.Value);
+            }
+
+            return roles.First();
+        }
+
+        private RoleType GetCurrentRole(Member member)
+        {
+            var isMobile = HttpContext.Current != null && HttpContext.Current.Request.Browser.IsMobileDevice;
+            var memberRoleList = member.RoleList.Where(i => !i.IsDeleted).Select(x => (RoleType) x.RoleId).OrderByDescending(x => x.GetSortIndex());
+            var currentRole = isMobile && memberRoleList.Any(m => m == RoleType.Janitor)
+                ? RoleType.Janitor
+                : member.CurrentRole ?? memberRoleList.First();
+            return currentRole;
+        }
+    }
+}

@@ -1,0 +1,9 @@
+﻿<div>
+    <edit-control config="phoneCtrl.editControlConfig">
+        <input type="text" name="phone" mask="{{phoneCtrl.config.mask}}" clean="false" restrict="reject" class="form-control" 
+               data-ng-model="phoneCtrl.config.value" data-ng-blur="phoneCtrl.setValue()" data-ng-if="::(phoneCtrl.isEditableMode() && phoneCtrl.isWindowsPhone())">
+        <input class="form-control" type="text" name="phone" data-ng-pattern="/[0-9]+/" ui-mask="{{phoneCtrl.config.mask}}" model-view-value="true"
+               data-ng-model="phoneCtrl.config.value" data-ng-blur="phoneCtrl.setValue()" data-ng-if="::(phoneCtrl.isEditableMode() && !phoneCtrl.isWindowsPhone())"/>
+        <span data-ng-if="!phoneCtrl.isEditableMode()">{{phoneCtrl.config.value}}</span>
+    </edit-control>
+</div>

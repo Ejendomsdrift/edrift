@@ -1,0 +1,15 @@
+﻿<div>
+    <edit-control config="taskTypePickerCtrl.editControlConfig">
+        <div data-ng-if="taskTypePickerCtrl.isEditableMode()" ng-class="taskTypePickerCtrl.isTypeValid() ? '' : '_error'">
+            <ui-select ng-model="taskTypePickerCtrl.config.value" on-select="taskTypePickerCtrl.setValue($item.id)">
+                <ui-select-match allow-clear="true" placeholder="{{::'Choose task type' | translate}}">
+                    <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="type in taskTypePickerCtrl.taskType | filter: { name : $select.search } track by type.id">
+                    <span ng-bind-html="type.name | highlight: $select.search"></span>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <span data-ng-if="!taskTypePickerCtrl.isEditableMode()">{{::taskTypePickerCtrl.config.value.name}}</span>
+    </edit-control>
+</div>

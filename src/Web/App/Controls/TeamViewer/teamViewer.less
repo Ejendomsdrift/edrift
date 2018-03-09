@@ -1,0 +1,109 @@
+﻿@import "../../Less/fonts";
+@import "../../Less/Mixins";
+@import "../../Less/Variables";
+
+.janitor-member {
+
+    &__group-title {
+        margin: 5px 0 10px;
+        font-weight: bold;
+    }
+
+    &__row {
+        margin-top: 10px;
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    &__col {
+        display: table-cell;
+        vertical-align: middle;
+
+        .form-control {
+            border-radius: 0;
+            text-align: center;
+            width: 48px !important;
+            display: inline-block;
+            vertical-align: middle;
+
+            &:first-child {
+                margin-right: 6px;
+            }
+        }        
+
+        .holder {
+            position: relative;
+            display: inline-block;
+
+            &:after {
+                position: absolute;
+                top: 0;
+                left: 51px;
+                bottom: 0;
+                line-height: 34px;
+            }
+        }
+    }
+
+    &__rolle {
+        font-size: 13px;
+    }
+
+    &__name {
+        font: 16px 'open_sansbold', Arial,sans-serif;
+    }
+
+    &__time-label {
+        display: inline-block;
+        vertical-align: bottom;
+        width: 48px;
+        text-align: center;
+
+        &:first-child {
+            margin-right: 6px;
+        }
+    }
+}
+
+.tooltip-holder {
+    position: relative;
+
+    .btn {
+        font-size: 13px;
+        padding: 4px 18px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &__text {
+        width: 300px;
+        text-align: left;
+        padding: 20px 10px;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        margin-top: -2px;
+        z-index: 1;
+    }
+
+    &__title {
+        font: 13px open_sansbold,Arial,sans-serif;
+        margin: 0 0 5px;
+    }
+
+    &.show-tooltip {
+        .btn {
+            border-color: @gray;
+            background-color: @gray;
+        }
+
+        .tooltip-holder {
+            &__text {
+                background-color: @gray;
+            }
+        }
+    }
+}

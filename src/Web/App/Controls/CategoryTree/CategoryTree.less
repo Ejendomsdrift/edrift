@@ -1,0 +1,259 @@
+﻿@import "../../Less/Mixins";
+@import "../../Less/Variables";
+
+.category-tree {
+    &.show-simple-view {
+        .show-simple-mode {
+            display: block;
+        }
+
+        .show-edit-mode {
+            display: none;
+        }
+    }
+
+    &.show-edit-view {
+        .show-simple-mode {
+            display: none;
+        }
+
+        .show-edit-mode {
+            display: block;
+        }
+    }
+
+    .tasks-count {
+        display: none;
+    }
+
+    &.show-tasks-count {
+        .tasks-count {
+            display: inline;
+        }
+    }
+
+    &.show-tasks-lines {
+        .tasks-lines {
+            display: block;
+        }
+    }
+
+    .tasks-lines {
+        display: none;
+    }
+
+    &.show-dropdown {
+        .dropdown-control {
+            display: block;
+        }
+    }
+
+    .dropdown-control {
+        display: none;
+    }
+
+    .view-all-button {
+        display: none;
+        background: #fff;
+        cursor: pointer;
+        line-height: 32px;
+        width: 350px;
+        border: 1px solid @iron;
+        color: #333;
+        font-family: Verdana,Helvetica,Arial,sans-serif;
+
+        span {
+            display: block;
+            padding-left: 1029px;
+            margin-left: -999px;
+        }
+
+        &._open-all {
+            span {
+                background: @green;
+                font-weight: 700;
+            }
+        }
+    }
+
+    &.show-dropdown-expanded {
+        .dropdown-expanded {
+            display: block;
+        }
+
+        .form-control:after {
+            border-top: none;
+            border-bottom: 4px solid #555;
+        }
+
+        &.show-view-all-button {
+            .view-all-button {
+                display: block;
+            }
+        }
+    }
+
+    .dropdown-expanded {
+        display: none;
+    }
+
+    .tree-hold {
+        overflow-y: auto;
+        max-height: 290px;
+    }
+
+    treecontrol {
+        border: 1px solid @light-gray;
+        .border-radius(4px);
+        display: block;
+        overflow: hidden;
+
+        > .custom-tree {
+            > li:first-child::before {
+                display: none;
+            }
+        }
+    }
+
+    .form-control {
+        min-width: 250px;
+        position: relative;
+        cursor: pointer;
+        padding: 6px 40px 6px 6px;
+
+        &:after {
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 0;
+            border-top: 4px solid #555;
+            border-right: 4px solid transparent;
+            border-left: 4px solid transparent;
+            top: 50%;
+            margin: -2px 0 0;
+            right: 12px;
+        }
+
+        .remove {
+            position: absolute;
+            background-color: #d1d1d1;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 10px;
+            width: 14px;
+            height: 14px;
+            line-height: 14px;
+            text-align: center;
+            top: 50%;
+            margin-top: -7px;
+            right: 25px;
+        }
+
+        &__text {
+            width: 202px;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .custom-tree {
+        overflow: visible;
+
+        li {
+            position: relative;
+            line-height: 24px;
+            padding-left: 30px;
+            color: #333;
+
+            &:before {
+                position: absolute;
+                left: -999px;
+                right: -999px;
+                content: "";
+                border-top: 1px solid @light-gray;
+            }
+
+            .tree-label {
+                display: block;
+                padding-left: 999px;
+                margin-left: -999px;
+                font-weight: normal;
+
+                &.tree-selected {
+                    background: @white;
+                    font-weight: normal;
+                }
+            }
+        }
+
+        i {
+            position: absolute;
+            left: 0;
+            width: 30px;
+            text-align: center;
+            top: 0;
+        }
+
+        i.tree-leaf-head {
+            display: none !important;
+        }
+
+        .tree-item {
+            display: block;
+            margin: 0 -999px;
+            padding: 4px 999px;
+        }
+
+        .selected-item {
+            background: @green;
+            font-weight: 700;
+        }
+
+        .hidden-item {
+            display: none;
+        }
+
+        .task-item {
+            padding: 4px 989px;
+        }
+
+        .tree-icon {
+            width: 10px;
+            font-size: 10px;
+            top: 50%;
+            margin-top: -5px;
+            left: 2px;
+        }
+    }
+
+    treecontrol.tree-classic li.tree-collapsed i.tree-branch-head,
+    treecontrol.tree-classic li.tree-expanded i.tree-branch-head {
+        background: none;
+        padding: 0;
+        line-height: 32px;
+        font-size: 14px;
+    }
+}
+
+.simple-tree {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    &__item {
+        background: url(/Content/images/tree-img.png) no-repeat 0 5px;
+        padding: 0 0 0 12px;
+
+        &:first-child {
+            background: none;
+            padding: 0;
+        }
+
+        &:nth-child(3n) {
+            padding: 0 0 0 20px;
+            background-position-x: 9px;
+        }
+    }
+}

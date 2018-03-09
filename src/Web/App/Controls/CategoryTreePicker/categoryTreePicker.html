@@ -1,0 +1,20 @@
+﻿<div>
+    <edit-control config="categoryTreePickerCtrl.editControlConfig">
+        <div data-ng-if="categoryTreePickerCtrl.isCreateMode()" data-ng-class="{'_error' : !categoryTreePickerCtrl.isCategoryValid() }">
+            <category-tree on-select="categoryTreePickerCtrl.categoryTreeSelected($category)"
+                           selected-id="categoryTreePickerCtrl.config.value">
+            </category-tree>
+        </div>
+        <div data-ng-if="categoryTreePickerCtrl.isViewMode() || categoryTreePickerCtrl.isDisabledMode()">
+            <category-tree config="categoryTreePickerCtrl.config.categoryTreeConfig"
+                           on-select="categoryTreePickerCtrl.categoryTreeSelected($category)"
+                           selected-id="categoryTreePickerCtrl.config.value">
+            </category-tree>
+        </div>
+        <div data-ng-if="categoryTreePickerCtrl.isEditMode()">
+            <category-tree on-select="categoryTreePickerCtrl.categoryTreeSelected($category)"
+                           selected-id="categoryTreePickerCtrl.config.value">
+            </category-tree>
+        </div>
+    </edit-control>
+</div>

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A16D8D09-284F-4D9C-AA28-BE1FF38F5FF6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Statistics.Contract</RootNamespace>
+    <AssemblyName>Statistics.Contract</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA|AnyCPU'">
+    <OutputPath>bin\QA\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <OutputPath>bin\Production\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enums\QueryingAlgorithmType.cs" />
+    <Compile Include="Interfaces\ChartsDataBuilders\IAddressVisitsChartModelBuilder.cs" />
+    <Compile Include="Interfaces\ChartsDataBuilders\ISpentTimeChartDataBuilder.cs" />
+    <Compile Include="Interfaces\IChartDataQueryingRestrictions.cs" />
+    <Compile Include="Interfaces\IDayAssignsTimeSpanSelector.cs" />
+    <Compile Include="Interfaces\IStatisticFiltersModelBuilder.cs" />
+    <Compile Include="Interfaces\Models\AddressStatisticInfo.cs" />
+    <Compile Include="Interfaces\Models\ChartDataTypesInterfaces.cs" />
+    <Compile Include="Interfaces\Models\IAbsenceDataModel.cs" />
+    <Compile Include="Interfaces\Models\IAddressStatisticInfo.cs" />
+    <Compile Include="Interfaces\Models\IAddressVisitsChartConfig.cs" />
+    <Compile Include="Interfaces\Models\CsvRequestTypesInterfaces.cs" />
+    <Compile Include="Interfaces\Models\ICancelingReasonDataModel.cs" />
+    <Compile Include="Interfaces\Models\ITextFileResultModel.cs" />
+    <Compile Include="Interfaces\Models\ITaskRatioChartBuildConfig.cs" />
+    <Compile Include="Interfaces\Models\IHousingDepartmentStatisticModel.cs" />
+    <Compile Include="Interfaces\Models\ITaskChartModel.cs" />
+    <Compile Include="Interfaces\ITaskChartModelBuilder.cs" />
+    <Compile Include="Interfaces\ITaskStatisticService.cs" />
+    <Compile Include="Interfaces\ChartsDataBuilders\ITaskTypeRatioChartModelBuilder.cs" />
+    <Compile Include="Interfaces\ITimePeriod.cs" />
+    <Compile Include="Interfaces\Models\IManagementDepartmentStatisticModel.cs" />
+    <Compile Include="Interfaces\Models\StatisticsFiltersModel.cs" />
+    <Compile Include="Interfaces\Models\ISpentTimeChartConfig.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MemberCore.Contract\MemberCore.Contract.csproj">
+      <Project>{47BC5D0C-F6C7-4C86-9F71-DFFD66CEA359}</Project>
+      <Name>MemberCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatusCore.Contract\StatusCore.Contract.csproj">
+      <Project>{C26C786E-1D2E-452E-BA71-197D255C489E}</Project>
+      <Name>StatusCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YearlyPlanning.Contract\YearlyPlanning.Contract.csproj">
+      <Project>{563E54E5-F69C-4227-AE8A-AEAD320AEA3B}</Project>
+      <Name>YearlyPlanning.Contract</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

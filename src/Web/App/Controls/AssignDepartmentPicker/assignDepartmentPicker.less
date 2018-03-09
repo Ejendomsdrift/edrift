@@ -1,0 +1,20 @@
+﻿@import "../../Less/fonts";
+@import "../../Less/Mixins";
+@import "../../Less/Variables";
+
+.assign {
+    &__department-list {
+        margin-bottom: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__department-item {
+        padding: 10px;
+        border-bottom: 1px solid @iron;
+
+        &:first-child {
+            border-top: 1px solid @iron;
+        }
+    }
+}

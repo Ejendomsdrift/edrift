@@ -1,0 +1,123 @@
+﻿<section class="document">
+    <h5 data-ng-show="documentCtrl.hideBothSection">{{'There are no documents' | translate}}</h5>
+    <div class="general-and-local-documents" data-ng-hide="documentCtrl.hideBothSection">
+        <h5 data-ng-hide="documentCtrl.showGlobalSection">{{'There are no global documents' | translate}}</h5>
+        <div class="row" data-ng-show="documentCtrl.showGlobalSection">
+            <div class="col-md-12">
+                <h4>{{'General documents' | translate}}</h4>
+
+                <file-uploader config="documentCtrl.globalFileUploaderConfig" data-ng-hide="!documentCtrl.showGlobalFileUploader">
+                </file-uploader>
+
+                <table class="table _valign-m" data-ng-if="documentCtrl.showTable(documentCtrl.globalAssign.uploadList)">
+                    <thead>
+                        <tr>
+                            <th>{{'File name' | translate}}</th>
+                            <th>{{'Creator name' | translate}}</th>
+                            <th>{{'Creation date' | translate}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="document in documentCtrl.globalAssign.uploadList">
+                            <td>
+                                <a file-downloader data-ng-href="{{document.path}}" alt="uploadedDocument">{{document.fileName}}</a>
+                            </td>
+                            <td>
+                                <user-avatar data-config="{ url: document.uploader.avatar, name: document.uploader.name }"/>
+                                <span>{{document.uploader.name}}</span>
+                            </td>
+                            <td>
+                                {{documentCtrl.getFormatedCreationDate(document.creationDate)}}
+                            </td>
+                            <td>
+                                <span class="document__del pe-7s-close" data-ng-click="documentCtrl.deleteGlobalDocument(document)"
+                                      data-ng-hide="!documentCtrl.showGlobalFileUploader">
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div data-ng-show="documentCtrl.showLocalSection">
+            <div class="local-part" data-ng-hide="documentCtrl.facilityTask.assignedDepartments.length === 0">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h4>{{'Local documents' | translate}}</h4>
+                    </div>
+                    <div class="col-sm-9">
+                        <ui-select ng-if="!documentCtrl.isGroupedJob" ng-model="documentCtrl.localDepartment" on-select="documentCtrl.changeLocalDepartment($select.selected)">
+                            <ui-select-match allow-clear="true" placeholder="{{'Choose department' | translate}}">
+                                <span>{{$select.selected.syncDepartmentId}} {{$select.selected.name}}</span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="department in (documentCtrl.assignedDepartments | filter: $select.search | orderBy:['syncDepartmentId','name']) track by department.id">
+                                <span>{{department.syncDepartmentId}} {{department.name}}</span>
+                            </ui-select-choices>
+                        </ui-select>
+
+                        <ui-select ng-if="documentCtrl.isGroupedJob"
+                                   ng-model="documentCtrl.localJobAddress"
+                                   ng-change="documentCtrl.localJobAddressOnChange()">
+                            <ui-select-match allow-clear="true" placeholder="{{'Choose address' | translate}}">
+                                <span>
+                                    {{$select.selected.id}}
+                                    <span ng-if="$select.selected.value">- {{$select.selected.value}}</span>
+                                </span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="jobAddress in (documentCtrl.addressList | filter: $select.search) track by jobAddress.id">
+                                <span>
+                                    {{jobAddress.id}}
+                                    <span ng-if="jobAddress.value">
+                                        - {{jobAddress.value}}
+                                    </span>
+                                </span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <h5 data-ng-show="documentCtrl.showLocalLabel()">{{'There are no local documents' | translate}}</h5>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-ng-show="documentCtrl.localDepartment || documentCtrl.isAdressChoosen" class="m-t">
+                            <file-uploader config="documentCtrl.localFileUploaderConfig" data-ng-hide="!documentCtrl.showLocalFileUploader">
+                            </file-uploader>
+                        </div>
+
+                        <table class="table _valign-m" data-ng-show="documentCtrl.showTable(documentCtrl.selectedLocalDepartmentAssign.uploadList)">
+                            <thead>
+                                <tr>
+                                    <th>{{'File name' | translate}}</th>
+                                    <th>{{'Creator name' | translate}}</th>
+                                    <th>{{'Creation date' | translate}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="document in documentCtrl.selectedLocalDepartmentAssign.uploadList | filter:{contentType:'Document'}">
+                                    <td>
+                                        <a file-downloader data-ng-href="{{document.path}}" alt="uploadedDocument">{{document.fileName}}</a>
+                                    </td>
+                                    <td>
+                                        <user-avatar data-config="{ url: document.uploader.avatar, name: document.uploader.name }"/>
+                                        <span>{{document.uploader.name}}</span>
+                                    </td>
+                                    <td>
+                                        {{documentCtrl.getFormatedCreationDate(document.creationDate)}}
+                                    </td>
+                                    <td>
+                                        <span class="document__del pe-7s-close"
+                                              data-ng-click="documentCtrl.deleteLocalDocument(document, documentCtrl.selectedLocalDepartmentAssign)"
+                                              data-ng-hide="!documentCtrl.showLocalFileUploader">
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

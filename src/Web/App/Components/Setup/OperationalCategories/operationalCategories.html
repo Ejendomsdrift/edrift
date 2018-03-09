@@ -1,0 +1,54 @@
+﻿<div class="form-horizontal">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-12">
+                <category-tree config="operationCtrl.categoryTreeConfig"
+                               on-select="operationCtrl.categoryTreeSelected($category)">
+                </category-tree>
+                <span class="btn btn-primary" ng-click="operationCtrl.add()" ng-if="operationCtrl.nodeToEdit && operationCtrl.nodeToEdit.id && !operationCtrl.nodeToEdit.tasks.length">
+                    {{'Add child' | translate}}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-2 control-label">{{'Name' | translate}}:</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" ng-model="operationCtrl.nodeToEdit.name"/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-2 control-label">{{'Color' | translate}}:</label>
+            <div class="col-sm-10">
+                <input class="form-control" colorpicker ng-model="operationCtrl.nodeToEdit.color" type="text" placeholder="{{'Click to pick color' | translate}}">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-sm-2 control-label">{{'Is Visible' | translate}}:</label>
+            <div class="col-sm-10">
+                <div class="_pt-indent">{{operationCtrl.nodeToEdit.visible}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <span class="btn btn-danger" ng-if="operationCtrl.nodeToEdit.canBeHidden && operationCtrl.nodeToEdit.visible" ng-click="operationCtrl.execute('hide')">{{'Hide' | translate}}</span>
+            <span class="btn btn-primary" ng-if="!operationCtrl.nodeToEdit.visible" ng-click="operationCtrl.execute('show')">{{'Show' | translate}}</span>
+            <span class="btn btn-primary" ng-click="operationCtrl.execute('save')">{{'Save' | translate}}</span>
+        </div>
+        
+    </div>
+    <hr>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-12">
+                <h5>{{'If you renamed "Andet" category, you should also renamed key in web.config for correct category sorting.' | translate}}</h5>
+            </div>
+        </div>
+    </div>
+</div>

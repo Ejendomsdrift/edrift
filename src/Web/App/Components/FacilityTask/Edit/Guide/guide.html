@@ -1,0 +1,111 @@
+﻿<section>
+
+    <h5 data-ng-show="guideCtrl.hideBothSection">{{'There arent any data' | translate}}</h5>
+    <div class="general-and-local-documents" data-ng-hide="guideCtrl.hideBothSection">
+        <h5 data-ng-hide="guideCtrl.showGlobalSection">{{'There are no global data' | translate}}</h5>
+        <div class="row" data-ng-show="guideCtrl.showGlobalSection">
+            <div class="col-md-11 m-b" data-ng-show="guideCtrl.showGlobalDescriptionBlock">
+                <h4>{{'General guide' | translate}}</h4>
+                <rich-text-editor config="guideCtrl.globalRichTextEditorConfig"></rich-text-editor>
+            </div>
+
+            <div class="col-md-11 m-b" data-ng-show="guideCtrl.showGlobalImageBlock">
+                <h4>{{'Images' | translate}}</h4>
+                <div class="drag">
+                    <uploaded-content-viewer config="guideCtrl.globalUploadedImagesViewer"></uploaded-content-viewer>
+                    <file-uploader class="drag__item" config="guideCtrl.globalImageFileUploaderConfig" data-ng-hide="!guideCtrl.showGlobalFileUploader">
+                    </file-uploader>
+                </div>
+            </div>
+
+            <div class="col-md-11 m-b" data-ng-show="guideCtrl.showGlobalVideoBlock">
+                <h4>{{'Video' | translate}}</h4>
+                <div class="drag">
+                    <uploaded-content-viewer config="guideCtrl.globalUploadedVideosViewer"></uploaded-content-viewer>
+                    <file-uploader class="drag__item" config="guideCtrl.globalVideoFileUploaderConfig" data-ng-hide="!guideCtrl.showGlobalFileUploader">
+                    </file-uploader>
+                </div>
+            </div>
+        </div>
+
+        <div class="local-part" data-ng-if="(guideCtrl.assignedDepartments.length && guideCtrl.showLocalSection) || guideCtrl.isGroupedJob">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h4>{{'Local guide' |translate}}</h4>
+                </div>
+                <div class="col-sm-8">
+                    <ui-select ng-if="!guideCtrl.isGroupedJob" ng-model="guideCtrl.localDepartment" on-select="guideCtrl.changeLocalDepartment($select.selected)">
+                        <ui-select-match allow-clear="true" placeholder="{{'Choose department' | translate}}">
+                            <span>{{$select.selected.syncDepartmentId}} {{$select.selected.name}}</span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="department in (guideCtrl.assignedDepartments | filter: $select.search | orderBy:['syncDepartmentId','name']) track by department.id">
+                            <span>{{department.syncDepartmentId}} {{department.name}}</span>
+                        </ui-select-choices>
+                    </ui-select>
+
+                    <ui-select ng-if="guideCtrl.isGroupedJob" ng-model="guideCtrl.localJobAddress" ng-change="guideCtrl.localJobAddressOnChange()">
+                        <ui-select-match allow-clear="true" placeholder="{{'Choose address' | translate}}">
+                            <span>
+                                {{$select.selected.id}}
+                                <span ng-if="$select.selected.value">- {{$select.selected.value}}</span>
+                            </span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="jobAddress in (guideCtrl.addressList | filter: $select.search) track by jobAddress.id">
+                            <span>
+                                {{jobAddress.id}}<span ng-if="jobAddress.value">- {{jobAddress.value}}</span>
+                            </span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+
+            <h5 data-ng-show="guideCtrl.showLocalLabel()">{{'There are no local data' | translate}}</h5>
+            <div class="row m-t" data-ng-show="(guideCtrl.localDepartment && guideCtrl.showLocalDescription) || (guideCtrl.isAdressChoosen && guideCtrl.showLocalDescription)">
+                <div class="col-sm-11 m-b">
+                    <rich-text-editor config="guideCtrl.localRichTextEditorConfig"></rich-text-editor>
+                </div>
+            </div>
+            <div class="row" data-ng-if="guideCtrl.localDepartment || guideCtrl.isAdressChoosen">
+                <div class="col-sm-11 m-b" data-ng-show="guideCtrl.showLocalImage">
+                    <h4>{{'Images' | translate}}</h4>
+                    <div class="drag">
+                        <uploaded-content-viewer config="guideCtrl.localUploadedImagesViewer"></uploaded-content-viewer>
+                        <file-uploader class="drag__item" config="guideCtrl.localImageFileUploaderConfig" data-ng-hide="!guideCtrl.showLocalFileUploader">
+                        </file-uploader>
+                    </div>
+                </div>
+
+                <div class="col-sm-11 m-b" data-ng-show="guideCtrl.showLocalVideo">
+                    <h4>{{'Video' | translate}}</h4>
+                    <div class="drag">
+                        <uploaded-content-viewer config="guideCtrl.localUploadedVideosViewer"></uploaded-content-viewer>
+                        <file-uploader class="drag__item" config="guideCtrl.localVideoFileUploaderConfig" data-ng-hide="!guideCtrl.showLocalFileUploader">
+                        </file-uploader>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="local-part" data-ng-if="guideCtrl.guideComments.length > 0" security>
+        <div class="row">
+            <h4>{{'Guide comments' | translate}}</h4>
+        </div>
+        <div class="row">
+            <div data-ng-repeat="guideCommentModel in guideCtrl.guideComments" class="comment__item">
+                <div class="comment__user-info">
+                    <div class="comment__user-avatar">
+                        <user-avatar data-config="{ url: guideCommentModel.memberAvatar, name: guideCommentModel.memberName }" />
+                    </div>
+                    <div class="comment__create-date">
+                        <span>{{guideCtrl.getFormattedGuideCommentDateAndTime(guideCommentModel)}}</span>
+                        <div class="comment__user-name">{{guideCommentModel.memberName}}</div>
+                    </div>
+                    <div class="comment__btn text-right">
+                        <button type="button" data-ng-if="guideCtrl.isRemovableGuideComment()" data-ng-click="guideCtrl.removeGuideComment(guideCommentModel)" class="btn btn-default fa fa-close"></button>
+                    </div>
+                </div>
+                <div class="comment__text">{{guideCommentModel.comment}}</div>
+            </div>
+        </div>
+    </div>
+</section>

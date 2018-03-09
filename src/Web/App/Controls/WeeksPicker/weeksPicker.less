@@ -1,0 +1,46 @@
+﻿@import "../../Less/Mixins";
+@import "../../Less/Variables";
+
+.time-rage {
+    &__container {
+        &::after {
+            display: block;
+            clear: both;
+            content: "";
+        }
+    }
+
+    &__items {
+        font-size: 0;
+        max-width: 403px;
+        float: left;
+        margin: 0 10px 0 -3px;
+    }
+
+    &__item {
+        width: 25px;
+        height: 25px;
+        .border-radius(2px);
+        font-size: 13px;
+        line-height: 25px;
+        text-align: center;
+        display: inline-block;
+        vertical-align: top;
+        margin: 3px;
+
+        &._border {
+            border: 1px solid @blue;
+            line-height: 23px;
+        }
+
+        &._grey-box {
+            background: @iron;
+            font-weight: bold;
+            color: #555555;
+        }
+    }
+
+    &__btn {
+        margin: 7px 0;
+    }
+}

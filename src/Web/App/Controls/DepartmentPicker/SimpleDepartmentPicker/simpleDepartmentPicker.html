@@ -1,0 +1,13 @@
+﻿<div>
+    <ui-select data-ng-model="simpleDepartmentCtrl.config.selectedDepartments"
+               on-select="simpleDepartmentCtrl.onSelect($item)"
+               on-remove="simpleDepartmentCtrl.onRemove($item)"
+               multiple>
+        <ui-select-match placeholder="{{'Choose Housing department' | translate}}">
+            {{$item.name}}
+        </ui-select-match>
+        <ui-select-choices repeat="department in simpleDepartmentCtrl.departments | filter:$select.search | orderBy:['name'] track by department.id">
+            {{department.name}}
+        </ui-select-choices>
+    </ui-select>
+</div>

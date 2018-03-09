@@ -1,0 +1,93 @@
+﻿@import "../Less/Mixins";
+@import "../Less/Variables";
+
+.show-edit {
+
+    .edit-mode {
+        display: block;
+    }
+
+    .view-mode {
+        display: none;
+    }
+}
+
+.show-view {
+
+    .edit-mode {
+        display: none;
+    }
+
+    .view-mode {
+        display: block;
+    }
+}
+
+.administration-role {
+
+    .administration-view {
+        display: block;
+    }
+
+    .management-view {
+        display: none;
+    }
+}
+
+.management-role {
+
+    .administration-view {
+        display: none;
+    }
+
+    .management-view {
+        display: block;
+    }
+}
+
+.show-error {
+    .error-label {
+        display: block;
+        color: @red;
+        position: absolute;
+        right: 100px;
+        bottom: -32px;
+    }
+}
+
+.show-correct {
+
+    .error-label {
+        display: none;
+    }
+}
+
+.show-create {
+    .task-create {
+        display: block;
+    }
+
+    .task-edit {
+        display: none;
+    }
+}
+
+.show-edit {
+    .task-edit {
+        display: block;
+    }
+
+    .task-create {
+        display: none;
+    }
+}
+
+.forced-view {
+    .edit-mode {
+        display: none !important;
+    }
+
+    .view-mode {
+        display: block;
+    }
+}

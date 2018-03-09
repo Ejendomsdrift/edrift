@@ -1,0 +1,34 @@
+﻿<div>
+    <edit-control config="uploadedContentCtrl.editControlConfig" data-ng-hide="uploadedContentCtrl.isDisableMode() || !uploadedContentCtrl.savedValue.length">
+        <div class="drag__container">
+            <div class="drag__item" data-ng-repeat="uploadData in uploadedContentCtrl.config.value">
+                <div class="drag__holder">
+                    <div data-ng-if="uploadedContentCtrl.isContentTypeImage()">
+                        <img class="drag__img" data-ng-src="{{uploadData.path}}" alt="{{uploadData.fileName}}">
+                    </div>
+                    <div class="video" data-ng-if="uploadedContentCtrl.isContentTypeVideo()">
+                        <video controls class="video__tag">
+                            <source data-ng-src="{{uploadData.path}}" type="video/mp4">
+                        </video>
+                    </div>
+                    <input data-ng-show="uploadedContentCtrl.isEditableMode()" class="form-control js-change-file-description" data-ng-model="uploadData.description"
+                           data-ng-blur="uploadedContentCtrl.changeDescription(uploadData)" maxlength="{{uploadedContentCtrl.config.maxLength}}" />
+                    <span data-ng-hide="uploadedContentCtrl.isEditableMode()">{{uploadData.description}}</span>
+                    <span data-ng-show="uploadedContentCtrl.isEditableMode()" class="drag__del pe-7s-close js-delete-file" data-ng-click="uploadedContentCtrl.deleteFile(uploadData.fileId)"></span>
+                </div>
+            </div>
+        </div>
+    </edit-control>
+    <div data-ng-show="uploadedContentCtrl.isDisableMode() && uploadedContentCtrl.config.value.length">
+        <div class="col-md-12" data-ng-if="uploadedContentCtrl.config.value">
+            <div class="row">
+                <div data-ng-if="uploadedContentCtrl.isContentTypeImage()">
+                    <native-carousel slides="uploadedContentCtrl.config.value" config="uploadedContentCtrl.imageCarouselConfig"></native-carousel>
+                </div>
+                <div data-ng-if="uploadedContentCtrl.isContentTypeVideo()">
+                    <native-carousel slides="uploadedContentCtrl.config.value" config="uploadedContentCtrl.videoCarouselConfig"></native-carousel>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

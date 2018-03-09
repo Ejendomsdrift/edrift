@@ -1,0 +1,29 @@
+﻿<section>
+    <div class="admin-panel__block m-b">
+        <div class="admin-panel__row">
+            <label class="admin-panel__label">{{'Create new absence' | translate}}</label>
+            <div class="admin-panel__field">
+                <input class="form-control" type="text" ng-model="absenceTemplatesCtrl.newTemplateText"/>
+                <div class="admin-panel__field-btn">
+                    <input type="button" value="Add" class="btn btn-primary" ng-click="absenceTemplatesCtrl.add(absenceTemplatesCtrl.newTemplateText)">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <table class="table">
+                <tr>
+                    <th>{{'Absence' | translate}}</th>
+                    <th class="text-right">{{'Remove' | translate}}</th>
+                </tr>
+                <tr ng-repeat="template in absenceTemplatesCtrl.absenceTemplates">
+                    <td>{{template.text}}</td>
+                    <td class="text-right">
+                        <input type="button" class="btn btn-default" value="Delete" ng-click="absenceTemplatesCtrl.delete(template)"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>

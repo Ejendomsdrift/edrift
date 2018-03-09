@@ -1,0 +1,175 @@
+﻿<section class="interval">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>{{'General interval' | translate}}</h4>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'Weeks' | translate }}:</label>
+                <div class="col-sm-9 _pt-indent padding-left">
+                    <span class="interval__box _grey-bg"></span>
+                    <span class="interval__label">{{'Recommended' | translate}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'Time range' | translate}}:</label>
+                <div class="col-sm-8  padding-left">
+                    <div class="row">
+                        <weeks-picker config="intervalCtrl.globalWeeksPickerModel"></weeks-picker>
+                    </div>
+                    <div class="checkbox" data-ng-show="intervalCtrl.isAdministration()">
+                        <input data-ng-model="intervalCtrl.globalAssign.isLocked" type="checkbox"
+                               data-ng-disabled="intervalCtrl.disableGlobalCheckboxes"
+                               data-ng-change="intervalCtrl.lockGlobalInterval()" />
+                        <label>{{'Weeks can not be moved by the Coordinator' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-8  padding-left">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <label class="col-sm-3">{{'Antal gange i ugen' | translate}}:</label>
+                                <label class="col-sm-9">{{'Fixed weekdays' | translate}}:</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <per-week-job-schedule-picker config="intervalCtrl.globalJobShedulePickerConfig"></per-week-job-schedule-picker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'Repeat until' | translate}}:</label>
+                <div class="col-sm-9 padding-left">
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <div class="checkbox">
+                                <input type="checkbox" data-ng-model="intervalCtrl.globalTillYearSelected" 
+                                       data-ng-disabled="intervalCtrl.disableGlobalCheckboxes"
+                                       data-ng-click="intervalCtrl.globalTillYearChecked()">
+                                <label></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 m-t">
+                            <date-picker config="intervalCtrl.globalDatePickerConfig" data-ng-show="intervalCtrl.globalTillYearSelected"></date-picker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row local-part" data-ng-show="intervalCtrl.assignedDepartments.length || intervalCtrl.addressList.length">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-3 _title-indent">
+                        <h4>{{'Local interval' |translate}}</h4>
+                    </div>
+                    <div class="col-sm-8 padding-left">
+                        <ui-select data-ng-model="intervalCtrl.localDepartment" data-ng-if="!intervalCtrl.isGroupedJob"
+                                   data-ng-change="intervalCtrl.localDepartmentOnChange(intervalCtrl.localDepartment)">
+                            <ui-select-match allow-clear="true" placeholder="{{intervalCtrl.departmentNamePlaceholder}}">
+                                <span>{{$select.selected.syncDepartmentId}} {{$select.selected.name}}</span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="department in (intervalCtrl.assignedDepartments | filter: $select.search | orderBy:['syncDepartmentId','name']) track by department.id">
+                                <span>{{department.syncDepartmentId}} {{department.name}}</span>
+                            </ui-select-choices>
+                        </ui-select>
+
+                        <ui-select ng-if="intervalCtrl.isGroupedJob"
+                                   ng-model="intervalCtrl.localJobAddress"
+                                   ng-change="intervalCtrl.localJobAddressOnChange()">
+                            <ui-select-match allow-clear="true" placeholder="{{'Choose address' | translate}}">
+                                <span>
+                                    {{$select.selected.id}}
+                                    <span ng-if="$select.selected.value">- {{$select.selected.value}}</span>
+                                </span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="jobAddress in (intervalCtrl.addressList | filter: $select.search) track by jobAddress.id">
+                                <span>
+                                    {{jobAddress.id}}
+                                    <span ng-if="jobAddress.value">
+                                        - {{jobAddress.value}}
+                                    </span>
+                                </span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row" data-ng-show="intervalCtrl.localDepartment">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">{{ 'Weeks' | translate }}:</label>
+                    <div class="col-sm-9 _pt-indent padding-left">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span class="interval__box _grey-bg"></span>
+                                <span class="interval__label">{{'Recommended (administration)' | translate}}</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span class="interval__box _blue-bg"></span>
+                                <span class="interval__label">{{'Scheduled (operations department)' | translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">{{'Time range' | translate}}:</label>
+                    <div class="col-sm-8 padding-left">
+                        <div class="row">
+                            <weeks-picker config="intervalCtrl.localWeeksPickerModel"></weeks-picker>
+                        </div>
+                        <div class="checkbox" data-ng-show="intervalCtrl.isAdministration()">
+                            <input type="checkbox"
+                                   data-ng-model="intervalCtrl.localDepartment.isLocked" 
+                                   data-ng-disabled="intervalCtrl.disableLocalCheckboxes"
+                                   data-ng-change="intervalCtrl.lockLocalInterval()" />
+                            <label>{{'Weeks can not be moved by the Coordinator' | translate}}</label>
+                        </div>
+                        <div data-ng-if="intervalCtrl.isLocalIntervalLocked()" data-ng-hide="intervalCtrl.isAdministration()">
+                            <span>{{'Weeks can not be moved by the Coordinator' | translate}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8  padding-left">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <label class="col-sm-3">{{'Antal gange i ugen' | translate}}:</label>
+                                    <label class="col-sm-9">{{'Fixed weekdays:' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <per-week-job-schedule-picker config="intervalCtrl.localJobShedulePickerConfig"></per-week-job-schedule-picker>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">{{'Repeat until' | translate}}:</label>
+                    <div class="col-sm-9 padding-left">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <div class="checkbox">
+                                    <input type="checkbox" data-ng-model="intervalCtrl.localTillYearSelected" 
+                                           data-ng-disabled="intervalCtrl.disableLocalCheckboxes"
+                                           data-ng-click="intervalCtrl.localTillYearChecked()">
+                                    <label></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-5 m-t">
+                                <date-picker config="intervalCtrl.localDatePickerConfig" data-ng-show="intervalCtrl.localTillYearSelected"></date-picker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

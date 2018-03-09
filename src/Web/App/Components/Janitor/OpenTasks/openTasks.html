@@ -1,0 +1,49 @@
+﻿<section>
+    <div class="pblock">
+        <div class="pblock__heading">
+            <div class="pblock__head">
+                <h2 class="pblock__head-title">
+                    <span>{{'Open tasks' | translate}}</span>
+                </h2>
+            </div>
+        </div>
+
+        <div ng-repeat="jobHeader in openTaskCtrl.jobHeaderList" class="pblock__item" ng-style="{'background-color':jobHeader.color}">
+            <div class="pblock__row no-padding">
+                <span ng-if="jobHeader.date" class="pull-left">{{openTaskCtrl.getDateString(jobHeader.date)}}</span>
+                <div class="pblock__col overflow" ng-if="openTaskCtrl.isStartTimeLabelVisible(jobHeader)">
+                    <div ng-class="openTaskCtrl.isTaskOverdue(jobHeader) ? '_font-red' : ''" class="inline-el">
+                        <i class="pe-7s-timer time-icon"></i>
+                        <span>{{openTaskCtrl.getTimeBeforeStartString(jobHeader.date)}}</span>
+                        <span>{{openTaskCtrl.getTimeBeforeStartLabel(jobHeader)}}</span>
+                    </div>
+                </div>
+                <div class="pblock__estimate-time" data-ng-if="openTaskCtrl.isHaveEstimations(jobHeader)">
+                    <span>{{'Estimated time' | translate}}: {{openTaskCtrl.getEstimateTimeInHoursString(jobHeader)}} {{'time' | translate}}</span>
+                </div>
+            </div>
+            <div class="pblock__title-holder">
+                <div class="pull-right text-right">
+                    <span class="pblock__status">{{openTaskCtrl.getStatusTranslation(jobHeader.jobStatus) | translate}}</span>
+                    <br/>
+                    <span ng-if="jobHeader.cancellingReason">{{jobHeader.cancellingReason}}</span>
+                    <div>
+                        <span class="pblock__status _urgent" data-ng-if="jobHeader.isUrgent">{{'Urgent job' | translate}}</span>
+                    </div>
+                </div>
+                <div class="pblock__title-row">
+                    <h2 class="pblock__title" ng-click="openTaskCtrl.goToTaskDetails(jobHeader)">{{jobHeader.title}}</h2>
+                    <div>
+                        <span>{{jobHeader.assignedHousingDepartmentName}}</span>
+                    </div>
+                    <span ng-if="jobHeader.address" class="pblock__title-address">{{jobHeader.address}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-to-top" ng-click="openTaskCtrl.scrollToTop()" ng-class="{'show-btn' : openTaskCtrl.isVisibleButton}">
+            <i class="fa fa-chevron-up"></i>
+            <div>{{'Till toppen' | translate}}</div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,164 @@
+﻿@import "../../Less/Mixins";
+@import "../../Less/Variables";
+
+
+.statistic {
+    &__col {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .main-header__sorting {
+        flex-grow: 1;
+    }
+
+    .datepicker {
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        margin-left: 10px;
+
+        .input-group-addon,
+        .form-control {
+            display: inline-block;
+            width: auto !important;
+            height: 34px;
+        }
+
+        .input-group-addon {
+            padding: 8px 12px;
+        }
+    }
+
+    label,
+    .btn {
+        margin-left: 10px;
+    }
+
+    .panel-footer {
+        background-color: #f7f9fa;
+        border: 1px solid #ddd;
+        border-top: none;
+        display: flex;
+        display: -ms-flexbox;
+
+        &__row {
+            flex-grow: 1;
+            padding: 0 10px 0 0;
+        }
+
+        &__col {
+            width: 33.33%;
+            float: left;
+            padding-left: 10px;
+
+            &:first-child {
+                padding-left: 0;
+            }
+
+            .form-control__text {
+                font-weight: 400;
+                color: #555;
+            }
+        }
+
+        &.height {
+            min-height: 54px;
+        }
+    }
+
+    .dropdown-control {
+        height: 33px;
+    }
+
+    .category-tree {
+        position: relative;
+    }
+
+    .department__block-category {
+        position: static;
+    }
+
+    .category-tree .form-control {
+        min-width: 100%;
+    }
+
+    .chart-height {
+        display: block !important;
+    }
+
+    .chart {
+        &__holder {
+            position: relative;
+        }
+
+        &__empty-img {
+            display: none;
+
+            img {
+                height: 100%;
+                opacity: 0.3;
+            }
+        }
+
+        &__empty {
+            .chart__empty-img {
+                display: block;
+                position: absolute;
+                top: 50px;
+                right: 0;
+                bottom: 50px;
+                left: 0;
+                z-index: 1;
+                background: @white;
+            }
+        }
+    }
+
+    .padding-bottom {
+        padding-bottom: 8px;
+    }
+
+    .height {
+        .chart-height {
+            height: 485px !important;
+        }
+    }
+
+    &__empty-date {
+        padding-top: 50px;
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .ui-select-multiple.ui-select-bootstrap input.ui-select-search {
+        width: 100% !important;
+    }
+
+    .ui-select-bootstrap>.ui-select-choices {
+        width: auto;
+    }
+
+    .md-picker {
+        .ui-select-multiple.ui-select-bootstrap .ui-select-match-item {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+.btn-csv {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}

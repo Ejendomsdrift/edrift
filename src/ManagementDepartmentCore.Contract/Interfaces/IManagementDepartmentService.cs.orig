@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ManagementDepartmentCore.Contract.Interfaces
+{
+    public interface IManagementDepartmentService
+    {
+        void SyncManagementDepartments(object syncManagements);
+
+        Guid GetParentManagementId(Guid housingDepartmentId);
+
+        string GetParentSyncDepartmentId(Guid housingDepartmentId);
+
+        IEnumerable<IManagementDepartmentModel> GetAllManagements();
+
+        IEnumerable<IHousingDepartmentModel> GetAllHousingDepartments();
+
+        IHousingDepartmentModel GetHousingDepartment(Guid departmentId);
+
+        IEnumerable<IHousingDepartmentModel> GetHousingDepartments(Guid managementId);
+
+        IEnumerable<IHousingDepartmentModel> GetHousingDepartments(IEnumerable<Guid> departmentIds);
+
+        IEnumerable<IHousingDepartmentModel> GetHousingDepartmentsByManagementIds(IEnumerable<Guid> managementDepartmentIds);
+
+
+        IEnumerable<IManagementDepartmentModel> GetManagementDepartmentsBySyncIds(IEnumerable<string> syncIds);
+
+        IManagementDepartmentModel GetManagementDepartmentById(Guid managementDepartmentId);
+
+        IDictionary<string, Guid> ManagementDepartmentIdsByRoles(IEnumerable<string> syncIds);
+
+        IEnumerable<IManagementDepartmentModel> GetManagementDepartmentsByIds(IEnumerable<Guid> ids);
+
+<<<<<<< HEAD
+        IDictionary<Guid, IEnumerable<Guid>> GetManagementsToHousingDepartmentsRelation(IEnumerable<Guid> managementDepartmentsIds);
+=======
+        IEnumerable<string> GetManagementSyncIds(IEnumerable<Guid> managementIds);
+>>>>>>> origin/develop
+    }
+}

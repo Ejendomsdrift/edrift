@@ -1,0 +1,23 @@
+﻿<div class="carousel-native" ng-class="filteredSlides.length === 0 ? 'no-slides' : 'has-slides'" ng-if="showCarousel">
+    <div class="carousel-native__mask when-has-slides">
+        <ul class="carousel-native__slider" ng-style="{'margin-left': -slideOffset + 'px', 'width': sliderWidth + 'px'}">
+            <li class="carousel-native__slider-item" ng-repeat="slide in filteredSlides" ng-style="{'width': slideWidth + 'px'}" ng-switch="config.getType(slide)"
+                                                                                                                                 ng-class="!config.getDescription(slide).length ? 'no-caption' : ''">
+                <img ng-switch-default ng-src="{{config.getSrc(slide)}}" class="carousel__img">
+                <video ng-switch-when="video" loop controls="controls" class="carousel__video">
+                    <source ng-src="{{config.getSrc(slide)}}" type="video/mp4">
+                </video>
+                <div class="carousel__caption" ng-if="config.getDescription(slide).length">
+                    <span>{{config.getDescription(slide)}}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="carousel-native__btns" ng-if="filteredSlides.length > 1">
+        <span class="carousel-native__prev" ng-click="showPrev()"></span>
+        <span class="carousel-native__next" ng-click="showNext()"></span>
+    </div>
+    <div class="carousel-native__counts" ng-if="filteredSlides.length > 1">
+        <span>{{currentSlide + 1}} / {{filteredSlides.length}}</span>
+    </div>
+</div>

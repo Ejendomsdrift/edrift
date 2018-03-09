@@ -1,0 +1,110 @@
+﻿<div class="department" data-ng-class="{'bottom-indent' : yearPlanCtrl.isVisibleButton}">
+    <div data-ng-class="yearPlanCtrl.isActiveWaitIcon ? 'show' : 'hide'" class="load-icon">
+        <img src="/Content/images/load-icon.gif" />
+    </div>
+    
+    <div class="main-header hpanel">
+        <h2 class="main-header__title">{{'Year plan' | translate}}</h2>
+        <div class="main-header__col">
+            <div class="main-header__year _year-plan">
+                <year-week-selector config="yearPlanCtrl.yearWeekSelectorConfig"></year-week-selector>
+            </div>
+            <div class="pull-right" security>
+                <a class="btn btn-custom" ui-sref="{{yearPlanCtrl.state.FacilityTaskCreate}}" data-access-key="FacilityTask_CreateButton">
+                    <i class="fa fa-plus"></i>
+                    <span class="create-btn-text">{{'Create Facility task' | translate}}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item" ui-sref-active="active">
+            <a ui-sref="{{yearPlanCtrl.state.YearPlanTaskOverview}}" class="nav-link">
+                {{'Department' | translate}}
+            </a>
+        </li>
+        <li class="nav-item" ui-sref-active="active">
+            <a ui-sref="{{yearPlanCtrl.state.YearPlanDepartmentOverview}}" class="nav-link">
+                {{'All departments' | translate}}
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active">
+            <div class="options-block js-sticky-thead">
+                <div class="js-housing-picker department__housing-picker" data-ng-show="$state.includes(yearPlanCtrl.state.YearPlanTaskOverview)">
+                    <div class="flex-block">
+                        <div class="flex-block__item">
+                            <department-picker ng-if="$state.includes(yearPlanCtrl.state.YearPlanTaskOverview)"
+                                               ng-model="yearPlanCtrl.selectedHousingDepartment"
+                                               config="yearPlanCtrl.departmentPickerConfig">
+                            </department-picker>
+                        </div>
+                        <div ng-if="yearPlanCtrl.selectedHousingDepartment && $state.includes(yearPlanCtrl.state.YearPlanTaskOverview)" class="flex-block__item">
+                            <div class="show-hide-filter">
+                                <div class="checkbox m-n">
+                                    <input type="checkbox" id="showAll" data-ng-model="yearPlanCtrl.showAll" data-ng-click="yearPlanCtrl.changeShowAll()" />
+                                    <label for="showAll">{{'Show All' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="yearPlanCtrl.selectedHousingDepartment && $state.includes(yearPlanCtrl.state.YearPlanTaskOverview)" class="flex-block__item">
+                            <div class="show-hide-filter">
+                                <div class="show-hide-filter__check checkbox">
+                                    <input type="checkbox" id="showDisabled" data-ng-model="yearPlanCtrl.showDisabled" data-ng-click="yearPlanCtrl.changeShowDisabled()"/>
+                                    <label for="showDisabled">{{'Show hidden' | translate}}</label>
+                                </div>
+                                <span class="icon pe-7s-trash"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="department__functions js-functions-filter" 
+                     data-ng-if="yearPlanCtrl.selectedHousingDepartment || $state.includes(yearPlanCtrl.state.YearPlanDepartmentOverview)">
+                    <div ng-if="yearPlanCtrl.showCategoryTree">
+                        <div class="department__block-category" ng-show="$state.includes(yearPlanCtrl.state.YearPlanTaskOverview)">
+                            <label>{{'Operational' | translate}}:</label>
+                            <category-tree config="yearPlanCtrl.categoryTreeConfig"
+                                           on-select="yearPlanCtrl.categoryTreeSelected($task, $category, $isCleared)"
+                                           selected-id="yearPlanCtrl.selectedCategoryId">
+                            </category-tree>
+                        </div>
+                    </div>
+                    <div class="department__block-category" ng-if="$state.includes(yearPlanCtrl.state.YearPlanDepartmentOverview)">
+                        <label>{{'See the task of all estates' | translate}}:</label>
+                        <category-tree config="yearPlanCtrl.categoryTreeWithTasksConfig"
+                                       on-select="yearPlanCtrl.categoryTreeSelected($task, $category)"
+                                       selected-id="yearPlanCtrl.selectedTaskId">
+                        </category-tree>
+                    </div>
+                    <div class="department__legend">
+                        <div class="department__legend-item">
+                            <span class="department__legend-box _grey-bg"></span>
+                            <span class="department__legend-lbl">{{'Suggested weeks (administration)' | translate}}</span>
+                        </div>
+                        <div class="department__legend-item">
+                            <span class="department__legend-box _blue-bg"></span>
+                            <span class="department__legend-lbl">{{'Planned weeks (operations department)' | translate}}</span>
+                        </div>
+                        <div class="department__legend-item">
+                            <span class="department__legend-box _green-bg"></span>
+                            <span class="department__legend-lbl">{{'Performed tasks' | translate}}</span>
+                        </div>
+                        <div class="department__legend-item">
+                            <span class="department__legend-box _red-bg"></span>
+                            <span class="department__legend-lbl">{{'Not perform' | translate}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive" ui-view="content"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="back-to-top" data-ng-click="yearPlanCtrl.scrollToTop()" data-ng-class="{'show-btn' : yearPlanCtrl.isVisibleButton}">
+        <i class="fa fa-chevron-up"></i>
+        <div>{{'Till toppen' | translate}}</div>
+    </div>
+</div>

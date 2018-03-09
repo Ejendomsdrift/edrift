@@ -1,0 +1,147 @@
+﻿@import "../../Less/fonts";
+@import "../../Less/Mixins";
+@import "../../Less/Variables";
+
+.operation {
+
+    .tree-classic {
+        min-height: 130px;
+    }
+
+    &__time-control {
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -1px;
+
+        ._create .form-control,
+        ._active-edit-control .form-control {
+            width: 100px !important;
+        }
+    }
+
+    .map-container {
+        height: 300px;
+    }
+
+    &__indent {
+        padding-left: 21px;
+    }
+
+    .modal-header {
+        position: relative;
+    }
+
+    .modal-btns {
+        position: absolute;
+        right: 20px;
+        bottom: 0;
+    }
+
+    .time {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 24px;
+        margin: 0 0 0 2px;
+    }
+
+    .radio {
+        display: inline-block;
+        padding-right: 20px;
+    }
+
+    .assign-to {
+        display: block;
+    }
+
+    .checkbox {
+        display: inline-block;
+        padding-top: 0;
+        margin-right: 4px;
+    }
+
+    .table {
+        th:first-child,
+        td:first-child {
+            width: 210px;
+        }
+    }
+
+    .file-uploader {
+        width: 76.5%;
+
+        .dragover {
+            margin: 0 0 10px 0;
+        }
+
+        .dragover__item {
+            min-height: 132px;
+        }
+    }
+
+    &__number-holder {
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    }
+
+    .form-group {
+        &._time {
+            .control-label {
+                padding-top: 45px;
+            }
+        }
+    }
+
+    .date-picker {
+        .edit-control__content {
+            padding: 0 10px;
+        }
+    }
+
+    .type-task {
+        padding: 0 15px 0 27px;
+    }
+
+    ._urgent {
+        margin-top: 0;
+        vertical-align: middle;
+    }
+
+    .ui-select-bootstrap .ui-select-toggle > a.btn {
+        margin-top: -7px;
+    }
+
+    .ui-select-bootstrap .ui-select-match-text {
+        padding-right: 30px;
+    }
+
+    .ui-select-bootstrap .ui-select-match-text span {
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        white-space: nowrap;
+    }
+
+    .select-group {
+        &.ui-select-bootstrap .ui-select-match-text span {
+            display: inline-block;
+        }
+    }
+
+    .result-table {
+        margin-right: -140px;
+    }
+
+    ._custom {
+        margin-right: -5px;
+        margin-left: -5px;
+    }
+}

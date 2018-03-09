@@ -1,0 +1,73 @@
+﻿<div class="edit-popup"> 
+    <div class="modal-header">
+        <a ng-click="editCtrl.redirect()" class="close pe-7s-close"></a>
+        <a ng-click="editCtrl.redirect()" class="close__overlay"></a>
+        <div class="creator pull-right">
+            <span>{{editCtrl.getFormattedDateString()}}</span>
+            <user-avatar data-config="{ url: editCtrl.taskCreationInfo.creatorAvatar, name: editCtrl.taskCreationInfo.creatorName }" class="creator__avatar" />
+            <span>{{editCtrl.taskCreationInfo.creatorName}} </span>
+        </div>
+        <h3 class="modal-title">
+            <span data-ng-hide="editCtrl.isTaskOpenedFromWeekPlan">{{'Edit' | translate}} <span class="modal-title__title">{{editCtrl.title}}</span></span>
+            <span data-ng-show="editCtrl.isTaskOpenedFromWeekPlan" class="modal-title__title">{{editCtrl.title}}</span> 
+            <span>({{editCtrl.taskId}})</span>    
+            <span ng-if="editCtrl.isChildGroupedTask">{{'Grouped Facility Task' | translate}}</span>
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <ul class="nav nav-tabs" security page="editCtrl.page">
+            <li class="nav-item" ui-sref-active="active" data-access-key="FacilityTask_GeneralTab">
+                <a ui-sref="{{editCtrl.state.FacilityTaskGeneral}}" class="nav-link">
+                    {{'General' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ui-sref-active="active" data-access-key="FacilityTask_DayAssignTab">
+                <a ui-sref="{{editCtrl.state.FacilityTaskDayAssign}}" class="nav-link">
+                    {{'Assign day' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ui-sref-active="active" data-access-key="FacilityTask_AssignTab">
+                <a ui-sref="{{editCtrl.state.FacilityTaskAssign}}" class="nav-link">
+                    {{'Assigns' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ui-sref-active="active" data-access-key="FacilityTask_LocationTab">
+                <a ui-sref="{{editCtrl.state.FacilityTaskLocation}}" class="nav-link">
+                    {{'Location' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ui-sref-active="active" data-access-key="FacilityTask_IntervalTab">
+                <a ui-sref="{{editCtrl.state.FacilityTaskInterval}}" class="nav-link">
+                    {{'Intervals' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ui-sref-active="active" data-access-key="FacilityTask_ResponsibleTab">
+                <a ui-sref="{{editCtrl.state.FacilityTaskResponsible}}" class="nav_link">
+                    {{'Responsible' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ui-sref-active="active" data-access-key="FacilityTask_GuideTab">
+                <a ui-sref="{{editCtrl.state.FacilityTaskGuide}}" class="nav-link">
+                    {{'Guides' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ui-sref-active="active" data-access-key="FacilityTask_DocumentTab">
+                <a ui-sref="{{editCtrl.state.FacilityTaskDocument}}" class="nav-link">
+                    {{'Documents' | translate}}
+                </a>
+            </li>
+            <li class="nav-item" ui-sref-active="active" data-access-key="FacilityTask_HistoryTab">
+                <a ui-sref="{{editCtrl.state.FacilityTaskHistory}}" class="nav-link">
+                    {{'History' | translate}}
+                </a>
+            </li>
+        </ul>
+
+        <div ui-view="modalBody"></div>
+
+        <div class="modal-btns-container">
+            <a ng-click="editCtrl.redirect()" class="btn btn-default">{{'Close' | translate}}</a>
+        </div>
+    </div>
+</div>

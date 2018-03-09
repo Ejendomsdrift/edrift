@@ -1,0 +1,36 @@
+﻿<div id="header" ng-controller="headerController as headerCtrl" class="js-header">
+    <div class="color-line btn-custom"></div>
+    <div id="logo" class="light-version">
+        <span ng-show="commonCtrl.isAdministration()">{{'Administration' | translate}}</span>
+        <span ng-show="commonCtrl.isManagement()">{{'Management' | translate}}</span>
+        <span ng-show="commonCtrl.isJanitor()">{{'Janitor' | translate}}</span>
+    </div>
+    <nav role="navigation">
+        <div class="user-role">
+            <ui-select ng-model="headerCtrl.currentUserContext.selectedManagementDepartment" class="user-role__select"
+                       ng-if="headerCtrl.currentUserContext.memberModel.currentRole == headerCtrl.role.Coordinator && !headerCtrl.isStatisticsPage()"
+                       on-select="headerCtrl.onManagementChanged($item)">
+                <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="management in headerCtrl.currentUserContext.managementDepartments | filter:$select.search">
+                    {{management.name}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div class="navbar-right">
+            <ul class="nav navbar-nav no-borders">
+                <li class="dropdown" security>
+                    <a href="/" class="nav__switch" data-access-key="HeaderItem_SwitchPlatformButton">
+                        <span class="btn btn-default" ng-click="commonCtrl.switchPlatform()">
+                            {{commonCtrl.isJanitor() ? ('Switch to manager platform' | translate) : ('Switch to janitor platform' | translate)}}
+                        </span>
+                    </a>
+                </li>
+                <li class="dropdown" data-ng-if="!commonCtrl.isADFSMode">
+                    <a href="/" data-ng-click="commonCtrl.Logout()">
+                        <i class="pe-7s-upload pe-rotate-90"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

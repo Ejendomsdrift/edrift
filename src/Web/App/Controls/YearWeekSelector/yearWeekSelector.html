@@ -1,0 +1,28 @@
+﻿<div>
+    <ui-select on-select="yearWeekSelectorCtrl.changeDate()" ng-model="yearWeekSelectorCtrl.selectedYear" ng-show="yearWeekSelectorCtrl.config.isShowYear" ng-disabled="yearWeekSelectorCtrl.config.disabled">
+        <ui-select-match>{{$select.selected}}</ui-select-match>
+        <ui-select-choices repeat="year in yearWeekSelectorCtrl.years">{{year}}</ui-select-choices>
+    </ui-select>
+
+    <span class="btn btn-prev fa fa-chevron-left" ng-click="yearWeekSelectorCtrl.leftArrowClicked()" ng-disabled="yearWeekSelectorCtrl.config.disabled"></span>
+
+    <ui-select on-select="yearWeekSelectorCtrl.changeDate()" ng-model="yearWeekSelectorCtrl.selectedWeek" ng-show="yearWeekSelectorCtrl.config.isShowWeek" ng-disabled="yearWeekSelectorCtrl.config.disabled" class="week">
+        <ui-select-match>
+            <span>{{'Week' | translate}}</span>
+            <span>{{$select.selected}}</span>
+        </ui-select-match>
+        <ui-select-choices repeat="week in yearWeekSelectorCtrl.totalWeeks">
+            <span>{{'Week' | translate}}</span>
+            <span>{{week}}</span>
+        </ui-select-choices>
+    </ui-select>
+
+    <span class="btn btn-next fa fa-chevron-right" ng-click="yearWeekSelectorCtrl.rightArrowClicked()" ng-disabled="yearWeekSelectorCtrl.config.disabled"></span>
+
+    <span class="btn btn-default"
+          ng-click="yearWeekSelectorCtrl.changeDate(yearWeekSelectorCtrl.currentYear, yearWeekSelectorCtrl.currentWeek)"
+          ng-show="yearWeekSelectorCtrl.config.isShowWeek"
+          ng-disabled="yearWeekSelectorCtrl.config.disabled">
+        {{'Current Week' | translate}}
+    </span>
+</div>

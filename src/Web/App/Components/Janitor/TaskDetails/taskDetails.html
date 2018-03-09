@@ -1,0 +1,383 @@
+﻿<section ng-class="'show-view'">
+    <div class="pblock">
+        <div class="pblock__heading _pointer" ng-click="taskDetailsCtrl.goToPreviousState()">
+            <div class="pblock__back">
+                <i class="fa fa-angle-left"></i>
+            </div>
+            <div class="pblock__head">
+                <h2 class="pblock__head-title">
+                    <span>{{'My tasks' | translate}}</span>
+                </h2>
+            </div>
+        </div>
+
+        <div data-ng-class="taskDetailsCtrl.isActiveWaitIcon ? 'show' : 'hide'" class="load-icon">
+            <img src="/Content/images/load-icon.gif" />
+        </div>
+
+
+        <div data-ng-show="taskDetailsCtrl.jobDetails">
+            <div id="top" class="pblock__details-head">
+                <div class="pblock__details-title">
+                    <div class="overflow">
+                        <div class="pull-left _pt-indent">
+                            <span>{{taskDetailsCtrl.jobDetails.jobTypeName | translate}}</span>
+                            <span>({{taskDetailsCtrl.jobDetails.niceId}})</span>
+                        </div>
+                        <div class="pull-right">
+                            <user-avatar data-config="{ url: taskDetailsCtrl.taskCreationInfo.creatorAvatar, size: 'small' }"></user-avatar>
+                        </div>
+                    </div>
+                    <div class="overflow">
+                        <div class="pull-left">
+                            <div data-ng-if="taskDetailsCtrl.jobDetails.tenantTypeString" class="pblock__type">
+                                <label>{{'Type' | translate}}:</label>
+                                <span>{{taskDetailsCtrl.jobDetails.tenantTypeString | translate}}</span>
+                            </div>
+                        </div>
+                        <div class="overflow text-right">
+                            <span class="avatar-name">{{taskDetailsCtrl.taskCreationInfo.creatorName}}</span>
+                        </div>
+                    </div>
+                    <div class="pblock__creator-date">
+                        <label>{{'Create date' | translate}}:</label>
+                        <span>{{taskDetailsCtrl.getFormattedCreateDateString()}}</span>
+                    </div>
+                    <div data-ng-if="taskDetailsCtrl.isHaveEstimations()" class="pblock__creator-date">
+                        <label>{{'Estimated time' | translate}}:</label>
+                        <span>{{taskDetailsCtrl.getEstimateTimeInHoursString()}}</span>
+                        {{'time' | translate}}
+                    </div>
+                </div>
+                <div class="form-group assign-block" data-ng-if="!taskDetailsCtrl.isOpenedJob">
+                    <div class="pblock__row _m-b-n _pointer">
+                        <span class="label _pointer">{{'Assigned for' | translate}}:</span>
+                    </div>
+                    <div class="pblock__item-content">
+                        <team-viewer config="taskDetailsCtrl.teamViewerModel"></team-viewer>
+                    </div>
+                </div>
+                <div ng-class="!taskDetailsCtrl.selectedCancellingTemplate && !taskDetailsCtrl.isActiveCompletedMode ? '_error': null" class="m-b" data-ng-show="taskDetailsCtrl.isActiveUnassignMode">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <ui-select ng-model="taskDetailsCtrl.selectedCancellingTemplate">
+                                <ui-select-match placeholder="{{'Choose a cancellation reason' | translate}}">{{$select.selected.text}}</ui-select-match>
+                                <ui-select-choices repeat="template in taskDetailsCtrl.cancellingTemplates">{{template.text}}</ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-show="taskDetailsCtrl.isActiveUnassignMode || taskDetailsCtrl.isActiveCompletedMode">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <textarea ng-model="taskDetailsCtrl.changeStatusCommentModel" class="form-control" placeholder="{{'Specify if necessary comment' | translate}}"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-show="taskDetailsCtrl.isActiveUnassignMode || taskDetailsCtrl.isActiveCompletedMode">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4 pblock__uploader">
+                            <file-uploader config="taskDetailsCtrl.fileUploaderConfig"></file-uploader>
+                        </div>
+                        <div class="col-sm-12">
+                            <janitor-uploaded-content-viewer config="taskDetailsCtrl.janitorUploadedImagesViewer" data-ng-show="taskDetailsCtrl.janitorUploadedImagesViewer.value.length"></janitor-uploaded-content-viewer>
+                            <janitor-uploaded-content-viewer config="taskDetailsCtrl.janitorUploadedVideosViewer" data-ng-show="taskDetailsCtrl.janitorUploadedVideosViewer.value.length"></janitor-uploaded-content-viewer>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-b">
+                    <span class="pblock__details-label">{{'Job status' | translate}}:</span>
+                    <span>{{taskDetailsCtrl.getStatusTranslation(taskDetailsCtrl.jobDetails.jobStatus) | translate}}</span>
+                </div>
+                <span class="pblock__details-label" ng-if="taskDetailsCtrl.jobCancelingHistory.length">{{'Canceling reasons' | translate}}:</span>
+                <div class="m-b" ng-if="taskDetailsCtrl.jobCancelingHistory" ng-repeat="history in taskDetailsCtrl.jobCancelingHistory">
+                    <span>{{history.cancellationReason}}</span>
+                    <span>{{taskDetailsCtrl.getFormattedDateString(history.changeStatusDate)}}</span>
+                    <span>{{history.changeStatusComment}}</span>
+                    <span>{{history.userNameWhoChangedStatus}}</span>
+                </div>
+                <div data-ng-if="taskDetailsCtrl.isOpenedJob">
+                    <button class="btn btn-success" data-ng-click="taskDetailsCtrl.assignJob()" type="button">{{'Assign to me' | translate}}</button>
+                </div>
+                <div data-ng-if="taskDetailsCtrl.isMyJob" class="pblock__btn-holder"
+                     ng-class="!taskDetailsCtrl.completeJobErrorMessage && (taskDetailsCtrl.isActiveCompletedMode || taskDetailsCtrl.isActiveUnassignMode) ? 'iscompleted-isunasign': null">
+                    <button class="btn btn-default" data-ng-if="!taskDetailsCtrl.completeJobErrorMessage && (taskDetailsCtrl.isActiveCompletedMode || taskDetailsCtrl.isActiveUnassignMode)" data-ng-click="taskDetailsCtrl.cancelActiveMode()" type="button">{{'Cancel' | translate}}</button>
+                    <div ng-if="taskDetailsCtrl.IsAssignedStatus() && taskDetailsCtrl.isJobTypeAndUserValid()" ng-class="taskDetailsCtrl.IsAssignedStatus() ? 'is-assigned': null">
+                        <button class="btn btn-success" data-ng-if="!taskDetailsCtrl.isActiveCompletedMode && !taskDetailsCtrl.isActiveUnassignMode" data-ng-click="taskDetailsCtrl.startJob()" type="button">{{'Start' | translate}}</button>
+                        <button class="btn btn-unassign" data-ng-show="taskDetailsCtrl.canChangeJobWithAssignedStatus() && !taskDetailsCtrl.isActiveUnassignMode && !taskDetailsCtrl.isOtherTypeTask()" data-ng-click="taskDetailsCtrl.unassignJob()" type="button">{{'Unassign' | translate}}</button>
+                        <button class="btn btn-unassign" data-ng-show="taskDetailsCtrl.isActiveUnassignMode" data-ng-click="taskDetailsCtrl.unassignJob(taskDetailsCtrl.jobStatus.Rejected)" type="button">{{'Opened' | translate}}</button>
+                        <button class="btn btn-unassign" data-ng-show="taskDetailsCtrl.isActiveUnassignMode" data-ng-click="taskDetailsCtrl.unassignJob(taskDetailsCtrl.jobStatus.Pending)" type="button">{{'Pending' | translate}}</button>
+                    </div>
+                    <div ng-if="taskDetailsCtrl.IsInProgressStatus() && taskDetailsCtrl.isJobTypeAndUserValid()" ng-class="taskDetailsCtrl.IsInProgressStatus() ? 'is-inprogress': null">
+                        <div ng-if="!taskDetailsCtrl.completeJobErrorMessage">
+                            <button class="btn btn-paused" data-ng-if="!taskDetailsCtrl.isActiveCompletedMode && !taskDetailsCtrl.isActiveUnassignMode && !taskDetailsCtrl.isOtherJob" data-ng-click="taskDetailsCtrl.pauseJob()" type="button">{{'Pause' | translate}}</button>
+                            <button class="btn btn-completed" data-ng-if="taskDetailsCtrl.canChangeJobWithInProgressStatus() && !taskDetailsCtrl.isActiveUnassignMode" data-ng-click="taskDetailsCtrl.completeJob()" type="button">{{'Completed' | translate}}</button>
+                            <button class="btn btn-unassign" data-ng-show="taskDetailsCtrl.canChangeJobWithInProgressStatus() && !taskDetailsCtrl.isActiveCompletedMode && !taskDetailsCtrl.isActiveUnassignMode && !taskDetailsCtrl.isOtherTypeTask()" data-ng-click="taskDetailsCtrl.unassignJob()" type="button">{{'Unassign' | translate}}</button>
+                            <button class="btn btn-unassign" data-ng-show="taskDetailsCtrl.isActiveUnassignMode" data-ng-click="taskDetailsCtrl.unassignJob(taskDetailsCtrl.jobStatus.Rejected)" type="button">{{'Opened' | translate}}</button>
+                            <button class="btn btn-unassign" data-ng-show="taskDetailsCtrl.isActiveUnassignMode" data-ng-click="taskDetailsCtrl.unassignJob(taskDetailsCtrl.jobStatus.Pending)" type="button">{{'Pending' | translate}}</button>
+                        </div>
+                        <div ng-if="taskDetailsCtrl.completeJobErrorMessage">
+                            {{taskDetailsCtrl.completeJobErrorMessage}}
+                        </div>
+                    </div>
+                    <div ng-if="taskDetailsCtrl.IsPausedStatus() && taskDetailsCtrl.isJobTypeAndUserValid()" ng-class="taskDetailsCtrl.IsPausedStatus() ? 'is-inprogress': null">
+                        <div ng-if="!taskDetailsCtrl.completeJobErrorMessage">
+                            <button class="btn btn-success" data-ng-if="!taskDetailsCtrl.isActiveCompletedMode && !taskDetailsCtrl.isActiveUnassignMode" data-ng-click="taskDetailsCtrl.startJob()" type="button">{{'Start' | translate}}</button>
+                            <button class="btn btn-completed" data-ng-if="taskDetailsCtrl.canChangeJobWithPausedStatus() && !taskDetailsCtrl.isActiveUnassignMode" data-ng-click="taskDetailsCtrl.completeJob()" type="button">{{'Completed' | translate}}</button>
+                            <button class="btn btn-unassign" data-ng-show="taskDetailsCtrl.canChangeJobWithPausedStatus() && !taskDetailsCtrl.isActiveCompletedMode && !taskDetailsCtrl.isActiveUnassignMode" data-ng-click="taskDetailsCtrl.unassignJob()" type="button">{{'Unassign' | translate}}</button>
+                            <button class="btn btn-unassign" data-ng-show="taskDetailsCtrl.isActiveUnassignMode" data-ng-click="taskDetailsCtrl.unassignJob(taskDetailsCtrl.jobStatus.Rejected)" type="button">{{'Opened' | translate}}</button>
+                            <button class="btn btn-unassign" data-ng-show="taskDetailsCtrl.isActiveUnassignMode" data-ng-click="taskDetailsCtrl.unassignJob(taskDetailsCtrl.jobStatus.Pending)" type="button">{{'Pending' | translate}}</button>
+                        </div>
+                        <div ng-if="taskDetailsCtrl.completeJobErrorMessage">
+                            {{taskDetailsCtrl.completeJobErrorMessage}}
+                        </div>
+                    </div>
+                </div>
+                <div data-ng-if="taskDetailsCtrl.canChangeJobWithCompletedStatus()" class="pblock__btn-holder">
+                    <button class="btn btn-success" data-ng-click="taskDetailsCtrl.reopenJob()" type="button">{{'Reopen' | translate}}</button>
+                </div>
+            </div>
+
+            <div class="pblock__details-content m-t">
+                <div class="pblock__item">
+                    <div class="pblock__row no-padding">
+                        <div class="pull-left">
+                            <span ng-if="taskDetailsCtrl.jobDetails.date">{{taskDetailsCtrl.getDateString(taskDetailsCtrl.jobDetails.date)}}</span>
+                            <div>
+                                <span ng-if="taskDetailsCtrl.jobDetails.date && taskDetailsCtrl.isAllowedTaskType()" class="padding-top">
+                                    <i class="fa fa-user"></i>
+                                    <span>{{taskDetailsCtrl.getTimeString(taskDetailsCtrl.jobDetails.date)}}</span>
+                                </span>
+                                <span ng-if="taskDetailsCtrl.isTaskDurationRequired"> - {{taskDetailsCtrl.getEstimateTimeString()}}</span>
+                            </div>
+                        </div>
+                        <div class="overflow" ng-if="taskDetailsCtrl.isStartTimeLabelVisible(taskDetailsCtrl.jobDetails)">
+                            <div ng-class="taskDetailsCtrl.isTaskOverdue(taskDetailsCtrl.jobDetails) ? '_font-red' : ''" class="inline-el">
+                                <i class="pblock__icon pe-7s-timer"></i>
+                                <span>{{taskDetailsCtrl.getTimeBeforeStartString()}}</span>
+                                <span>{{taskDetailsCtrl.getTimeBeforeStartLabel(taskDetailsCtrl.jobDetails)}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="pblock__title no-padding">
+                        <span class="pull-right pblock__status _urgent" data-ng-if="taskDetailsCtrl.jobDetails.isUrgent">{{'Urgent job' | translate}}</span>
+                        <span>{{taskDetailsCtrl.jobDetails.title}}</span>
+                    </h2>
+                    <div data-ng-if="taskDetailsCtrl.operationalTaskDescription">{{taskDetailsCtrl.operationalTaskDescription}}</div>
+                </div>
+                <div class="pblock__item">
+                    <div ng-click="taskDetailsCtrl.toogleMap()" class="_pointer">
+                        <div class="_flex">
+                            <span>{{taskDetailsCtrl.jobDetails.assignedHousingDepartmentName}}</span>
+                            <div ng-if="taskDetailsCtrl.jobDetails.address" class="chevron-icon">
+                                <span class="fa" ng-class="taskDetailsCtrl.isMapToogled ? 'fa-chevron-down' : 'fa-chevron-up'"></span>
+                            </div>
+                        </div>
+                        <div data-ng-if="taskDetailsCtrl.jobDetails.residentName || taskDetailsCtrl.jobDetails.address" class="overflow">
+                            <i class="fa fa-map-marker pull-left" ng-if="taskDetailsCtrl.jobDetails.address"></i>
+                            <div data-ng-if="taskDetailsCtrl.jobDetails.residentName" class="additional-info__name">
+                                {{taskDetailsCtrl.jobDetails.residentName}}
+                            </div>
+                            <div ng-if="taskDetailsCtrl.jobDetails.address">{{taskDetailsCtrl.jobDetails.address}}</div>
+                        </div>
+                    </div>
+                    <div class="google-map-container pblock__item-content" ng-class="{'show' : !taskDetailsCtrl.isMapToogled}" ng-if="taskDetailsCtrl.jobDetails.address">
+                        <google-map address="{{taskDetailsCtrl.jobDetails.address}}" is-marker-disabled="true" is-janitor-platform="true"></google-map>
+                    </div>
+                </div>
+                <div class="pblock__item" data-ng-if="taskDetailsCtrl.jobDetails.residentPhone || taskDetailsCtrl.jobDetails.comment">
+                    <div data-ng-if="taskDetailsCtrl.jobDetails.residentPhone" class="additional-info__row">
+                        <i class="fa fa-phone additional-info__icon"></i>
+                        <span><a href="tel:{{taskDetailsCtrl.jobDetails.residentPhone}}">{{taskDetailsCtrl.jobDetails.residentPhone}}</a></span>
+                    </div>
+                    <div ng-if="taskDetailsCtrl.jobDetails.comment">
+                        <div data-ng-if="taskDetailsCtrl.jobDetails.comment" class="additional-info__row">
+                            <i class="fa fa-comment additional-info__icon"></i>
+                            <span>{{taskDetailsCtrl.jobDetails.comment}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pblock__item" ng-if="taskDetailsCtrl.showGlobalGuideBlock()">
+                    <div class="pblock__row _m-b-n _pointer" ng-click="taskDetailsCtrl.toogleGlobalDescription()">
+                        <span class="label _pointer">{{'Global guide' | translate}}</span>
+                        <div class="pblock__col">
+                            <span class="fa _pointer" ng-class="taskDetailsCtrl.isGlobalDescriptionToogled ? 'fa-chevron-down' : 'fa-chevron-up'"></span>
+                        </div>
+                    </div>
+                    <div ng-class="taskDetailsCtrl.isGlobalDescriptionToogled ? 'carousel-hidden' : 'carousel-show'" class="pblock__item-content m-t">
+                        <span ng-bind-html="taskDetailsCtrl.jobDetails.globalDescription"></span>
+                        <div class="row">
+                            <div class="col-md-6 m-b">
+                                <native-carousel slides="taskDetailsCtrl.jobDetails.globalUploadList" config="taskDetailsCtrl.imageCarouselConfig"></native-carousel>
+                            </div>
+                            <div class="col-md-6 m-b">
+                                <native-carousel slides="taskDetailsCtrl.jobDetails.globalUploadList" config="taskDetailsCtrl.videoCarouselConfig"></native-carousel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pblock__item" ng-if="taskDetailsCtrl.showLocalGuideBlock()">
+                    <div class="pblock__row _m-b-n _pointer" ng-click="taskDetailsCtrl.toogleLocalDescription()">
+                        <span class="label _pointer">{{'Local guide' | translate}}</span>
+                        <div class="pblock__col">
+                            <span class="fa _pointer" ng-class="taskDetailsCtrl.isLocalDescriptionToogled ? 'fa-chevron-down' : 'fa-chevron-up'"></span>
+                        </div>
+                    </div>
+                    <div ng-class="taskDetailsCtrl.isLocalDescriptionToogled ? 'hidden' : 'show'" class="pblock__item-content m-t">
+                        <span ng-bind-html="taskDetailsCtrl.jobDetails.localDescription"></span>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <native-carousel slides="taskDetailsCtrl.jobDetails.localUploadList" config="taskDetailsCtrl.imageCarouselConfig"></native-carousel>
+                            </div>
+                            <div class="col-sm-6">
+                                <native-carousel slides="taskDetailsCtrl.jobDetails.localUploadList" config="taskDetailsCtrl.videoCarouselConfig"></native-carousel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pblock__item" ng-if="taskDetailsCtrl.showGlobalDocumentsBlock()">
+                    <div class="pblock__row _m-b-n _pointer" ng-click="taskDetailsCtrl.toogleGlobalDocuments()">
+                        <span class="label _pointer">{{'Global documents' | translate}}</span>
+                        <div class="pblock__col">
+                            <span class="fa _pointer" ng-class="taskDetailsCtrl.isGlobalDocumentsToogled ? 'fa-chevron-down' : 'fa-chevron-up'"></span>
+                        </div>
+                    </div>
+                    <div ng-class="taskDetailsCtrl.isGlobalDocumentsToogled ? 'hidden' : 'show'" class="pblock__item-content">
+                        <table class="table _valign-m _mobile-table">
+                            <thead>
+                                <tr>
+                                    <th>{{'File name' | translate}}</th>
+                                    <th>{{'Creator name' | translate}}</th>
+                                    <th>{{'Creation date' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="document in taskDetailsCtrl.jobDetails.globalUploadList | filter:{contentType:'Document'}">
+                                    <td>
+                                        <a file-downloader ng-href="{{document.path}}" alt="uploadedDocument" class="file-name">{{document.fileName}}</a>
+                                    </td>
+                                    <td>
+                                        <user-avatar data-config="{ url: document.uploader.avatar }" />
+                                        <span class="avatar-name">{{document.uploader.name}}</span>
+                                    </td>
+                                    <td>
+                                        {{taskDetailsCtrl.getCreationDate(document.creationDate)}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="pblock__item" ng-if="taskDetailsCtrl.showLocalDocumentsBlock()">
+                    <div class="pblock__row _m-b-n _pointer" ng-click="taskDetailsCtrl.toogleLocalDocuments()">
+                        <span class="label _pointer">{{'Local documents' | translate}}</span>
+                        <div class="pblock__col">
+                            <span class="fa _pointer" ng-class="taskDetailsCtrl.isLocalDocumentsToogled ? 'fa-chevron-down' : 'fa-chevron-up'"></span>
+                        </div>
+                    </div>
+                    <div ng-class="taskDetailsCtrl.isLocalDocumentsToogled ? 'hidden' : 'show'" class="pblock__item-content">
+                        <table class="table _valign-m _mobile-table">
+                            <thead>
+                                <tr>
+                                    <th>{{'File name' | translate}}</th>
+                                    <th>{{'Creator name' | translate}}</th>
+                                    <th>{{'Creation date' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="document in taskDetailsCtrl.jobDetails.localUploadList | filter:{contentType:'Document'}">
+                                    <td>
+                                        <a file-downloader ng-href="{{document.path}}" alt="uploadedDocument" class="file-name">{{document.fileName}}</a>
+                                    </td>
+                                    <td>
+                                        <user-avatar data-config="{ url: document.uploader.avatar }" />
+                                        <span class="avatar-name">{{document.uploader.name}}</span>
+                                    </td>
+                                    <td>
+                                        {{taskDetailsCtrl.getCreationDate(document.creationDate)}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="pblock__item" ng-if="taskDetailsCtrl.isTenant() && taskDetailsCtrl.hasJobsRelatedByAddress">
+                    <div class="pblock__row _m-b-n _pointer" ng-click="taskDetailsCtrl.toogleRelatedJobsByAddressBlock()">
+                        <span class="label _pointer">{{'Previous assignments at the address' | translate}}</span>
+                        <div class="pblock__col">
+                            <span class="fa _pointer" ng-class="taskDetailsCtrl.isRelatedJobsByAddressBlockToogled ? 'fa-chevron-down' : 'fa-chevron-up'"></span>
+                        </div>
+                    </div>
+                    <div ng-class="taskDetailsCtrl.isRelatedJobsByAddressBlockToogled ? 'hidden' : 'show'" class="pblock__item-content">
+                        <div ng-repeat="relatedByAddressJob in taskDetailsCtrl.relatedByAddressJobList" class="related-address__item _pointer" ng-click="taskDetailsCtrl.goToTaskDetails(relatedByAddressJob)">
+                            <div class="pblock__row">
+                                <span>
+                                    {{taskDetailsCtrl.getDateString(relatedByAddressJob.date)}}
+                                </span>
+                                <span>{{taskDetailsCtrl.getTimeString(relatedByAddressJob.date)}}</span>
+                            </div>
+                            <h2 class="pblock__title">{{relatedByAddressJob.title}}</h2>
+                            <div>{{relatedByAddressJob.address}}</div>
+                            <i class="fa fa-angle-right related-address__icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="false">
+                    <div class="pblock__item" ng-if="taskDetailsCtrl.isFacility()">
+                        <div class="pblock__row _m-b-n _pointer" ng-click="taskDetailsCtrl.toogleGuideCommentBlock()">
+                            <span class="label _pointer">{{'Guide comment' | translate}}</span>
+                            <div class="pblock__col">
+                                <span class="fa _pointer" ng-class="taskDetailsCtrl.isGuideCommentBlockToogled ? 'fa-chevron-down' : 'fa-chevron-up'"></span>
+                            </div>
+                        </div>
+                        <div ng-class="taskDetailsCtrl.isGuideCommentBlockToogled ? 'hidden' : 'show'" class="pblock__item-content">
+                            <div ng-repeat="guideComment in taskDetailsCtrl.jobGuideComments" class="comment__item">
+                                <div ng-show="guideComment.isCommentEdit">
+                                    <div class="comment__user-info">
+                                        <div class="comment__user-avatar">
+                                            <user-avatar data-config="{ url: guideComment.memberAvatar, name: guideComment.memberName }" />
+                                        </div>
+                                        <div class="comment__create-date">
+                                            <span>{{taskDetailsCtrl.getFormattedGuideCommentDate(guideComment)}}</span>
+                                            <div class="comment__user-name">{{guideComment.memberName}}</div>
+                                        </div>
+                                    </div>
+                                    <textarea ng-model="guideComment.comment" class="form-control m-t m-b"></textarea>
+                                    <div class="text-right m-b">
+                                        <button type="button" ng-click="taskDetailsCtrl.updateGuideComment(guideComment)" class="btn btn-primary fa fa-check"></button>
+                                        <button type="button" ng-click="taskDetailsCtrl.switchToEditGuideComment(guideComment)" class="btn btn-default fa fa-close"></button>
+                                    </div>
+                                </div>
+                                <div ng-hide="guideComment.isCommentEdit">
+                                    <div class="comment__user-info">
+                                        <div class="comment__user-avatar">
+                                            <user-avatar data-config="{ url: guideComment.memberAvatar, name: guideComment.memberName }" />
+                                        </div>
+                                        <div class="comment__create-date">
+                                            <span>{{taskDetailsCtrl.getFormattedGuideCommentDateAndTime(guideComment)}}</span>
+                                            <div class="comment__user-name">{{guideComment.memberName}}</div>
+                                        </div>
+                                        <div class="comment__btn text-right">
+                                            <a ng-if="taskDetailsCtrl.isOwnGuideComment(guideComment)" ng-click="taskDetailsCtrl.switchToEditGuideComment(guideComment)" class="btn btn-primary fa fa-pencil"></a>
+                                            <a ng-if="taskDetailsCtrl.isOwnGuideComment(guideComment)" ng-click="taskDetailsCtrl.removeGuideComment(guideComment)" class="btn btn-default fa fa-remove"></a>
+                                        </div>
+                                    </div>
+                                    <div class="comment__text">{{guideComment.comment}}</div>
+                                </div>
+                            </div>
+                            <div class="comment__area-holder">
+                                <textarea ng-model="taskDetailsCtrl.guideCommentModel" class="form-control m-b m-t"></textarea>
+                                <input type="button" ng-click="taskDetailsCtrl.saveGuideComment()" value="{{'Save guide comment' | translate}}" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

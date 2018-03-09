@@ -1,0 +1,55 @@
+﻿<div class="table-holder">
+    <div data-ng-class="historyControlCtrl.isActiveWaitIcon ? 'show' : 'hide'" class="load-icon">
+        <img src="/Content/images/load-icon.gif" />
+    </div>
+
+    <div class="history__select m-b" data-ng-hide="historyControlCtrl.config.disableViewJobPopup">
+        <ui-select ng-model="historyControlCtrl.selectedAddress" on-select="historyControlCtrl.onChangeAddress($item)">
+            <ui-select-match allow-clear="true" placeholder="{{'Please select address' | translate}}">
+                {{$select.selected}}
+            </ui-select-match>
+            <ui-select-choices repeat="address in historyControlCtrl.addressList | filter:$select.search | limitTo: 1000 |orderBy:['name'] track by address"
+                               refresh-delay="0">
+                {{address}}
+            </ui-select-choices>
+        </ui-select>
+    </div>
+    <h5 data-ng-show="!historyControlCtrl.config.disableViewJobPopup && !historyControlCtrl.selectedAddress" class="no-select-value">{{'Please select address first' | translate}}</h5>
+    <h5 data-ng-show="historyControlCtrl.showNoDataLabel()" class="no-select-value">{{'There are no history data' | translate}}</h5>
+    <table class="table" data-ng-show="historyControlCtrl.historyList.length && (historyControlCtrl.config.disableViewJobPopup || historyControlCtrl.showHistoryTable)">
+        <thead>
+            <tr>
+                <th ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.residentName)" style="width: 120px;">{{'Resident name' | translate}}</th>
+                <th ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.changeStatusDate)" style="width: 90px;">{{'Date' | translate}}</th>
+                <th ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.whoChangedStatus)" style="width: 120px;">{{'User name' | translate}}</th>
+                <th ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.title)" style="width: 200px;">{{'Title' | translate}}</th>
+                <th ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.jobComment)" style="width: 200px;">{{'Job comment' | translate}}</th>
+                <th ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.status)">{{'Status' | translate}}</th>
+                <th ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.changeStatusComment)" style="width: 200px;">{{'Status comment' | translate}}</th>
+                <th ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.cancellationReason)">{{'Cancellation reason' | translate}}</th>
+                <th ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.fileName)" style="width: 100px;">{{'File name' | translate}}</th>
+                <th ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.reportedTime)">{{'Reported time' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="history in historyControlCtrl.historyList | filter:{'address': historyControlCtrl.selectedAddress}" data-ng-click="historyControlCtrl.viewJob(history)">
+                <td ng-class="historyControlCtrl.config.disableViewJobPopup ? '' : '_pointer'" ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.residentName)">{{history.residentName}}</td>
+                <td ng-class="historyControlCtrl.config.disableViewJobPopup ? '' : '_pointer'" ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.changeStatusDate)">
+                    {{historyControlCtrl.getFormattedDateString(history.changeStatusDate)}} {{historyControlCtrl.getFormattedTimeString(history.changeStatusDate)}}
+                </td>
+                <td ng-class="historyControlCtrl.config.disableViewJobPopup ? '' : '_pointer'" ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.whoChangedStatus)">{{history.userNameWhoChangedStatus}}</td>
+                <td ng-class="historyControlCtrl.config.disableViewJobPopup ? '' : '_pointer'" ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.title)">{{history.title}}</td>
+                <td ng-class="historyControlCtrl.config.disableViewJobPopup ? '' : '_pointer'" ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.jobComment)">{{history.jobComment}}</td>
+                <td ng-class="historyControlCtrl.config.disableViewJobPopup ? '' : '_pointer'" ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.status)">{{historyControlCtrl.getStatusTranslation(history.jobStatus) | translate}}</td>
+                <td ng-class="historyControlCtrl.config.disableViewJobPopup ? '' : '_pointer'" ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.changeStatusComment)">{{history.changeStatusComment}}</td>
+                <td ng-class="historyControlCtrl.config.disableViewJobPopup ? '' : '_pointer'" ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.cancellationReason)">{{history.cancellationReason}}</td>
+                <td ng-class="historyControlCtrl.config.disableViewJobPopup ? '' : '_pointer'" ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.fileName)">
+                    <div data-ng-repeat="file in history.uploadedFiles">
+                        <a file-downloader href="{{file.fileUrl}}">{{file.fileName}}</a>
+                    </div>
+                </td>
+                <td ng-class="historyControlCtrl.config.disableViewJobPopup ? '' : '_pointer'" ng-show="historyControlCtrl.showColumn(historyControlCtrl.column.reportedTime)">{{historyControlCtrl.getSpentTime(history)}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

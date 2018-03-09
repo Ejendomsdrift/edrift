@@ -1,0 +1,43 @@
+﻿@import "../../../../Less/Mixins";
+@import "../../../../Less/Variables";
+@import "../../../../Less/fonts";
+
+.day-assign {
+    padding: 0 0 35px;
+
+    .days-of-the-week {
+        .checkbox {
+            display: inline-block;
+            vertical-align: middle;
+            padding-top: 0;
+        }
+    }
+
+    .estimate {
+        .text-control__text {
+            display: inline-block;
+        }
+
+        .edit-control__content,
+        ._active-edit-control {
+            display: inline-block;
+
+            .form-control {
+                width: 100px !important;
+            }
+        }
+    }
+
+    .ui-select-bootstrap .ui-select-toggle > a.btn {
+        margin-top: -7px;
+    }
+
+    .ui-select-bootstrap .ui-select-match-text span {
+        vertical-align: middle;
+    }
+
+    ._custom {
+        margin-right: -3px;
+        margin-left: -3px;
+    }
+}

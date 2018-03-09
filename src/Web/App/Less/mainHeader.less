@@ -1,0 +1,160 @@
+﻿@import "Mixins";
+@import "Variables";
+@import "fonts";
+
+
+.main-header {
+    .box-with-border();
+    .border-radius(2px);
+    padding: 25px 20px;
+    display: flex;
+    margin: 0 0 29px;
+
+    &__title {
+        flex: 0 0 auto;
+        margin: 0 30px 0 0;
+    }
+
+    &__col {
+        flex: 1 1 auto;
+        position: relative;
+    }
+
+    .ui-select-container,
+    &__year,
+    &__housing {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    &__housing {
+        margin-right: 20px;
+    }
+
+    &__year {
+        .dropdown {
+            width: 70px;
+            margin-right: 7px;
+
+            &.week {
+                width: 90px;
+                margin: 0;
+            }
+        }
+
+        .btn {
+            padding: 6px 10px;
+        }
+    }
+
+    .ui-select-bootstrap .ui-select-choices-row > span {
+        padding: 6px 12px;
+    }
+
+    &__view {
+        font-size: 20px;
+        cursor: pointer;
+        vertical-align: middle;
+        margin: 0 0 0 10px;
+    }
+
+    &__text {
+        display: block;
+        padding: 5px 0;
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+    &__row {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    &__holder-btns {
+        margin: 0 0 0 auto;
+    }
+
+    .btn {
+        .fa {
+            margin-right: 2px;
+            vertical-align: middle;
+        }
+
+        .create-btn-text {
+            display: inline-block;
+            vertical-align: top;
+        }
+    }
+
+    &__member {
+        .edit-control {
+            &__content {
+                padding: 0;
+                border: none;
+            }
+
+            .select-group {
+                min-width: 360px;
+                border-color: @iron !important;
+            }
+        }
+
+        .ui-select-multiple.ui-select-bootstrap {
+            margin: 0;
+        }
+
+        .ui-select-multiple .ui-select-match > span {
+            display: inline-block;
+        }
+
+        .ui-select-multiple.ui-select-bootstrap .ui-select-match-item {
+            margin: 0 5px 0 0;
+
+            span {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+        .ui-select-multiple .ui-select-match:not(:empty) + input.ui-select-search {
+            min-height: 29px;
+            width: 150px !important;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0;
+        }
+
+        .small-avatar,
+        .medium-avatar,
+        .lagre-avatar {
+            width: 18px;
+            height: 18px;
+        }
+
+        .close {
+            margin-top: -7px;
+        }
+    }
+
+    .btn-default[disabled] {
+        background-color: @white;
+    }
+
+    .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+        opacity: 0.5;
+        pointer-events: auto;
+    }
+}
+
+@media screen and (max-width: 1640px) {
+    .main-header {
+        &__row {
+            display: block;
+        }
+
+        &__holder-btns {
+            margin: 10px 0 0;
+            text-align: right;
+        }
+    }
+}

@@ -1,0 +1,10 @@
+﻿<div class="days-control">
+    <edit-control config="daysPerWeekPickerCtrl.editControlConfig">
+        <div data-ng-class="{'_error' : !daysPerWeekPickerCtrl.isDayValid() }">
+            <span data-ng-repeat="day in daysPerWeekPickerCtrl.weekDays" class="checkbox">
+                <input type="checkbox" data-ng-model="day.isChecked" data-ng-change="daysPerWeekPickerCtrl.changeDay(day, $index)" data-ng-checked="day.isChecked">
+                <label ng-class="{'_font-red' : daysPerWeekPickerCtrl.isWeekend(day.weekDay)}">{{'day_' + day.alias | translate}}</label>
+            </span>
+        </div>
+    </edit-control>
+</div>

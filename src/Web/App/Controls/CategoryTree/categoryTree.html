@@ -1,0 +1,45 @@
+﻿<div class="category-tree" ng-class="categoryTreeCtrl.getClassForControl()" ng-click="categoryTreeCtrl.toggleTreeDropdown($event)">
+    <div class="form-control dropdown-control">
+        <strong ng-if="categoryTreeCtrl.selectedTask && categoryTreeCtrl.config.showTasks()" class="form-control__text">
+            {{categoryTreeCtrl.selectedTask.title}}
+            <span ng-if="categoryTreeCtrl.selectedTask.parentId && categoryTreeCtrl.selectedTask.firstAddress"> - {{categoryTreeCtrl.selectedTask.firstAddress}}</span>
+            <span ng-if="!categoryTreeCtrl.selectedTask.parentId && categoryTreeCtrl.selectedTask.relationGroupList.length && categoryTreeCtrl.selectedTask.parentAddress"> - {{categoryTreeCtrl.selectedTask.parentAddress}}</span>
+        </strong>
+        <strong ng-if="!categoryTreeCtrl.selectedTask && categoryTreeCtrl.config.showTasks()" class="form-control__text">{{::'Choose Facility task' | translate}}</strong>
+        <strong ng-if="categoryTreeCtrl.selectedCategory && !categoryTreeCtrl.config.showTasks()" class="form-control__text">{{categoryTreeCtrl.selectedCategory.name}}</strong>
+        <strong ng-if="!categoryTreeCtrl.selectedCategory && !categoryTreeCtrl.config.showTasks()" class="form-control__text">{{::'See all' | translate}}</strong>
+        <i class="remove glyphicon glyphicon-remove" ng-if="categoryTreeCtrl.hasClearButton()" data-ng-click="categoryTreeCtrl.clear()" aria-hidden="true"></i>
+    </div>
+    <div class="tree-hold">
+        <ul class="simple-tree show-simple-mode">
+            <li class="simple-tree__item" ng-repeat="node in ::categoryTreeCtrl.pathToActive" ng-style="{'margin-left': (5 * $index) + 'px'}">
+                {{::node.name}}
+            </li>
+        </ul>
+        <div class="show-edit-mode">
+            <div class="view-all-button" ng-class="categoryTreeCtrl.selectedId ? '' : '_open-all'" ng-click="categoryTreeCtrl.seeAllOnClick()">
+                <span>{{::'See all' | translate}}</span>
+            </div>
+            <treecontrol class="tree-classic" options="categoryTreeCtrl.treeOptions"
+                         tree-model="categoryTreeCtrl.categoryTreeData"
+                         expanded-nodes="categoryTreeCtrl.expandedCategories"
+                         on-selection="categoryTreeCtrl.categoryOnClick(node)"
+                         ng-click="$event.stopPropagation()">
+                <span ng-class="node.id == categoryTreeCtrl.selectedId ? 'selected-item':''" class="tree-item">
+                    {{::node.name}}
+                    <em class="tasks-count">{{::node.tasks.length}} {{::'task(s)' | translate}}</em>
+                </span>
+                <ul class="custom-tree tasks-lines" ng-if="::(node.tasks.length > 0)">
+                    <li ng-repeat="task in ::node.tasks | filter: categoryTreeCtrl.filterOperationalJobs" ng-click="categoryTreeCtrl.taskOnClick($event,task)">
+                        <i class="fa fa-square tree-icon"></i>
+                        <span class="tree-item task-item" ng-class="task.isSelectedTask ? 'selected-item':''">
+                            {{::task.title}}
+                            <span ng-if="::(task.parentId && task.firstAddress)"> - {{::task.firstAddress}}</span>
+                            <span ng-if="::(!task.parentId && task.relationGroupList.length && task.parentAddress)"> - {{::task.parentAddress}}</span>
+                        </span>
+                    </li>
+                </ul>
+            </treecontrol>
+        </div>
+    </div>
+</div>

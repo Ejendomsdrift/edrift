@@ -1,0 +1,48 @@
+﻿<div class="table-holder">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="col-md-1">{{'Dato' | translate}}</th>
+                <th class="col-md-1">{{'Tid' | translate}}</th>
+                <th class="col-md-3">{{'Opgave' | translate}}</th>
+                <th class="col-md-3" ng-if="!listCtrl.selectedDepartment.id">{{'Department' | translate}}</th>
+                <th class="col-md-3">{{'Adresse / Lejemål' | translate}}</th>
+                <th class="col-md-1">{{'Status' | translate}}</th>
+                <th class="col-md-1">{{'Type' | translate}}</th>
+                <th class="col-md-1">{{'ID' | translate}}</th>
+                <th class="col-md-1">{{'User name' | translate}}</th>
+                <th class="col-md-1">{{'Group' | translate}}</th>
+                <th class="col-md-1">{{'Comment' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat-start="weekedTask in listCtrl.weekedTasks" ng-show="listCtrl.showWeekTitle(weekedTask.week)">
+                <td class="padding-top" colspan="10"><strong>{{'Week' | translate}} {{weekedTask.week}}</strong></td>
+            </tr>
+            <tr ng-repeat-end ng-repeat="(keyid, task) in weekedTask.jobs">
+                <td><span ng-click="listCtrl.editTask(task)" class="_pointer">{{listCtrl.getFormattedDateString(task.assignDate)}}</span></td>
+                <td><span ng-click="listCtrl.editTask(task)" class="_pointer">{{listCtrl.getTime(task)}}</span></td>
+                <td>
+                    <span ng-show="task.isUrgent">{{'Urgent job' | translate}}</span>
+                    <span ng-click="listCtrl.editTask(task)" class="_pointer">{{task.title}}</span>
+                </td>
+                <td ng-if="!listCtrl.selectedDepartment.id"><span ng-click="listCtrl.editTask(task)" class="_pointer">{{task.departmentName}}</span></td>
+                <td><span ng-click="listCtrl.editTask(task)" class="_pointer">{{task.address}}</span></td>
+                <td><span ng-click="listCtrl.editTask(task)" class="_pointer">{{::listCtrl.getStatusTranslation(task.statusId) | translate}}</span></td>
+                <td><span ng-click="listCtrl.editTask(task)" class="_pointer">{{listCtrl.getJobTypeById(task.jobType)}}</span></td>
+                <td><span ng-click="listCtrl.editTask(task)" class="_pointer">{{task.id}}</span></td>
+                <td><div ng-click="listCtrl.editTask(task)" class="_pointer">
+                    <div ng-hide="task.isAssignedToAllUsers" ng-repeat="user in task.users">
+                        {{user.name}}
+                    </div>
+
+                    <div ng-show="task.isAssignedToAllUsers && !task.groupName">
+                        {{'All users' | translate}}
+                    </div>         
+                </div></td>
+                <td><span ng-click="listCtrl.editTask(task)" class="_pointer">{{task.groupName}}</span></td>
+                <td><i ng-if="task.hasChangeStatusComment" class="comment-icon pe-7s-comment _pointer" ng-click="listCtrl.editTaskHistoryTab(task)"></i></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

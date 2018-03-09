@@ -1,0 +1,47 @@
+﻿<h5 class="janitor-member__group-title" data-ng-if="teamViewerCtrl.config.groupName">{{teamViewerCtrl.config.groupName}}</h5>
+
+<span ng-if="teamViewerCtrl.config.members.length < 1">{{'No assigned members' | translate}}</span>
+
+<div class="janitor-member__list">
+    <div class="text-right" data-ng-if="teamViewerCtrl.config.showTimeReportControl">
+        <span class="janitor-member__time-label">{{'HH' | translate}}</span>
+        <span class="janitor-member__time-label">{{'mm' | translate}}</span>
+    </div>
+    <div data-ng-repeat="member in teamViewerCtrl.config.members | orderBy: 'name'">
+        <div class="janitor-member__row">
+            <div class="janitor-member__col" style="width: 45px;">
+                <user-avatar data-config="{ url: member.avatar, name: member.name }"/>
+            </div>
+            <div class="janitor-member__col">
+                <div class="font-bold janitor-member__name">{{member.name}}</div>
+                <small class="janitor-member__rolle" data-ng-if="teamViewerCtrl.isTeamLead(member.memberId)">{{'Teamlead' | translate}}</small>
+            </div>
+            <div class="janitor-member__col text-right">
+                <div class="holder" data-ng-if="teamViewerCtrl.config.showTimeReportControl">
+                    <input ng-disabled="!teamViewerCtrl.config.allowChangeStatus" ng-model="member.spentHours" placeholder="0" type="number" class="form-control field-on-iphone"/>
+                    <input ng-disabled="!teamViewerCtrl.config.allowChangeStatus" ng-model="member.spentMinutes" placeholder="0" type="number" class="form-control field-on-iphone"/>
+                </div>
+            </div>
+        </div>
+        <div class="janitor-member__row" data-ng-if="member.hasSpentTime">
+            <div class="janitor-member__col">
+                <span>{{'Total Time Spent' | translate}}</span>
+            </div>
+            <div class="janitor-member__col text-right">
+                <div class="holder">
+                    <span data-ng-if="member.totalSpentHours || member.totalSpentMinutes">{{teamViewerCtrl.getTotalTimeSpent(member)}}</span>
+                    <span data-ng-if="!member.totalSpentHours && !member.totalSpentMinutes">{{teamViewerCtrl.getApproximateSpentTime(member)}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="janitor-member__row text-right" data-ng-if="teamViewerCtrl.config.showTimeReportControl">
+        <div class="tooltip-holder" ng-class="teamViewerCtrl.showTooltipInfoBlock ? 'show-tooltip' : ''">
+            <button class="btn btn-default" data-ng-click="teamViewerCtrl.toogleTooltipInfoBlock()">{{'How can I register time?' | translate}}</button>
+            <div data-ng-show="teamViewerCtrl.showTooltipInfoBlock" class="tooltip-holder__text">
+                <h2 class="tooltip-holder__title">{{'To register time' | translate}}:</h2>
+                <span class="tooltip-holder__info">{{'Information block text' | translate}}</span>
+            </div>
+        </div>
+    </div>
+</div> 

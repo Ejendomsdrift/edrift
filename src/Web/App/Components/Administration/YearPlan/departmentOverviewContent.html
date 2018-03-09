@@ -1,0 +1,29 @@
+<div class="department__table-header js-table-header">
+    <table class="department__table">
+        <tr>
+            <th class="no-borders no-background"></th>
+            <th class="no-borders no-background"></th>
+            <th ng-repeat="monthWeek in yearPlanCtrl.monthWeeks" colspan="{{monthWeek.weekCount}}">{{monthWeek.monthName | translate}}
+            </th>
+            <th class="no-borders"></th>
+        </tr>
+        <tr>
+            <td class="no-borders no-background"></td>
+            <td class="no-borders border-bottom no-background"></td>
+            <td class="_week" ng-repeat="week in yearPlanCtrl.totalWeeks">{{week}}</td>
+            <td class="no-borders border-bottom"></td>
+        </tr>
+    </table>
+</div>
+<table lazy-load="yearPlanCtrl.loadMoreDepartments()" lazy-load-distance="2" lazy-load-stick-header="true" class="department__table">
+    <tr ng-repeat="departmentPlan in yearPlanCtrl.departmentYearPlan track by departmentPlan.id">
+        <td class="border-color"><div class="department__category">{{::departmentPlan.name}}</div></td>
+        <td></td>
+        <td ng-repeat="week in departmentPlan.weeks" ng-class="::yearPlanCtrl.getCssClass(week)">
+            <div class="relative">
+                <span ng-class="::yearPlanCtrl.getWeekCssClass(week)"></span>
+            </div>
+        </td>
+        <td></td>
+    </tr>
+</table>

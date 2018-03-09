@@ -1,0 +1,27 @@
+﻿@import "../../Less/Mixins";
+@import "../../Less/Variables";
+ 
+.btn-prev,
+.btn-next {
+    .box-with-border();
+    .border-radius(2px);
+    width: 36px;
+    height: 34px;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    text-align: center;
+    line-height: 24px;
+}
+
+.btn-prev {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin: 0 2px 0 0;
+}
+
+.btn-next {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin: 0 17px 0 2px;
+}

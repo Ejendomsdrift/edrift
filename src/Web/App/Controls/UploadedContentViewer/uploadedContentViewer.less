@@ -1,0 +1,60 @@
+﻿@import '../../Less/fonts';
+@import '../../Less/Mixins';
+@import '../../Less/Variables';
+
+.drag {
+    font-size: 0;
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        flex-wrap: wrap;
+        margin: 0 -10px;
+    }
+
+    &__item {
+        width: 33.3%;
+        padding: 0 10px;
+        margin: 10px 0 0;
+        position: relative;
+        font-size: 13px;
+
+        .dragover {
+            margin: 0;
+
+            &__item {
+                justify-content: center;
+            }
+        }
+    }
+
+    &__del {
+        position: absolute;
+        right: 10px;
+        top: 0;
+        font-size: 25px;
+        line-height: 25px;
+        width: 24px;
+        height: 24px;
+        text-align: center;
+        background: #fff;
+        cursor: pointer;
+
+        .table & {
+            position: static;
+            float: right;
+            margin-top: 1px;
+        }
+    }
+
+    &__img {
+        width: 100%;
+        margin: 0 0 10px;
+    }
+
+    &__no-content {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+}

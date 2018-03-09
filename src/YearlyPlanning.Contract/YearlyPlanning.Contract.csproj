@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{563E54E5-F69C-4227-AE8A-AEAD320AEA3B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YearlyPlanning.Contract</RootNamespace>
+    <AssemblyName>YearlyPlanning.Contract</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Develop|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Develop\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Demo|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Demo\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Dev\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|AnyCPU'">
+    <OutputPath>bin\Stage\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA|AnyCPU'">
+    <OutputPath>bin\QA\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <OutputPath>bin\Production\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MongoDB.Bson, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Packages\MongoDB.Bson.2.3.0\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\DayAssignCommands\ChangeDayAssignMembersComand.cs" />
+    <Compile Include="Commands\JobAssignCommands\ChangeJobAssignSheduleCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\ChangeJobAssignJobIdListCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\JobAssignCopyCommonInfoCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\SaveDaysPerWeekCommand.cs" />
+    <Compile Include="Commands\JobCommands\ChangeJobAddressCommand.cs" />
+    <Compile Include="Commands\DayAssignCommands\BaseDayAssignCommand.cs" />
+    <Compile Include="Commands\DayAssignCommands\ChangeDayAssignEstimatedMinutesCommand.cs" />
+    <Compile Include="Commands\DayAssignCommands\ChangeDayAssignDateCommand.cs" />
+    <Compile Include="Commands\DayAssignCommands\ChangeDayAssignStatusCommand.cs" />
+    <Compile Include="Commands\DayAssignCommands\DayAssignCommand.cs" />
+    <Compile Include="Commands\DayAssignCommands\CreateDayAssignCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\AssignJobCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\ChangeJobAssignDescriptionCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\ChangeJobAssignAllWeeksCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\ChangeJobIdAndJobAssignIdInDayAssignCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\CreateJobAssignFromJobAssignCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\CreateOperationalTaskAssignCommand.cs" />
+    <Compile Include="Commands\JobCommands\ChangeJobVisibilityCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\ChangeJobAssignTillYearCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\ChangeJobAssignWeeksCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\CreateJobAssignCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\JobAssignBaseCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\ChangeTenantTaskCommentCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\ChangeTenantTaskResidentNameCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\ChangeAdHocTaskCategoryCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\ChangeAdHocTaskDayPerWeekCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\ChangeOperationalTaskDescriptionCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\ChangeOperationalTaskEstimateCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\ChangeOperationalTaskTitleCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\ChangeOperationalTaskDateCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\ChangeTenantTaskResidentPhoneCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\ChangeOperationalTaskTimeCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\ChangeTenantTaskTypeCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\ChangeOperationalTaskAssignsEmployeesCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\ChangeTenantTaskUrgencyCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\CreateOperationalTaskCommand.cs" />
+    <Compile Include="Commands\JobCommands\JobAssigmentCommand.cs" />
+    <Compile Include="Commands\JobCommands\ChangeJobCategoryCommand.cs" />
+    <Compile Include="Commands\JobCommands\ChangeJobTitleCommand.cs" />
+    <Compile Include="Commands\JobCommands\CreateJobCommand.cs" />
+    <Compile Include="Commands\JobCommands\JobCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\ChangeLockIntervalValueCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\OperationalTaskCommand.cs" />
+    <Compile Include="Commands\JobAssignCommands\UnassignJobCommand.cs" />
+    <Compile Include="Commands\OperationalTaskCommands\UnassignOperationalTaskEmployeesCommand.cs" />
+    <Compile Include="Enums\ChangedByRole.cs" />
+    <Compile Include="Enums\JobStateType.cs" />
+    <Compile Include="Enums\WeekPlanListViewTabEnum.cs" />
+    <Compile Include="Enums\JobTypeEnum.cs" />
+    <Compile Include="Enums\TenantTaskTypeEnum.cs" />
+    <Compile Include="Enums\WeekChangedBy.cs" />
+    <Compile Include="Enums\YearTaskStatus.cs" />
+    <Compile Include="Events\DayAssignEvents\DayAssignChangeJobAssignId.cs" />
+    <Compile Include="Events\DayAssignEvents\DayAssignChangeStatus.cs" />
+    <Compile Include="Events\DayAssignEvents\DayAssignCreated.cs" />
+    <Compile Include="Events\DayAssignEvents\DayAssignEstimatedMinutesChanged.cs" />
+    <Compile Include="Commands\DayAssignCommands\RemoveDayAssignMembersCommand.cs" />
+    <Compile Include="Events\DayAssignEvents\DayAssignMembersGroupAssigned.cs" />
+    <Compile Include="Events\DayAssignEvents\DayAssignWeekNumberChangedEvent.cs" />
+    <Compile Include="Events\DayAssignEvents\RemoveDayAssignMembersEvent.cs" />
+    <Compile Include="Events\DayAssignEvents\TenantTaskChangeCommentEvent.cs" />
+    <Compile Include="Events\DayAssignEvents\TenantTaskChangeResidentNameEvent.cs" />
+    <Compile Include="Events\DayAssignEvents\TenantTaskChangeResidentPhoneEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\AdHockJobAssignCreatedEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\CopyCommonJobAssignInfoEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\JobAssignChangeIsEnabledEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\JobAssignJobIdListChangedEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\JobAssignLockIntervalEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\JobAssignAllWeeksChangedEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\JobAssignDescriptionChangedEvent.cs" />
+    <Compile Include="Events\DayAssignEvents\DayAssignDateChanged.cs" />
+    <Compile Include="Events\JobAssignEvents\JobAssignCreatedFromGlobalEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\JobAssignSaveDaysPerWeekEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\JobAssignSheduleChangedEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\JobAssignTillYearChangedEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\JobAssignWeeksChangedEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\JobAssignEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\JobUnassignEvent.cs" />
+    <Compile Include="Events\JobAssignEvents\TenantJobAssignCreatedEvent.cs" />
+    <Compile Include="Events\JobEvents\JobAddressChanged.cs" />
+    <Compile Include="Events\JobEvents\JobCategoryChanged.cs" />
+    <Compile Include="Events\JobEvents\JobCreated.cs" />
+    <Compile Include="Events\JobEvents\JobTitleChanged.cs" />
+    <Compile Include="Events\JobEvents\JobVisibilityChanged.cs" />
+    <Compile Include="Events\JobAssignEvents\JobAssignCreatedEvent.cs" />
+    <Compile Include="Events\OperationalTaskEvents\OperationalTaskChangeAdressEvent.cs" />
+    <Compile Include="Events\OperationalTaskEvents\AdHocTaskChangeCategoryEvent.cs" />
+    <Compile Include="Events\OperationalTaskEvents\AdHocTaskChangeDayPerWeekEvent.cs" />
+    <Compile Include="Events\OperationalTaskEvents\OperationalTaskChangeDescriptionEvent.cs" />
+    <Compile Include="Events\OperationalTaskEvents\OperationalTaskChangeEstimateEvent.cs" />
+    <Compile Include="Events\OperationalTaskEvents\OperationalTaskChangeTitleEvent.cs" />
+    <Compile Include="Events\OperationalTaskEvents\OperationalTaskCreatedEvent.cs" />
+    <Compile Include="Events\OperationalTaskEvents\OperationalTaskSaveAssignEmployeesEvent.cs" />
+    <Compile Include="Events\OperationalTaskEvents\AdHocTaskSaveDaysPerWeekEvent.cs" />
+    <Compile Include="Events\OperationalTaskEvents\OperationalTaskChangeTimeEvent.cs" />
+    <Compile Include="Events\OperationalTaskEvents\TenantTaskChangeTypeEvent.cs" />
+    <Compile Include="Events\OperationalTaskEvents\TenantTaskChangeUrgencyEvent.cs" />
+    <Compile Include="Interfaces\IApproximateSpentTimeModel.cs" />
+    <Compile Include="Interfaces\IAssignAdHockToDayModel.cs" />
+    <Compile Include="Interfaces\IChangeStatusInfo.cs" />
+    <Compile Include="Interfaces\IChangeStatusModel.cs" />
+    <Compile Include="Interfaces\IChangeStatusUploadedFile.cs" />
+    <Compile Include="Interfaces\IDayAssign.cs" />
+    <Compile Include="Interfaces\IJobRelatedByAddressModel.cs" />
+    <Compile Include="Interfaces\ITaskDataFilterModel.cs" />
+    <Compile Include="Interfaces\IDayAssignService.cs" />
+    <Compile Include="Interfaces\IFormattedJobAssign.cs" />
+    <Compile Include="Interfaces\IGuideCommentModel.cs" />
+    <Compile Include="Interfaces\IGuideCommentService.cs" />
+    <Compile Include="Interfaces\IJobDetailsModel.cs" />
+    <Compile Include="Interfaces\IJobCounterModel.cs" />
+    <Compile Include="Interfaces\IJobHeaderModel.cs" />
+    <Compile Include="Interfaces\IJob.cs" />
+    <Compile Include="Interfaces\IJobService.cs" />
+    <Compile Include="Interfaces\INewDayAssignModel.cs" />
+    <Compile Include="Interfaces\IOperationalTaskService.cs" />
+    <Compile Include="Interfaces\IOperationalTaskModel.cs" />
+    <Compile Include="Interfaces\ITaskCreationInfo.cs" />
+    <Compile Include="Interfaces\ITaskIdGenerator.cs" />
+    <Compile Include="Interfaces\IWeekJobsResultModel.cs" />
+    <Compile Include="Interfaces\IWeekPlanFilterModel.cs" />
+    <Compile Include="Interfaces\IWeekPlanGridModel.cs" />
+    <Compile Include="Interfaces\IWeekPlanListViewModel.cs" />
+    <Compile Include="Interfaces\IWeekPlanJobModel.cs" />
+    <Compile Include="Models\JobAddress.cs" />
+    <Compile Include="Models\ChangeJobAssignAbstractModel.cs" />
+    <Compile Include="Models\ChangeJobAssignDescriptionModel.cs" />
+    <Compile Include="Models\ChangeJobAssignLockIntervalModel.cs" />
+    <Compile Include="Models\ChangeJobAssignTillYearModel.cs" />
+    <Compile Include="Models\ChangeJobAssignWeekListModel.cs" />
+    <Compile Include="Models\ChangeJobSheduleModel.cs" />
+    <Compile Include="Models\CreateOperationalTaskViewModel.cs" />
+    <Compile Include="Models\DayPerWeekModel.cs" />
+    <Compile Include="Models\IdValueModel.cs" />
+    <Compile Include="Models\JobAssign.cs" />
+    <Compile Include="Models\MemberAssignModel.cs" />
+    <Compile Include="Models\RelationGroupModel.cs" />
+    <Compile Include="Models\Responsible.cs" />
+    <Compile Include="Models\TaskCreationInfo.cs" />
+    <Compile Include="Models\UploadFileModel.cs" />
+    <Compile Include="Models\WeekModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CategoryCore.Contract\CategoryCore.Contract.csproj">
+      <Project>{7623684A-6EA0-44CF-9C5F-4C507662124E}</Project>
+      <Name>CategoryCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileStorage.Contract\FileStorage.Contract.csproj">
+      <Project>{99C96F09-5046-4E15-ACEC-31D7775ECB2E}</Project>
+      <Name>FileStorage.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManagementDepartmentCore.Contract\ManagementDepartmentCore.Contract.csproj">
+      <Project>{7cb1259c-112d-461b-a940-7379618dc5ca}</Project>
+      <Name>ManagementDepartmentCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{6971B2FC-D156-4671-B2CA-EDBC6FA3FA7F}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MemberCore.Contract\MemberCore.Contract.csproj">
+      <Project>{47BC5D0C-F6C7-4C86-9F71-DFFD66CEA359}</Project>
+      <Name>MemberCore.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatusCore.Contract\StatusCore.Contract.csproj">
+      <Project>{c26c786e-1d2e-452e-ba71-197d255c489e}</Project>
+      <Name>StatusCore.Contract</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

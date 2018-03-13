@@ -19,13 +19,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 This program incorporates work covered by the following copyright and
 permission notices:
 
-  Jeppe Basse -  INFO@COMPENT.DK -
+  Jeppe Basse -  JBA@COMPENT.NET -
   https://compent.net
 
   Wherever third party code has been used, credit has been given in the code's
   comments.
 
-  eDrfit - Web publishing software
+  eDrift - Web publishing software
 
   eDrift is released under the GPL
 
